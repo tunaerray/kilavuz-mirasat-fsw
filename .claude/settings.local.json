@@ -24,7 +24,9 @@
       "Bash(python -m pytest tests/test_error_code.py tests/test_telemetry_packet.py)",
       "Bash(git commit -q -m 'feat\\(telemetry+persistence\\): 17-field packet, ARAS error code, restart-durable store *)",
       "Bash(python -m pytest tests/test_mock_sensors.py tests/test_actuators.py)",
-      "Bash(git commit -q -m 'feat\\(hal+drivers\\): HAL interfaces, deterministic flight profile, mock sensors, safe actuators *)"
+      "Bash(git commit -q -m 'feat\\(hal+drivers\\): HAL interfaces, deterministic flight profile, mock sensors, safe actuators *)",
+      "Bash(python -m pytest tests/test_state_machine.py tests/test_health_monitor.py tests/test_failsafe_apam.py)",
+      "Bash(git commit -q -m 'feat\\(state+safety\\): flight state machine, health monitor, APAM failsafe *)"
     ]
   }
 }
