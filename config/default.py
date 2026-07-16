@@ -80,6 +80,45 @@ class MissionConfig:
 
 
 @dataclass(frozen=True)
+class ControlConfig:
+    """
+    Aşama 2 kontrol/navigasyon parametreleri — kestirim, PID ve motor modeli.
+    Tüm değerler makul mühendislik varsayımlarıdır (ASSUMPTION); saha
+    kalibrasyonunda ayarlanır. Gerçek uçuşta gains uçuş kontrol kartında da
+    doğrulanmalıdır.
+    """
+
+    # Hedef kontrollü alçalma hızı (Gereksinim-9: 8–10 m/s bandının ortası)
+    target_descent_speed_mps: float = 9.0
+    # Askı (BONUS-1) hedef hızı (0 m/s) ve tahmini gaz konumu (PDR ~%70)
+    hover_throttle_estimate: float = 0.70
+    # Son 50 m'de RPM artışı için hedef hızı düşürme çarpanı (Gereksinim-14)
+    final_approach_speed_mps: float = 6.0
+
+    # Alçalma PID kazançları (hız hatası → throttle). Pozitif hata (çok hızlı
+    # iniyor) daha yüksek throttle ister → yukarı itiş artar.
+    descent_kp: float = 0.05
+    descent_ki: float = 0.01
+    descent_kd: float = 0.005
+    descent_integral_min: float = -5.0
+    descent_integral_max: float = 5.0
+    throttle_min: float = 0.0
+    throttle_max: float = 1.0
+
+    # Kestirim (state estimator)
+    vspeed_filter_alpha: float = 0.6        # düşük geçiren filtre (0=ham, 1=çok yumuşak)
+    consistency_tolerance_mps: float = 4.0  # baro vs GPS dikey hız uyum toleransı
+    plausible_altitude_min_m: float = -100.0
+    plausible_altitude_max_m: float = 5000.0
+    plausible_attitude_deg: float = 180.0   # |açı| bu değerden büyükse aykırı
+
+    # Motor RPM modeli ve arıza tespiti (REQ-SAFE-010)
+    motor_max_rpm: float = 26000.0          # ~1700KV * ~15.4 V (4S nominal)
+    motor_rpm_tolerance: float = 0.35       # beklenen RPM'in %35 altı → tutarsız
+    motor_fault_persist_s: float = 1.0      # tutarsızlık bu süre sürerse arıza
+
+
+@dataclass(frozen=True)
 class PathsConfig:
     """Çalışma zamanı dosya yolları (SD kart karşılığı)."""
 
@@ -100,6 +139,7 @@ class AppConfig:
     telemetry: TelemetryConfig = field(default_factory=TelemetryConfig)
     health: HealthConfig = field(default_factory=HealthConfig)
     mission: MissionConfig = field(default_factory=MissionConfig)
+    control: ControlConfig = field(default_factory=ControlConfig)
     paths: PathsConfig = field(default_factory=PathsConfig)
 
     @property
