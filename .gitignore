@@ -21,3 +21,6 @@ Thumbs.db
 
 # Claude Code harness-local settings
 .claude/
+
+# Kullanıcının Obsidian vault'u (FSW deposu değil)
+KILAVUZ-MIRASAT-FSW-Vault/
