@@ -2,6 +2,8 @@
 
 11. TÜRKSAT Model Uydu Yarışması 2026 — Konsept **SİGMA**. Takım No: **947450**.
 
+**Depo:** https://github.com/tunaerray/kilavuz-mirasat-fsw (private)
+
 Bu depo, görev yükünün **Raspberry Pi 5** üzerindeki üst seviye **Görev
 Yazılımıdır** (durum makinesi, telemetri, kalıcılık, güvenlik/APAM mantığı, komut
 ve bonus görev yönetimi). Zaman-kritik stabilizasyon PID'i uçuş kontrol kartında
