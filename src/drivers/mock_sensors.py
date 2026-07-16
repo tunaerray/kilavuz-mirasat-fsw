@@ -123,3 +123,23 @@ class MockTelemetryLink:
             return Result.err(ErrorCode.UNAVAILABLE, "telemetri linki kopuk")
         self.sent.append(line)
         return Result.ok(None)
+
+
+class MockIotLink:
+    """BONUS-2 IoT istasyonu bağı mock. Yönlendirilen şifreleri tamponlar."""
+
+    def __init__(self) -> None:
+        self.forwarded: list[str] = []
+        self._connected = True
+
+    def set_connected(self, value: bool) -> None:
+        self._connected = value
+
+    def is_connected(self) -> bool:
+        return self._connected
+
+    def forward(self, password: str) -> Result[None]:
+        if not self._connected:
+            return Result.err(ErrorCode.UNAVAILABLE, "IoT istasyonu bağlantısı kopuk")
+        self.forwarded.append(password)
+        return Result.ok(None)

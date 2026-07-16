@@ -122,6 +122,30 @@ class MockArmMechanism:
         return Result.ok(None)
 
 
+class MockBuzzer:
+    """Kurtarma sesli ikazı (Gereksinim-28). SIMULATION_ONLY'de yalnız durum tutar."""
+
+    def __init__(self) -> None:
+        self._on = False
+        self.command_log: list[str] = []
+
+    @property
+    def is_on(self) -> bool:
+        return self._on
+
+    def on(self) -> Result[None]:
+        if not self._on:
+            self.command_log.append("ON")
+        self._on = True
+        return Result.ok(None)
+
+    def off(self) -> Result[None]:
+        if self._on:
+            self.command_log.append("OFF")
+        self._on = False
+        return Result.ok(None)
+
+
 class ActuatorSuite:
     """Tüm aktüatörleri bir arada tutar ve topluca Safe State'e alır."""
 
@@ -130,12 +154,14 @@ class ActuatorSuite:
         self.separation_servo = MockServo("separation", ServoPosition.LOCKED)
         self.apam_servo = MockServo("apam", ServoPosition.CLOSED)
         self.arms = MockArmMechanism()
+        self.buzzer = MockBuzzer()
 
     def enter_safe_state(self) -> Result[None]:
         """
         Safe State: motorlar disarm/0, servolar güvenli konum, kollar kilitli.
         Başlangıçta, FAULT'ta, SAFE_MODE'da ve kapanışta çağrılır.
-        Not: APAM servosu YANLIŞLIKLA açılmaz — safe = CLOSED.
+        Not: APAM servosu YANLIŞLIKLA açılmaz — safe = CLOSED. Buzzer, kurtarma
+        ikazı olduğundan Safe State'te DEĞİŞTİRİLMEZ (iniş sonrası çalmaya devam eder).
         """
         self.motors.kill()
         self.separation_servo.to_safe()

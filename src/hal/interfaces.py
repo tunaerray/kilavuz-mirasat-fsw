@@ -82,6 +82,30 @@ class TelemetryLink(Protocol):
     def is_connected(self) -> bool: ...
 
 
+@runtime_checkable
+class IotLink(Protocol):
+    """
+    BONUS-2 S2D-IOT: görev yükünden IoT istasyonuna (300–500 m) komut aktarımı.
+    Ayrı LoRa bağlantısı; görev yükü doğrulanmış RHRHRH şifresini buraya yönlendirir.
+    """
+
+    def forward(self, password: str) -> Result[None]: ...
+
+    def is_connected(self) -> bool: ...
+
+
+@runtime_checkable
+class Buzzer(Protocol):
+    """İniş sonrası kurtarma sesli ikazı (Gereksinim-28)."""
+
+    def on(self) -> Result[None]: ...
+
+    def off(self) -> Result[None]: ...
+
+    @property
+    def is_on(self) -> bool: ...
+
+
 # --------------------------------------------------------------------- aktüatörler
 class ArmState(Enum):
     DISARMED = "DISARMED"
