@@ -1,0 +1,7545 @@
+{
+  "nodes": [
+    {
+      "id": "g0",
+      "type": "group",
+      "label": "Ana Uygulama Dongusu",
+      "x": 0,
+      "y": 0,
+      "width": 2200,
+      "height": 3420,
+      "color": "1"
+    },
+    {
+      "id": "n_services_health_monitor_healthmonitor_init",
+      "type": "file",
+      "file": ".__init__()_11.md",
+      "x": 20,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightstatemachine_init",
+      "type": "file",
+      "file": ".__init__()_13.md",
+      "x": 220,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightstatemachine_is_landed",
+      "type": "file",
+      "file": "._is_landed().md",
+      "x": 420,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_health_monitor_healthmonitor_evaluate",
+      "type": "file",
+      "file": ".evaluate().md",
+      "x": 20,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_appconfig_is_simulation",
+      "type": "file",
+      "file": ".is_simulation().md",
+      "x": 220,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_appconfig_loop_period_s",
+      "type": "file",
+      "file": ".loop_period_s().md",
+      "x": 420,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightstatemachine_phase",
+      "type": "file",
+      "file": ".phase().md",
+      "x": 20,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightstatemachine_status_code",
+      "type": "file",
+      "file": ".status_code().md",
+      "x": 220,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_appconfig_telemetry_period_s",
+      "type": "file",
+      "file": ".telemetry_period_s().md",
+      "x": 420,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightstatemachine_to_fault",
+      "type": "file",
+      "file": ".to_fault().md",
+      "x": 20,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightstatemachine_update",
+      "type": "file",
+      "file": ".update()_1.md",
+      "x": 220,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_rationale_36",
+      "type": "file",
+      "file": "ARAS hata kodu bit kararlar\u0131 i\u00e7in gerekli girdiler (\u015eartname \u00a72.2)..md",
+      "x": 420,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_rationale_1",
+      "type": "file",
+      "file": "Ana d\u00f6ng\u00fc entegrasyon testleri (REQ-SW-003006, REQ-TLM-005)..md",
+      "x": 20,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_appconfig",
+      "type": "file",
+      "file": "AppConfig.md",
+      "x": 220,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_appconfig",
+      "type": "file",
+      "file": "AppConfig_1.md",
+      "x": 420,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_arasinputs",
+      "type": "file",
+      "file": "ArasInputs.md",
+      "x": 20,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_rationale_83",
+      "type": "file",
+      "file": "Ba\u011flama g\u00f6re bir ge\u00e7i\u015f ad\u0131m\u0131 uygular ve yeni faz\u0131 d\u00f6nd\u00fcr\u00fcr..md",
+      "x": 220,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_rationale_46",
+      "type": "file",
+      "file": "Bir ko\u015funun \u00f6zeti (test ve raporlama i\u00e7in)..md",
+      "x": 420,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_rationale_90",
+      "type": "file",
+      "file": "Bir telemetri paketinin 17 alan\u0131 (ham de\u011ferler)..md",
+      "x": 20,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_app_main_py_clock",
+      "type": "file",
+      "file": "Clock.md",
+      "x": 220,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_rationale_1",
+      "type": "file",
+      "file": "Config birim testleri (REQ-SW-002, CONFLICT-001003 varsay\u0131lanlar\u0131)..md",
+      "x": 420,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_enum",
+      "type": "file",
+      "file": "Enum.md",
+      "x": 20,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_state_machine_flight_state_machine_py_flightcontext",
+      "type": "file",
+      "file": "FlightContext_2.md",
+      "x": 220,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightphase",
+      "type": "file",
+      "file": "FlightPhase.md",
+      "x": 420,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_flightstatemachine",
+      "type": "file",
+      "file": "FlightStateMachine.md",
+      "x": 20,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_64",
+      "type": "file",
+      "file": "G\u00f6rev profili e\u015fikleri \u2014 \u015eartname (DO\u011eRULANMI\u015e) + varsay\u0131mlar..md",
+      "x": 220,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Ana uygulama d\u00f6ng\u00fcs\u00fc. Ba\u011f\u0131ml\u0131l\u0131klar\u0131 kurar, akt\u00fcat\u00f6rleri Safe.md",
+      "x": 420,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Merkezi yap\u0131land\u0131rma. T\u00fcm e\u015fikler, birimler, dosya yollar\u0131 ve.md",
+      "x": 20,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_health_monitor_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Sa\u011fl\u0131k izleme temeli. Sens\u00f6r veri ya\u015f\u0131, batarya gerilimi, teleme.md",
+      "x": 220,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Telemetri paket \u00fcretici. \u015eartname \u00a72.4'teki 17 alan\u0131 TAM s\u0131rayla.md",
+      "x": 420,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         U\u00e7u\u015f durum makinesi. G\u00f6rev fazlar\u0131n\u0131 (BOOT..RECOVERY, EMERGENCY_.md",
+      "x": 20,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_healthconfig",
+      "type": "file",
+      "file": "HealthConfig.md",
+      "x": 220,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_healthconfig",
+      "type": "file",
+      "file": "HealthConfig_1.md",
+      "x": 420,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_healthflags",
+      "type": "file",
+      "file": "HealthFlags_1.md",
+      "x": 20,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_health_monitor_healthinputs",
+      "type": "file",
+      "file": "HealthInputs.md",
+      "x": 220,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_health_monitor_healthmonitor",
+      "type": "file",
+      "file": "HealthMonitor.md",
+      "x": 420,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_intenum",
+      "type": "file",
+      "file": "IntEnum.md",
+      "x": 20,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_rationale_147",
+      "type": "file",
+      "file": "Kritik ar\u0131za FAULT faz\u0131na ge\u00e7 (stat\u00fc mevcut ayr\u0131lma durumuna g\u00f6re)..md",
+      "x": 220,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_missionconfig",
+      "type": "file",
+      "file": "MissionConfig.md",
+      "x": 420,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_missionconfig",
+      "type": "file",
+      "file": "MissionConfig_1.md",
+      "x": 20,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_pathsconfig",
+      "type": "file",
+      "file": "PathsConfig.md",
+      "x": 220,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_129",
+      "type": "file",
+      "file": "Profil ad\u0131na g\u00f6re AppConfig d\u00f6ner. Bilinmeyen profil sessizce varsay\u0131lana     D\u00dc.md",
+      "x": 420,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_runprofile",
+      "type": "file",
+      "file": "RunProfile.md",
+      "x": 20,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_runsummary",
+      "type": "file",
+      "file": "RunSummary.md",
+      "x": 220,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_satellitestatus",
+      "type": "file",
+      "file": "SatelliteStatus.md",
+      "x": 420,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_satellitestatus",
+      "type": "file",
+      "file": "SatelliteStatus_1.md",
+      "x": 20,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_health_monitor_rationale_21",
+      "type": "file",
+      "file": "Sa\u011fl\u0131k de\u011ferlendirmesi girdileri (bir \u00e7evrim)..md",
+      "x": 220,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_53",
+      "type": "file",
+      "file": "Sa\u011fl\u0131k izleme e\u015fikleri (ASSUMPTION-005009)..md",
+      "x": 420,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_simclock",
+      "type": "file",
+      "file": "SimClock.md",
+      "x": 20,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_rationale_58",
+      "type": "file",
+      "file": "Sim\u00fclasyon saati ger\u00e7ek zaman beklemeden her \u00e7evrimde ilerletilir..md",
+      "x": 220,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_rationale_64",
+      "type": "file",
+      "file": "S\u0131n\u0131rl\u0131 d\u00f6ng\u00fcy\u00fc kurar ve \u00e7al\u0131\u015ft\u0131r\u0131r. `clock` verilmezse SimClock kullan\u0131l\u0131r.md",
+      "x": 420,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_40",
+      "type": "file",
+      "file": "Telemetri format ve g\u00f6nderim parametreleri \u2014 \u015eartname \u00a72.4..md",
+      "x": 20,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_telemetryconfig",
+      "type": "file",
+      "file": "TelemetryConfig.md",
+      "x": 220,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_telemetryfields",
+      "type": "file",
+      "file": "TelemetryFields.md",
+      "x": 420,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_telemetry_service_telemetryservice",
+      "type": "file",
+      "file": "TelemetryService.md",
+      "x": 20,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_144",
+      "type": "file",
+      "file": "Testara\u00e7 ama\u00e7l\u0131 s\u0131\u011f override (immutable kopya)..md",
+      "x": 220,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_94",
+      "type": "file",
+      "file": "T\u00fcm alt yap\u0131land\u0131rmalar\u0131 bir araya getiren k\u00f6k yap\u0131land\u0131rma..md",
+      "x": 420,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_rationale_21",
+      "type": "file",
+      "file": "UYDU STAT\u00dcS\u00dc kodlar\u0131 \u2014 \u015eartname \u00a72.4 s.16 (BA\u011eLAYICI).     CONFLICT-002 PDR s.6.md",
+      "x": 20,
+      "y": 1600,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_cfg",
+      "type": "file",
+      "file": "_cfg().md",
+      "x": 220,
+      "y": 1600,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_rationale_30",
+      "type": "file",
+      "file": "altitude_to_pressure'\u0131n tersi. FSW irtifay\u0131 bas\u0131n\u00e7tan bu form\u00fclle kestirir..md",
+      "x": 420,
+      "y": 1600,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_py_bool",
+      "type": "file",
+      "file": "bool.md",
+      "x": 20,
+      "y": 1680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_state_machine_flight_state_machine_py_bool",
+      "type": "file",
+      "file": "bool_8.md",
+      "x": 220,
+      "y": 1680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_build_and_run",
+      "type": "file",
+      "file": "build_and_run().md",
+      "x": 420,
+      "y": 1680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default",
+      "type": "file",
+      "file": "default.py.md",
+      "x": 20,
+      "y": 1760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine",
+      "type": "file",
+      "file": "flight_state_machine.py.md",
+      "x": 220,
+      "y": 1760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_py_float",
+      "type": "file",
+      "file": "float.md",
+      "x": 420,
+      "y": 1760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_app_main_py_float",
+      "type": "file",
+      "file": "float_1.md",
+      "x": 20,
+      "y": 1840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_get_config",
+      "type": "file",
+      "file": "get_config().md",
+      "x": 220,
+      "y": 1840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_health_monitor",
+      "type": "file",
+      "file": "health_monitor.py.md",
+      "x": 420,
+      "y": 1840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_app_main_py_int",
+      "type": "file",
+      "file": "int.md",
+      "x": 20,
+      "y": 1920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main_main",
+      "type": "file",
+      "file": "main().md",
+      "x": 220,
+      "y": 1920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_main",
+      "type": "file",
+      "file": "main.py.md",
+      "x": 420,
+      "y": 1920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet",
+      "type": "file",
+      "file": "packet.py.md",
+      "x": 20,
+      "y": 2000,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_pressure_to_altitude",
+      "type": "file",
+      "file": "pressure_to_altitude().md",
+      "x": 220,
+      "y": 2000,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_py_str",
+      "type": "file",
+      "file": "str.md",
+      "x": 420,
+      "y": 2000,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_app_main_py_str",
+      "type": "file",
+      "file": "str_1.md",
+      "x": 20,
+      "y": 2080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_apam_thresholds_from_spec",
+      "type": "file",
+      "file": "test_apam_thresholds_from_spec().md",
+      "x": 220,
+      "y": 2080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration",
+      "type": "file",
+      "file": "test_app_integration.py.md",
+      "x": 420,
+      "y": 2080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_test_bounded_run_respects_max_cycles",
+      "type": "file",
+      "file": "test_bounded_run_respects_max_cycles().md",
+      "x": 20,
+      "y": 2160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config",
+      "type": "file",
+      "file": "test_config.py.md",
+      "x": 220,
+      "y": 2160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_config_is_immutable",
+      "type": "file",
+      "file": "test_config_is_immutable().md",
+      "x": 420,
+      "y": 2160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_conflict_defaults",
+      "type": "file",
+      "file": "test_conflict_defaults().md",
+      "x": 20,
+      "y": 2240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_default_profile_is_simulation_only",
+      "type": "file",
+      "file": "test_default_profile_is_simulation_only().md",
+      "x": 220,
+      "y": 2240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_test_deterministic_repeatable",
+      "type": "file",
+      "file": "test_deterministic_repeatable().md",
+      "x": 420,
+      "y": 2240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_loop_period",
+      "type": "file",
+      "file": "test_loop_period().md",
+      "x": 20,
+      "y": 2320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_test_nominal_reaches_descent_or_landing",
+      "type": "file",
+      "file": "test_nominal_reaches_descent_or_landing().md",
+      "x": 220,
+      "y": 2320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_test_run_produces_packets_and_csv",
+      "type": "file",
+      "file": "test_run_produces_packets_and_csv().md",
+      "x": 420,
+      "y": 2320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_test_runaway_profile_triggers_apam",
+      "type": "file",
+      "file": "test_runaway_profile_triggers_apam().md",
+      "x": 20,
+      "y": 2400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_test_safe_state_no_motor_output_in_simulation",
+      "type": "file",
+      "file": "test_safe_state_no_motor_output_in_simulation().md",
+      "x": 220,
+      "y": 2400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_team_number_verified",
+      "type": "file",
+      "file": "test_team_number_verified().md",
+      "x": 420,
+      "y": 2400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_app_integration_test_telemetry_is_1hz",
+      "type": "file",
+      "file": "test_telemetry_is_1hz().md",
+      "x": 20,
+      "y": 2480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_telemetry_rate_is_1hz",
+      "type": "file",
+      "file": "test_telemetry_rate_is_1hz().md",
+      "x": 220,
+      "y": 2480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_config_test_unknown_profile_raises",
+      "type": "file",
+      "file": "test_unknown_profile_raises().md",
+      "x": 420,
+      "y": 2480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_with_overrides",
+      "type": "file",
+      "file": "with_overrides().md",
+      "x": 20,
+      "y": 2560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_20",
+      "type": "file",
+      "file": "\u00c7al\u0131\u015fma profili. Varsay\u0131lan g\u00fcvenli SIMULATION_ONLY..md",
+      "x": 220,
+      "y": 2560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_84",
+      "type": "file",
+      "file": "\u00c7al\u0131\u015fma zaman\u0131 dosya yollar\u0131 (SD kart kar\u015f\u0131l\u0131\u011f\u0131)..md",
+      "x": 420,
+      "y": 2560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_rationale_56",
+      "type": "file",
+      "file": "\u0130leri y\u00f6nl\u00fc (geri d\u00f6n\u00fc\u015fs\u00fcz ana ak\u0131\u015f) durum makinesi. EMERGENCY_APAM ve     SAFE_.md",
+      "x": 20,
+      "y": 2640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_flight_state_machine_rationale_74",
+      "type": "file",
+      "file": "\u015eartname 0..5 kodu. FAULTSAFE_MODE i\u00e7in ayr\u0131lma durumuna g\u00f6re e\u015fle..md",
+      "x": 220,
+      "y": 2640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g1",
+      "type": "group",
+      "label": "Mock Suruculer & Cekirdek",
+      "x": 2280,
+      "y": 0,
+      "width": 1980,
+      "height": 2820,
+      "color": "2"
+    },
+    {
+      "id": "n_common_result_resulterror_init",
+      "type": "file",
+      "file": ".__init__()_1.md",
+      "x": 2300,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_base_init",
+      "type": "file",
+      "file": ".__init__()_7.md",
+      "x": 2500,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockbattery_init",
+      "type": "file",
+      "file": ".__init__()_8.md",
+      "x": 2700,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mocktelemetrylink_init",
+      "type": "file",
+      "file": ".__init__()_9.md",
+      "x": 2300,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_init",
+      "type": "file",
+      "file": ".__init__()_12.md",
+      "x": 2500,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_result_repr",
+      "type": "file",
+      "file": ".__repr__().md",
+      "x": 2700,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_base_truth",
+      "type": "file",
+      "file": "._truth().md",
+      "x": 2300,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_result_err",
+      "type": "file",
+      "file": ".err().md",
+      "x": 2500,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mocktelemetrylink_is_connected",
+      "type": "file",
+      "file": ".is_connected().md",
+      "x": 2700,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_result_is_err",
+      "type": "file",
+      "file": ".is_err().md",
+      "x": 2300,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_result_is_ok",
+      "type": "file",
+      "file": ".is_ok().md",
+      "x": 2500,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockbarometer_read",
+      "type": "file",
+      "file": ".read().md",
+      "x": 2700,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockimu_read",
+      "type": "file",
+      "file": ".read()_1.md",
+      "x": 2300,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockgps_read",
+      "type": "file",
+      "file": ".read()_2.md",
+      "x": 2500,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockbattery_read",
+      "type": "file",
+      "file": ".read()_3.md",
+      "x": 2700,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_barometer_read",
+      "type": "file",
+      "file": ".read()_4.md",
+      "x": 2300,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_imu_read",
+      "type": "file",
+      "file": ".read()_5.md",
+      "x": 2500,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_gps_read",
+      "type": "file",
+      "file": ".read()_6.md",
+      "x": 2700,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_battery_read",
+      "type": "file",
+      "file": ".read()_7.md",
+      "x": 2300,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mocktelemetrylink_send",
+      "type": "file",
+      "file": ".send().md",
+      "x": 2500,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mocktelemetrylink_set_connected",
+      "type": "file",
+      "file": ".set_connected().md",
+      "x": 2700,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_rationale_19",
+      "type": "file",
+      "file": "A\u00e7\u0131k, ayr\u0131\u015ft\u0131r\u0131labilir hata t\u00fcrleri. Metin mesaj yaln\u0131z tan\u0131lama i\u00e7indir..md",
+      "x": 2300,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_barometer",
+      "type": "file",
+      "file": "Barometer.md",
+      "x": 2500,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_barometerreading",
+      "type": "file",
+      "file": "BarometerReading.md",
+      "x": 2700,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_barometerreading",
+      "type": "file",
+      "file": "BarometerReading_1.md",
+      "x": 2300,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_battery",
+      "type": "file",
+      "file": "Battery.md",
+      "x": 2500,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_batteryreading",
+      "type": "file",
+      "file": "BatteryReading.md",
+      "x": 2700,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_batteryreading",
+      "type": "file",
+      "file": "BatteryReading_1.md",
+      "x": 2300,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_rationale_43",
+      "type": "file",
+      "file": "Ba\u015far\u0131l\u0131 bir de\u011fer VEYA a\u00e7\u0131k bir hata ta\u015f\u0131r. Asla ikisini birden de\u011fil..md",
+      "x": 2500,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_clock",
+      "type": "file",
+      "file": "Clock_1.md",
+      "x": 2700,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_sensors_py_clock",
+      "type": "file",
+      "file": "Clock_2.md",
+      "x": 2300,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_persistence_py_clock",
+      "type": "file",
+      "file": "Clock_3.md",
+      "x": 2500,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_rationale_26",
+      "type": "file",
+      "file": "Diske yaz\u0131lan kal\u0131c\u0131 durum..md",
+      "x": 2700,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_errorcode",
+      "type": "file",
+      "file": "ErrorCode.md",
+      "x": 2300,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_flightprofile",
+      "type": "file",
+      "file": "FlightProfile.md",
+      "x": 2500,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_flightprofile",
+      "type": "file",
+      "file": "FlightProfile_1.md",
+      "x": 2700,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_gps",
+      "type": "file",
+      "file": "Gps.md",
+      "x": 2300,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_gpsreading",
+      "type": "file",
+      "file": "GpsReading.md",
+      "x": 2500,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_gpsreading",
+      "type": "file",
+      "file": "GpsReading_1.md",
+      "x": 2700,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Donan\u0131m Soyutlama Katman\u0131 (HAL) aray\u00fczleri. Sens\u00f6r, akt\u00fcat\u00f6r,.md",
+      "x": 2300,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Kal\u0131c\u0131 depo. G\u00f6rev zaman\u0131 ve telemetri paket sayac\u0131n\u0131 i\u015flemci.md",
+      "x": 2500,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Mock sens\u00f6r s\u00fcr\u00fcc\u00fcleri (barometre, IMU, GPS, batarya, telemetri.md",
+      "x": 2700,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_imu",
+      "type": "file",
+      "file": "Imu.md",
+      "x": 2300,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_imureading",
+      "type": "file",
+      "file": "ImuReading.md",
+      "x": 2500,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_imureading",
+      "type": "file",
+      "file": "ImuReading_1.md",
+      "x": 2700,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_rationale_108",
+      "type": "file",
+      "file": "LoRa E22 mock. G\u00f6nderileni tamponlar; ba\u011flant\u0131 durumu kontrol edilebilir..md",
+      "x": 2300,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_rationale_1",
+      "type": "file",
+      "file": "Mock sens\u00f6r testleri (REQ-FUNC-001)..md",
+      "x": 2500,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockbarometer",
+      "type": "file",
+      "file": "MockBarometer.md",
+      "x": 2700,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockbattery",
+      "type": "file",
+      "file": "MockBattery.md",
+      "x": 2300,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockgps",
+      "type": "file",
+      "file": "MockGps.md",
+      "x": 2500,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mockimu",
+      "type": "file",
+      "file": "MockImu.md",
+      "x": 2700,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_mocktelemetrylink",
+      "type": "file",
+      "file": "MockTelemetryLink.md",
+      "x": 2300,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_rationale_34",
+      "type": "file",
+      "file": "Ortak mod y\u00f6netimi ve zamang\u00f6rev-zaman\u0131 eri\u015fimi..md",
+      "x": 2500,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistentstate",
+      "type": "file",
+      "file": "PersistentState.md",
+      "x": 2700,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_protocol",
+      "type": "file",
+      "file": "Protocol.md",
+      "x": 2300,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_result",
+      "type": "file",
+      "file": "Result.md",
+      "x": 2500,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_sensors_py_result",
+      "type": "file",
+      "file": "Result_2.md",
+      "x": 2700,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_sensormode",
+      "type": "file",
+      "file": "SensorMode.md",
+      "x": 2300,
+      "y": 1600,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_20",
+      "type": "file",
+      "file": "Zaman kayna\u011f\u0131 s\u00f6zle\u015fmesi..md",
+      "x": 2500,
+      "y": 1600,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_rationale_54",
+      "type": "file",
+      "file": "Zaman tabanl\u0131 senaryo. Anahtar kareler (keyframe) aras\u0131nda irtifa DO\u011eRUSAL     i.md",
+      "x": 2700,
+      "y": 1600,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors_base",
+      "type": "file",
+      "file": "_Base.md",
+      "x": 2300,
+      "y": 1680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_rig",
+      "type": "file",
+      "file": "_rig().md",
+      "x": 2500,
+      "y": 1680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_common_result_py_bool",
+      "type": "file",
+      "file": "bool_1.md",
+      "x": 2700,
+      "y": 1680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_sensors_py_bool",
+      "type": "file",
+      "file": "bool_4.md",
+      "x": 2300,
+      "y": 1760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_sensors_py_float",
+      "type": "file",
+      "file": "float_5.md",
+      "x": 2500,
+      "y": 1760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces",
+      "type": "file",
+      "file": "interfaces.py.md",
+      "x": 2700,
+      "y": 1760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_sensors",
+      "type": "file",
+      "file": "mock_sensors.py.md",
+      "x": 2300,
+      "y": 1840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence",
+      "type": "file",
+      "file": "persistence.py.md",
+      "x": 2500,
+      "y": 1840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_common_result_py_str",
+      "type": "file",
+      "file": "str_2.md",
+      "x": 2700,
+      "y": 1840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_sensors_py_str",
+      "type": "file",
+      "file": "str_5.md",
+      "x": 2300,
+      "y": 1920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_persistence_py_str",
+      "type": "file",
+      "file": "str_7.md",
+      "x": 2500,
+      "y": 1920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_barometer_nominal",
+      "type": "file",
+      "file": "test_barometer_nominal().md",
+      "x": 2700,
+      "y": 1920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_barometer_outlier",
+      "type": "file",
+      "file": "test_barometer_outlier().md",
+      "x": 2300,
+      "y": 2000,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_barometer_timeout",
+      "type": "file",
+      "file": "test_barometer_timeout().md",
+      "x": 2500,
+      "y": 2000,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_battery_discharges_over_time",
+      "type": "file",
+      "file": "test_battery_discharges_over_time().md",
+      "x": 2700,
+      "y": 2000,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_gps_nominal_has_fix",
+      "type": "file",
+      "file": "test_gps_nominal_has_fix().md",
+      "x": 2300,
+      "y": 2080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_gps_outlier_no_fix",
+      "type": "file",
+      "file": "test_gps_outlier_no_fix().md",
+      "x": 2500,
+      "y": 2080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_imu_modes",
+      "type": "file",
+      "file": "test_imu_modes().md",
+      "x": 2700,
+      "y": 2080,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors_test_link_loss_send_fails_but_is_reported",
+      "type": "file",
+      "file": "test_link_loss_send_fails_but_is_reported().md",
+      "x": 2300,
+      "y": 2160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_mock_sensors",
+      "type": "file",
+      "file": "test_mock_sensors.py.md",
+      "x": 2500,
+      "y": 2160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g2",
+      "type": "group",
+      "label": "Saat & Kalicilik",
+      "x": 4340,
+      "y": 0,
+      "width": 1760,
+      "height": 2020,
+      "color": "3"
+    },
+    {
+      "id": "n_common_clock_fakeclock_init",
+      "type": "file",
+      "file": ".__init__().md",
+      "x": 4360,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_save",
+      "type": "file",
+      "file": "._save().md",
+      "x": 4560,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_fakeclock_advance",
+      "type": "file",
+      "file": ".advance().md",
+      "x": 4760,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_altitude_zero_ref",
+      "type": "file",
+      "file": ".altitude_zero_ref().md",
+      "x": 4360,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_boot_count",
+      "type": "file",
+      "file": ".boot_count().md",
+      "x": 4560,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_current_packet_number",
+      "type": "file",
+      "file": ".current_packet_number().md",
+      "x": 4760,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_load",
+      "type": "file",
+      "file": ".load().md",
+      "x": 4360,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_mission_time_s",
+      "type": "file",
+      "file": ".mission_time_s().md",
+      "x": 4560,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_next_packet_number",
+      "type": "file",
+      "file": ".next_packet_number().md",
+      "x": 4760,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_clock_now_monotonic",
+      "type": "file",
+      "file": ".now_monotonic().md",
+      "x": 4360,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_realclock_now_monotonic",
+      "type": "file",
+      "file": ".now_monotonic()_1.md",
+      "x": 4560,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_fakeclock_now_monotonic",
+      "type": "file",
+      "file": ".now_monotonic()_2.md",
+      "x": 4760,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_clock_now_utc",
+      "type": "file",
+      "file": ".now_utc().md",
+      "x": 4360,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_realclock_now_utc",
+      "type": "file",
+      "file": ".now_utc()_1.md",
+      "x": 4560,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_fakeclock_now_utc",
+      "type": "file",
+      "file": ".now_utc()_2.md",
+      "x": 4760,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore_set_altitude_zero_ref",
+      "type": "file",
+      "file": ".set_altitude_zero_ref().md",
+      "x": 4360,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_fakeclock_set_utc",
+      "type": "file",
+      "file": ".set_utc().md",
+      "x": 4560,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_rationale_38",
+      "type": "file",
+      "file": "Atomik dosya tabanl\u0131 kal\u0131c\u0131 depo. Her de\u011fi\u015fiklik tmp dosyaya yaz\u0131l\u0131p     os.repl.md",
+      "x": 4760,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock_rationale_1",
+      "type": "file",
+      "file": "Clock birim testleri (REQ-SW-004)..md",
+      "x": 4360,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_42",
+      "type": "file",
+      "file": "Deterministik test saati. Ger\u00e7ek zaman beklemesi yok; testler `advance()` ile.md",
+      "x": 4560,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_fakeclock",
+      "type": "file",
+      "file": "FakeClock.md",
+      "x": 4760,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_27",
+      "type": "file",
+      "file": "Ger\u00e7ek zamanl\u0131 UTC (telemetri G\u00d6NDERME SAAT\u0130 i\u00e7in)..md",
+      "x": 4360,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_rationale_44",
+      "type": "file",
+      "file": "G\u00f6rev zaman\u0131 restart'a dayan\u0131r ve artmaya devam eder (G-17)..md",
+      "x": 4560,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Zaman soyutlamas\u0131. Monoton d\u00f6ng\u00fc zaman\u0131 ve UTC duvar saati i\u00e7in.md",
+      "x": 4760,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_62",
+      "type": "file",
+      "file": "Hem monoton hem UTC saati ileri al\u0131r (normal zaman ak\u0131\u015f\u0131)..md",
+      "x": 4360,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_rationale_1",
+      "type": "file",
+      "file": "Kal\u0131c\u0131l\u0131k testleri saya\u00e7 + RESTART senaryosu (REQ-TLM-003004, REQ-TEST-002)..md",
+      "x": 4560,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_persistencestore",
+      "type": "file",
+      "file": "PersistenceStore.md",
+      "x": 4760,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_realclock",
+      "type": "file",
+      "file": "RealClock.md",
+      "x": 4360,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_persistence_py_result",
+      "type": "file",
+      "file": "Result_5.md",
+      "x": 4560,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_23",
+      "type": "file",
+      "file": "Saniye cinsinden monoton artan s\u00fcre (d\u00f6ng\u00fc zamanlamas\u0131 i\u00e7in)..md",
+      "x": 4760,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_rationale_78",
+      "type": "file",
+      "file": "S\u0131radaki paket numaras\u0131n\u0131 d\u00f6nd\u00fcr\u00fcr (1'den ba\u015flar, monoton artar) ve         duru.md",
+      "x": 4360,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_rationale_97",
+      "type": "file",
+      "file": "Toplam g\u00f6rev s\u00fcresi (s) restart \u00f6ncesi birikmi\u015f + bu oturumun s\u00fcresi.         \u0130.md",
+      "x": 4560,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_69",
+      "type": "file",
+      "file": "UTC'yi ba\u011f\u0131ms\u0131z ayarlar (\u00f6r. GPSUTC senkronizasyonu sim\u00fclasyonu)..md",
+      "x": 4760,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_persistence_rationale_55",
+      "type": "file",
+      "file": "Varsa \u00f6nceki durumu y\u00fckler ve boot_count'u art\u0131r\u0131r. Dosya yoksa temiz         ba.md",
+      "x": 4360,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_store",
+      "type": "file",
+      "file": "_store().md",
+      "x": 4560,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock",
+      "type": "file",
+      "file": "clock.py.md",
+      "x": 4760,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_datetime",
+      "type": "file",
+      "file": "datetime.md",
+      "x": 4360,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_common_clock_py_float",
+      "type": "file",
+      "file": "float_2.md",
+      "x": 4560,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_persistence_py_float",
+      "type": "file",
+      "file": "float_8.md",
+      "x": 4760,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_persistence_py_int",
+      "type": "file",
+      "file": "int_1.md",
+      "x": 4360,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_test_altitude_zero_ref_persists",
+      "type": "file",
+      "file": "test_altitude_zero_ref_persists().md",
+      "x": 4560,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_test_atomic_file_written",
+      "type": "file",
+      "file": "test_atomic_file_written().md",
+      "x": 4760,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock",
+      "type": "file",
+      "file": "test_clock.py.md",
+      "x": 4360,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_test_counter_starts_at_one",
+      "type": "file",
+      "file": "test_counter_starts_at_one().md",
+      "x": 4560,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock_test_fake_clock_advance_moves_both",
+      "type": "file",
+      "file": "test_fake_clock_advance_moves_both().md",
+      "x": 4760,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock_test_fake_clock_is_monotonic",
+      "type": "file",
+      "file": "test_fake_clock_is_monotonic().md",
+      "x": 4360,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock_test_fake_clock_no_backwards",
+      "type": "file",
+      "file": "test_fake_clock_no_backwards().md",
+      "x": 4560,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_test_mission_time_survives_restart",
+      "type": "file",
+      "file": "test_mission_time_survives_restart().md",
+      "x": 4760,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_test_next_before_load_errors",
+      "type": "file",
+      "file": "test_next_before_load_errors().md",
+      "x": 4360,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence",
+      "type": "file",
+      "file": "test_persistence.py.md",
+      "x": 4560,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock_test_protocol_conformance",
+      "type": "file",
+      "file": "test_protocol_conformance().md",
+      "x": 4760,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock_test_real_clock_monotonic_increases",
+      "type": "file",
+      "file": "test_real_clock_monotonic_increases().md",
+      "x": 4360,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_test_restart_resumes_counter",
+      "type": "file",
+      "file": "test_restart_resumes_counter().md",
+      "x": 4560,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_clock_test_set_utc_independent",
+      "type": "file",
+      "file": "test_set_utc_independent().md",
+      "x": 4760,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_clock_rationale_32",
+      "type": "file",
+      "file": "\u00dcretim saati OS monoton sayac\u0131 + UTC duvar saati..md",
+      "x": 4360,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_persistence_rationale_25",
+      "type": "file",
+      "file": "\u0130\u015flemci yeniden ba\u015flarsa paket no kald\u0131\u011f\u0131 yerden devam eder (G-18)..md",
+      "x": 4560,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g3",
+      "type": "group",
+      "label": "APAM Failsafe & Aktuator Baglami",
+      "x": 6180,
+      "y": 0,
+      "width": 1760,
+      "height": 2020,
+      "color": "4"
+    },
+    {
+      "id": "n_services_failsafe_failsafemanager_init",
+      "type": "file",
+      "file": ".__init__()_10.md",
+      "x": 6200,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_context_healthflags_any_fault",
+      "type": "file",
+      "file": ".any_fault().md",
+      "x": 6400,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_failsafemanager_apam_active",
+      "type": "file",
+      "file": ".apam_active().md",
+      "x": 6600,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_failsafemanager_execute_apam",
+      "type": "file",
+      "file": ".execute_apam().md",
+      "x": 6200,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_failsafemanager_overspeed_timer_s",
+      "type": "file",
+      "file": ".overspeed_timer_s().md",
+      "x": 6400,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_failsafemanager_parachute_deployed",
+      "type": "file",
+      "file": ".parachute_deployed().md",
+      "x": 6600,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_failsafemanager_update",
+      "type": "file",
+      "file": ".update().md",
+      "x": 6200,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_rationale_1",
+      "type": "file",
+      "file": "APAM  failsafe testleri \u2014 \u015eartname G-10 (REQ-SAFE-003..008, CONFLICT \u00f6nlemleri).md",
+      "x": 6400,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_rationale_122",
+      "type": "file",
+      "file": "APAM a\u00e7ma s\u0131ralamas\u0131n\u0131 uygular (KES\u0130N s\u0131ra)           1) MOTOR KILL (t\u00fcm motorl.md",
+      "x": 6600,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_rationale_44",
+      "type": "file",
+      "file": "APAM durum makinesi. Bir kez tetiklenince (latch) motor kill ve para\u015f\u00fct     a\u00e7ma.md",
+      "x": 6200,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_rationale_29",
+      "type": "file",
+      "file": "APAM tetikleme parametreleri \u2014 \u015eartname Gereksinim-10 s.11 (DO\u011eRULANMI\u015e)..md",
+      "x": 6400,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_actuatorsuite",
+      "type": "file",
+      "file": "ActuatorSuite.md",
+      "x": 6600,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_actuatorsuite",
+      "type": "file",
+      "file": "ActuatorSuite_1.md",
+      "x": 6200,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_config_default_apamconfig",
+      "type": "file",
+      "file": "ApamConfig.md",
+      "x": 6400,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_apamconfig",
+      "type": "file",
+      "file": "ApamConfig_1.md",
+      "x": 6600,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_apamtrigger",
+      "type": "file",
+      "file": "ApamTrigger.md",
+      "x": 6200,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_context_rationale_32",
+      "type": "file",
+      "file": "Bir kontrol \u00e7evriminin karar girdileri..md",
+      "x": 6400,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_rationale_67",
+      "type": "file",
+      "file": "Bir \u00e7evrim de\u011ferlendirir. `ctx.mission_time_s` monoton artan g\u00f6rev         zaman.md",
+      "x": 6600,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_rationale_34",
+      "type": "file",
+      "file": "Bir \u00e7evrimin failsafe \u00e7\u0131kt\u0131s\u0131..md",
+      "x": 6200,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_failsafedecision",
+      "type": "file",
+      "file": "FailsafeDecision.md",
+      "x": 6400,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_failsafemanager",
+      "type": "file",
+      "file": "FailsafeManager.md",
+      "x": 6600,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_context_flightcontext",
+      "type": "file",
+      "file": "FlightContext.md",
+      "x": 6200,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_failsafe_py_flightcontext",
+      "type": "file",
+      "file": "FlightContext_1.md",
+      "x": 6400,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_rationale_17",
+      "type": "file",
+      "file": "G\u00f6rev zaman\u0131n\u0131 start\u2192stop aras\u0131 ilerletip her ad\u0131mda update \u00e7a\u011f\u0131r\u0131r..md",
+      "x": 6600,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Failsafe y\u00f6neticisi ve APAM (Acil Para\u015f\u00fct A\u00e7ma) mant\u0131\u011f\u0131. 16 ms.md",
+      "x": 6200,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_context_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         U\u00e7u\u015f ba\u011flam\u0131 (FlightContext). Bir \u00e7evrimde kestirilen\u00f6l\u00e7\u00fclen.md",
+      "x": 6400,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_context_healthflags",
+      "type": "file",
+      "file": "HealthFlags.md",
+      "x": 6600,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_rationale_42",
+      "type": "file",
+      "file": "H\u0131z g\u00fcvenli seviyeye d\u00fc\u015ferse saya\u00e7 s\u0131f\u0131rlan\u0131r (anl\u0131k art\u0131\u015f tetiklemez)..md",
+      "x": 6200,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_rationale_96",
+      "type": "file",
+      "file": "KES\u0130N s\u0131ra \u00f6nce motor kill, sonra para\u015f\u00fct OPEN..md",
+      "x": 6400,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_rationale_86",
+      "type": "file",
+      "file": "Link loss TEK BA\u015eINA APAM tetiklemez (h\u0131z g\u00fcvenli)..md",
+      "x": 6600,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_failsafe_py_result",
+      "type": "file",
+      "file": "Result_4.md",
+      "x": 6200,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_context_rationale_18",
+      "type": "file",
+      "file": "Sa\u011fl\u0131k izleyici \u00e7\u0131kt\u0131s\u0131 (bayraklar)..md",
+      "x": 6400,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_rationale_92",
+      "type": "file",
+      "file": "Servo g\u00fcvenliaktif konumlar\u0131 (somut a\u00e7\u0131 s\u00fcr\u00fcc\u00fcde e\u015flenir)..md",
+      "x": 6600,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_servoposition",
+      "type": "file",
+      "file": "ServoPosition_1.md",
+      "x": 6200,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_126",
+      "type": "file",
+      "file": "T\u00fcm akt\u00fcat\u00f6rleri bir arada tutar ve topluca Safe State'e al\u0131r..md",
+      "x": 6400,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_rationale_63",
+      "type": "file",
+      "file": "Y\u00fckselme s\u0131ras\u0131nda APAM tetiklenmez (ini\u015f faz\u0131 kilidi)..md",
+      "x": 6600,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_ctx",
+      "type": "file",
+      "file": "_ctx().md",
+      "x": 6200,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_step",
+      "type": "file",
+      "file": "_step().md",
+      "x": 6400,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_mission_context_py_bool",
+      "type": "file",
+      "file": "bool_6.md",
+      "x": 6600,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_failsafe_py_bool",
+      "type": "file",
+      "file": "bool_7.md",
+      "x": 6200,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_context",
+      "type": "file",
+      "file": "context.py.md",
+      "x": 6400,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_failsafe",
+      "type": "file",
+      "file": "failsafe.py.md",
+      "x": 6600,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_services_failsafe_py_float",
+      "type": "file",
+      "file": "float_7.md",
+      "x": 6200,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_altitude_guard_below_100m_no_deploy",
+      "type": "file",
+      "file": "test_altitude_guard_below_100m_no_deploy().md",
+      "x": 6400,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_apam_latches_active",
+      "type": "file",
+      "file": "test_apam_latches_active().md",
+      "x": 6600,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_counter_resets_when_speed_safe",
+      "type": "file",
+      "file": "test_counter_resets_when_speed_safe().md",
+      "x": 6200,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_execute_apam_kills_motors_before_parachute",
+      "type": "file",
+      "file": "test_execute_apam_kills_motors_before_parachute().md",
+      "x": 6400,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam",
+      "type": "file",
+      "file": "test_failsafe_apam.py.md",
+      "x": 6600,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_link_loss_alone_does_not_trigger",
+      "type": "file",
+      "file": "test_link_loss_alone_does_not_trigger().md",
+      "x": 6200,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_manual_apam_blocked_below_100m",
+      "type": "file",
+      "file": "test_manual_apam_blocked_below_100m().md",
+      "x": 6400,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_manual_apam_triggers_above_100m",
+      "type": "file",
+      "file": "test_manual_apam_triggers_above_100m().md",
+      "x": 6600,
+      "y": 1360,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_no_trigger_before_10s",
+      "type": "file",
+      "file": "test_no_trigger_before_10s().md",
+      "x": 6200,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_no_trigger_during_ascent",
+      "type": "file",
+      "file": "test_no_trigger_during_ascent().md",
+      "x": 6400,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_test_triggers_after_16mps_10s",
+      "type": "file",
+      "file": "test_triggers_after_16mps_10s().md",
+      "x": 6600,
+      "y": 1440,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_failsafe_apam_rationale_55",
+      "type": "file",
+      "file": "\u0130rtifa \u2264100 m ise para\u015f\u00fct a\u00e7\u0131lmaz (kesin 100 m kural\u0131)..md",
+      "x": 6200,
+      "y": 1520,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g4",
+      "type": "group",
+      "label": "Guvenli Aktuatorler",
+      "x": 8020,
+      "y": 0,
+      "width": 1540,
+      "height": 1720,
+      "color": "5"
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup_init",
+      "type": "file",
+      "file": ".__init__()_3.md",
+      "x": 8040,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockservo_init",
+      "type": "file",
+      "file": ".__init__()_4.md",
+      "x": 8240,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockarmmechanism_init",
+      "type": "file",
+      "file": ".__init__()_5.md",
+      "x": 8440,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_actuatorsuite_init",
+      "type": "file",
+      "file": ".__init__()_6.md",
+      "x": 8040,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup_arm",
+      "type": "file",
+      "file": ".arm().md",
+      "x": 8240,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup_arm_state",
+      "type": "file",
+      "file": ".arm_state().md",
+      "x": 8440,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockarmmechanism_deploy_and_lock",
+      "type": "file",
+      "file": ".deploy_and_lock().md",
+      "x": 8040,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockarmmechanism_deployed",
+      "type": "file",
+      "file": ".deployed().md",
+      "x": 8240,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup_disarm",
+      "type": "file",
+      "file": ".disarm().md",
+      "x": 8440,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_actuatorsuite_enter_safe_state",
+      "type": "file",
+      "file": ".enter_safe_state().md",
+      "x": 8040,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup_kill",
+      "type": "file",
+      "file": ".kill().md",
+      "x": 8240,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockarmmechanism_locked",
+      "type": "file",
+      "file": ".locked().md",
+      "x": 8440,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockservo_move_to",
+      "type": "file",
+      "file": ".move_to().md",
+      "x": 8040,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockservo_position",
+      "type": "file",
+      "file": ".position().md",
+      "x": 8240,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup_set_throttle",
+      "type": "file",
+      "file": ".set_throttle().md",
+      "x": 8440,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup_throttle",
+      "type": "file",
+      "file": ".throttle().md",
+      "x": 8040,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockservo_to_safe",
+      "type": "file",
+      "file": ".to_safe().md",
+      "x": 8240,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockarmmechanism_to_safe",
+      "type": "file",
+      "file": ".to_safe()_1.md",
+      "x": 8440,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_21",
+      "type": "file",
+      "file": "4\u00d7 f\u0131r\u00e7as\u0131z motor. Throttle 0..1. Arm interlock ve kill destekli..md",
+      "x": 8040,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_armstate",
+      "type": "file",
+      "file": "ArmState.md",
+      "x": 8240,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_armstate",
+      "type": "file",
+      "file": "ArmState_1.md",
+      "x": 8440,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_69",
+      "type": "file",
+      "file": "Ayr\u0131lma  APAM para\u015f\u00fct kapa\u011f\u0131  kol servosu. G\u00fcvenli konuma ge\u00e7ebilir..md",
+      "x": 8040,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         G\u00fcvenli mock akt\u00fcat\u00f6rler (4\u00d7 motor grubu, ayr\u0131lma servosu, APAM.md",
+      "x": 8240,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_rationale_1",
+      "type": "file",
+      "file": "G\u00fcvenli akt\u00fcat\u00f6r testleri (REQ-SAFE-001002)..md",
+      "x": 8440,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_112",
+      "type": "file",
+      "file": "Kollar\u0131 90\u00b0 a\u00e7ar ve kilitler (ayr\u0131lma \u2192 aktif ini\u015f aras\u0131)..md",
+      "x": 8040,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockarmmechanism",
+      "type": "file",
+      "file": "MockArmMechanism.md",
+      "x": 8240,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockmotorgroup",
+      "type": "file",
+      "file": "MockMotorGroup.md",
+      "x": 8440,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_mockservo",
+      "type": "file",
+      "file": "MockServo.md",
+      "x": 8040,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_61",
+      "type": "file",
+      "file": "Motor kill gaz 0 + disarm. Para\u015f\u00fct a\u00e7\u0131lmadan HEMEN \u00d6NCE \u00e7a\u011fr\u0131l\u0131r..md",
+      "x": 8240,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_actuators_py_result",
+      "type": "file",
+      "file": "Result_1.md",
+      "x": 8440,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_119",
+      "type": "file",
+      "file": "Safe State mevcut konumda kilitli kal\u0131r (kollar\u0131 geri katlamaz)..md",
+      "x": 8040,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_135",
+      "type": "file",
+      "file": "Safe State motorlar disarm0, servolar g\u00fcvenli konum, kollar kilitli.         B.md",
+      "x": 8240,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_servoposition",
+      "type": "file",
+      "file": "ServoPosition.md",
+      "x": 8440,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators_rationale_93",
+      "type": "file",
+      "file": "S\u0130GMA kol a\u00e7makilitleme mekanizmas\u0131. Ba\u015flang\u0131\u00e7ta g\u00f6vde i\u00e7inde KAPALIkilitli;.md",
+      "x": 8040,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_actuators_py_bool",
+      "type": "file",
+      "file": "bool_3.md",
+      "x": 8240,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_actuators_py_float",
+      "type": "file",
+      "file": "float_4.md",
+      "x": 8440,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_mock_actuators",
+      "type": "file",
+      "file": "mock_actuators.py.md",
+      "x": 8040,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_mock_actuators_py_str",
+      "type": "file",
+      "file": "str_4.md",
+      "x": 8240,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators",
+      "type": "file",
+      "file": "test_actuators.py.md",
+      "x": 8440,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_test_arm_mechanism_deploy_and_lock",
+      "type": "file",
+      "file": "test_arm_mechanism_deploy_and_lock().md",
+      "x": 8040,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_test_kill_disarms_and_zeros",
+      "type": "file",
+      "file": "test_kill_disarms_and_zeros().md",
+      "x": 8240,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_test_motor_starts_disarmed_zero",
+      "type": "file",
+      "file": "test_motor_starts_disarmed_zero().md",
+      "x": 8440,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_test_no_throttle_without_arm",
+      "type": "file",
+      "file": "test_no_throttle_without_arm().md",
+      "x": 8040,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_test_suite_safe_state",
+      "type": "file",
+      "file": "test_suite_safe_state().md",
+      "x": 8240,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_test_throttle_after_arm",
+      "type": "file",
+      "file": "test_throttle_after_arm().md",
+      "x": 8440,
+      "y": 1200,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_actuators_test_throttle_out_of_range_rejected",
+      "type": "file",
+      "file": "test_throttle_out_of_range_rejected().md",
+      "x": 8040,
+      "y": 1280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g5",
+      "type": "group",
+      "label": "Sartname Gereksinimleri (SIGMA)",
+      "x": 9640,
+      "y": 0,
+      "width": 1540,
+      "height": 1520,
+      "color": "6"
+    },
+    {
+      "id": "n_pdr_apam_algoritmasi",
+      "type": "file",
+      "file": "APAM Algoritmasi (16 ms 10sn, motor dur, servo pim).md",
+      "x": 9660,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_aras_bit0_inis_hizi",
+      "type": "file",
+      "file": "ARAS Hata Kodu-1 Inis Hizi 8-10 ms disinda.md",
+      "x": 9860,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_aras_bit1_gps_konum",
+      "type": "file",
+      "file": "ARAS Hata Kodu-2 GPS Konum Verisi Alinamamasi.md",
+      "x": 10060,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_aras_bit2_ayrilma",
+      "type": "file",
+      "file": "ARAS Hata Kodu-3 Ayrilmanin Gerceklesmemesi.md",
+      "x": 9660,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_aras_bit3_acil_parasut",
+      "type": "file",
+      "file": "ARAS Hata Kodu-4 Acil Parasut Aktif.md",
+      "x": 9860,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_bme280",
+      "type": "file",
+      "file": "BME280 SicaklikBasinc Sensoru.md",
+      "x": 10060,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_hata_kodu_hane_conflict",
+      "type": "file",
+      "file": "CONFLICT PDR 4 haneli hata kodu (spec 2.4 = 5 haneli).md",
+      "x": 9660,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_emax_eco2",
+      "type": "file",
+      "file": "Emax ECO II 2207 1700KV Fircasiz Motor (x4).md",
+      "x": 9860,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim1_iki_kisim",
+      "type": "file",
+      "file": "Gereksinim-1 Iki Kisim (Tasiyici + Gorev Yuku).md",
+      "x": 10060,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim10_apam",
+      "type": "file",
+      "file": "Gereksinim-10 APAM (16 ms 10sn, 100m acilir).md",
+      "x": 9660,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim15_veri_toplama",
+      "type": "file",
+      "file": "Gereksinim-15 Veri Toplama (sicaklik, basinc, yukseklik, hiz, konum, pil, eksen).md",
+      "x": 9860,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim19_sd_kart",
+      "type": "file",
+      "file": "Gereksinim-19 Telemetri SD Kart Kaydi.md",
+      "x": 10060,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim2_agirlik",
+      "type": "file",
+      "file": "Gereksinim-2 Agirlik 1800 +- 90 gr.md",
+      "x": 9660,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim20_kamera",
+      "type": "file",
+      "file": "Gereksinim-20 Yanal Kamera + SD Video Kaydi.md",
+      "x": 9860,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim22_video_iletim",
+      "type": "file",
+      "file": "Gereksinim-22 Canli Video Iletimi.md",
+      "x": 10060,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim29_yer_istasyonu",
+      "type": "file",
+      "file": "Gereksinim-29 Tek Sayfa Yer Istasyonu Arayuzu.md",
+      "x": 9660,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim3_form",
+      "type": "file",
+      "file": "Gereksinim-3 SilindirKare Prizma Form (150-160mm, 300mm).md",
+      "x": 9860,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim31_realtime_grafik",
+      "type": "file",
+      "file": "Gereksinim-31 Gercek Zamanli Grafik + Telemetri Akis Satiri.md",
+      "x": 10060,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim34_gyro_sim",
+      "type": "file",
+      "file": "Gereksinim-34 Gyro Duru\u015f Simulasyonu (x-y 2D).md",
+      "x": 9660,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim35_aras",
+      "type": "file",
+      "file": "Gereksinim-35 ARAS (Arayuz Alarm Sistemi).md",
+      "x": 9860,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim36_bonus1_station_keeping",
+      "type": "file",
+      "file": "Gereksinim-36 BONUS-1 Konum Koruma  Station Keeping (200m AGL, 10sn).md",
+      "x": 10060,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim5_pasif_inis",
+      "type": "file",
+      "file": "Gereksinim-5 Pasif Inis 12-14 ms (1000m'e kadar).md",
+      "x": 9660,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim6_otonom_ayrilma",
+      "type": "file",
+      "file": "Gereksinim-6 Otonom Ayrilma 1000m (+-10m).md",
+      "x": 9860,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim7_manuel_ayrilma",
+      "type": "file",
+      "file": "Gereksinim-7 Manuel Ayrilma Komutu.md",
+      "x": 10060,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim8_patlayicisiz",
+      "type": "file",
+      "file": "Gereksinim-8 Patlayicisiz Ayrilma Mekanizmasi.md",
+      "x": 9660,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim9_sigma_inis",
+      "type": "file",
+      "file": "Gereksinim-9 SIGMA Inis 8-10 ms.md",
+      "x": 9860,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_false_trigger",
+      "type": "file",
+      "file": "Hatali Tetikleme Analizi (coklu kosul, PWMRPM tutarlilik).md",
+      "x": 10060,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_kilavuz_mirasat_pdr",
+      "type": "file",
+      "file": "KILAVUZ MIRASAT PDR (Takim No 947450).md",
+      "x": 9660,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_mpu6500",
+      "type": "file",
+      "file": "MPU6500 IMUGyro (Pixhawk).md",
+      "x": 9860,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gorev_profili",
+      "type": "file",
+      "file": "Mission Profile (Tasiyici + Gorev Yuku, ayrilma, aktif inis).md",
+      "x": 10060,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_pca9685",
+      "type": "file",
+      "file": "PCA9685 16 Kanal I2C PWMServo Surucu.md",
+      "x": 9660,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_aras_implementasyonu",
+      "type": "file",
+      "file": "PDR ARAS Implementasyonu (4 bit, iki katman, cerceve alarm).md",
+      "x": 9860,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_pid_kontrol",
+      "type": "file",
+      "file": "PID Kapali Cevrim Kontrol + Complementary Filter.md",
+      "x": 10060,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_pixmin_v1",
+      "type": "file",
+      "file": "PixMin V1.0 Kontrol Karti (SIGMA).md",
+      "x": 9660,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_rpi5",
+      "type": "file",
+      "file": "Raspberry Pi 5 4GB (Gorev Bilgisayari).md",
+      "x": 9860,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_sigma_gorev",
+      "type": "file",
+      "file": "SIGMA - Stabil Inis Gudumlu Mekanik Aktuator (Ana Gorev).md",
+      "x": 10060,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_sigma_aktif_inis",
+      "type": "file",
+      "file": "SIGMA Aktif Inis Konsepti (4 motor, PID, hoverfrenleme).md",
+      "x": 9660,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_tlm_hata_kodu",
+      "type": "file",
+      "file": "TLM Hata Kodu (5 haneli - spec).md",
+      "x": 9860,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_v40",
+      "type": "file",
+      "file": "TURKSAT Model Uydu Yarismasi 2026 Sartname V4.0 (SIGMA).md",
+      "x": 10060,
+      "y": 1040,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_yer_istasyonu_yazilimi",
+      "type": "file",
+      "file": "Yer Istasyonu Yazilimi (Python + PyQt5).md",
+      "x": 9660,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_ublox_m8n",
+      "type": "file",
+      "file": "u-blox M8N GPS.md",
+      "x": 9860,
+      "y": 1120,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g6",
+      "type": "group",
+      "label": "Telemetri Servisi & Paket",
+      "x": 11260,
+      "y": 0,
+      "width": 1320,
+      "height": 1320,
+      "color": "1"
+    },
+    {
+      "id": "n_telemetry_packet_telemetrypacketbuilder_init",
+      "type": "file",
+      "file": ".__init__()_14.md",
+      "x": 11280,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_telemetry_service_telemetryservice_init",
+      "type": "file",
+      "file": ".__init__()_15.md",
+      "x": 11480,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_telemetry_service_telemetryservice_ensure_header",
+      "type": "file",
+      "file": "._ensure_header().md",
+      "x": 11680,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_telemetrypacketbuilder_f",
+      "type": "file",
+      "file": "._f().md",
+      "x": 11280,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_telemetrypacketbuilder_build",
+      "type": "file",
+      "file": ".build().md",
+      "x": 11480,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_telemetrypacketbuilder_csv_header",
+      "type": "file",
+      "file": ".csv_header().md",
+      "x": 11680,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_telemetrypacketbuilder_csv_units",
+      "type": "file",
+      "file": ".csv_units().md",
+      "x": 11280,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_telemetry_service_telemetryservice_publish",
+      "type": "file",
+      "file": ".publish().md",
+      "x": 11480,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_rationale_112",
+      "type": "file",
+      "file": "17 alan\u0131 \u015fartname s\u0131ras\u0131na g\u00f6re CSV sat\u0131r\u0131na d\u00f6n\u00fc\u015ft\u00fcr\u00fcr..md",
+      "x": 11680,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_telemetry_service_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Telemetri servisi. \u00dcretilen paket sat\u0131r\u0131n\u0131 SD karta CSV olarak.md",
+      "x": 11280,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_rationale_78",
+      "type": "file",
+      "file": "LoRa E22 kar\u015f\u0131l\u0131\u011f\u0131. A\u015fama 1'de mock; yaln\u0131z g\u00f6nderim durumu d\u00f6ner..md",
+      "x": 11480,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_rationale_63",
+      "type": "file",
+      "file": "PDR s.63 \u00f6rnek paketiyle alan-alan uyum (bo\u015fluklar hari\u00e7, tak\u0131m no 947450)..md",
+      "x": 11680,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_telemetry_service_rationale_48",
+      "type": "file",
+      "file": "Paketi \u00fcretir, SDCSV'ye ekler ve linkten g\u00f6nderir. Sat\u0131r\u0131 d\u00f6nd\u00fcr\u00fcr.         SD.md",
+      "x": 11280,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_telemetry_telemetry_service_py_result",
+      "type": "file",
+      "file": "Result_6.md",
+      "x": 11480,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_rationale_1",
+      "type": "file",
+      "file": "Telemetri paket format testleri \u2014 \u015eartname \u00a72.4 (REQ-TLM-001006, REQ-TEST-003)..md",
+      "x": 11680,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetryfields",
+      "type": "file",
+      "file": "TelemetryFields_1.md",
+      "x": 11280,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_telemetrylink",
+      "type": "file",
+      "file": "TelemetryLink.md",
+      "x": 11480,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetrylink",
+      "type": "file",
+      "file": "TelemetryLink_1.md",
+      "x": 11680,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_telemetrypacketbuilder",
+      "type": "file",
+      "file": "TelemetryPacketBuilder.md",
+      "x": 11280,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetrypacketbuilder",
+      "type": "file",
+      "file": "TelemetryPacketBuilder_1.md",
+      "x": 11480,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_fields",
+      "type": "file",
+      "file": "_fields().md",
+      "x": 11680,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_telemetry_packet_py_float",
+      "type": "file",
+      "file": "float_9.md",
+      "x": 11280,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_telemetry_packet_py_int",
+      "type": "file",
+      "file": "int_2.md",
+      "x": 11480,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_telemetry_packet_py_str",
+      "type": "file",
+      "file": "str_8.md",
+      "x": 11680,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_telemetry_telemetry_service_py_str",
+      "type": "file",
+      "file": "str_9.md",
+      "x": 11280,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_telemetry_service",
+      "type": "file",
+      "file": "telemetry_service.py.md",
+      "x": 11480,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_test_build_has_17_comma_separated_fields",
+      "type": "file",
+      "file": "test_build_has_17_comma_separated_fields().md",
+      "x": 11680,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_test_field_order_matches_spec",
+      "type": "file",
+      "file": "test_field_order_matches_spec().md",
+      "x": 11280,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_test_header_and_units_have_17_fields",
+      "type": "file",
+      "file": "test_header_and_units_have_17_fields().md",
+      "x": 11480,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_test_matches_pdr_example_packet",
+      "type": "file",
+      "file": "test_matches_pdr_example_packet().md",
+      "x": 11680,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_test_status_code_is_integer_0_to_5",
+      "type": "file",
+      "file": "test_status_code_is_integer_0_to_5().md",
+      "x": 11280,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet",
+      "type": "file",
+      "file": "test_telemetry_packet.py.md",
+      "x": 11480,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_telemetry_packet_test_time_format_is_dmy_hms",
+      "type": "file",
+      "file": "test_time_format_is_dmy_hms().md",
+      "x": 11680,
+      "y": 880,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_rationale_128",
+      "type": "file",
+      "file": "\u015eartname \u00a72.4 s\u0131ras\u0131yla tek bir telemetri sat\u0131r\u0131 (CSV) \u00fcretir..md",
+      "x": 11280,
+      "y": 960,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g7",
+      "type": "group",
+      "label": "FSW Mimari Konseptleri",
+      "x": 12660,
+      "y": 0,
+      "width": 1320,
+      "height": 1120,
+      "color": "2"
+    },
+    {
+      "id": "n_docs_requirements_telemetry_format",
+      "type": "file",
+      "file": "17-Field Telemetry Packet Format.md",
+      "x": 12680,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_apam",
+      "type": "file",
+      "file": "APAM (Emergency Parachute Deployment Mechanism).md",
+      "x": 12880,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_aras",
+      "type": "file",
+      "file": "ARAS Error Code (4-bit).md",
+      "x": 13080,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_conflict_001",
+      "type": "file",
+      "file": "CONFLICT-001 Post-Landing Telemetry Duration.md",
+      "x": 12680,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_conflict_002",
+      "type": "file",
+      "file": "CONFLICT-002 Satellite Status Codes Reversed.md",
+      "x": 12880,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_conflict_003",
+      "type": "file",
+      "file": "CONFLICT-003 Error Code Digit Count (4 vs 5).md",
+      "x": 13080,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_requirements_dev_requirements_dev",
+      "type": "file",
+      "file": "Dev Requirements (pytestpytest-timeout).md",
+      "x": 12680,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_development_plan_development_plan",
+      "type": "file",
+      "file": "Development Roadmap (5 Phases).md",
+      "x": 12880,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_eksik_003",
+      "type": "file",
+      "file": "EKS\u0130K-003 Takeoff AltitudePressure Reference.md",
+      "x": 13080,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_test_plan_frr_tests",
+      "type": "file",
+      "file": "FRR System Tests (shockvibrationdrop).md",
+      "x": 12680,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_safety_concept_failsafe",
+      "type": "file",
+      "file": "Failsafe Manager Architecture.md",
+      "x": 12880,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_architecture_state_machine",
+      "type": "file",
+      "file": "Flight State Machine.md",
+      "x": 13080,
+      "y": 320,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_safety_concept_health_monitor",
+      "type": "file",
+      "file": "Health Monitor.md",
+      "x": 12680,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_architecture_status_mapping",
+      "type": "file",
+      "file": "Internal Phase to Status Code Mapping.md",
+      "x": 12880,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_layered_architecture",
+      "type": "file",
+      "file": "Layered Architecture (5 layers).md",
+      "x": 13080,
+      "y": 400,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_data_flow_main_loop",
+      "type": "file",
+      "file": "Main Loop Data Flow.md",
+      "x": 12680,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_module_design_module_design",
+      "type": "file",
+      "file": "Module Design Contracts.md",
+      "x": 12880,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_data_flow_persistence",
+      "type": "file",
+      "file": "Persistence Store (restart-safe).md",
+      "x": 13080,
+      "y": 480,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_architecture_phase_emergency_apam",
+      "type": "file",
+      "file": "Phase EMERGENCY_APAM.md",
+      "x": 12680,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_bonus_003",
+      "type": "file",
+      "file": "REQ-BONUS-003 Z.I.R.H Store-and-Forward.md",
+      "x": 12880,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_safe_003",
+      "type": "file",
+      "file": "REQ-SAFE-003 APAM 16 ms for 10s uninterrupted.md",
+      "x": 13080,
+      "y": 560,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_safe_005",
+      "type": "file",
+      "file": "REQ-SAFE-005 Motor Kill Before Parachute.md",
+      "x": 12680,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_safe_008",
+      "type": "file",
+      "file": "REQ-SAFE-008 Link Loss Alone Does Not Trigger APAM.md",
+      "x": 12880,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_tlm_001",
+      "type": "file",
+      "file": "REQ-TLM-001 17-Field Packet Exact OrderUnits.md",
+      "x": 13080,
+      "y": 640,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_tlm_003",
+      "type": "file",
+      "file": "REQ-TLM-003 Persistent Packet Counter.md",
+      "x": 12680,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_satellite_status",
+      "type": "file",
+      "file": "Satellite Status Codes (0-5).md",
+      "x": 12880,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_data_flow_telemetry_service",
+      "type": "file",
+      "file": "Telemetry Service (CSV + RF).md",
+      "x": 13080,
+      "y": 720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_test_plan_test_plan",
+      "type": "file",
+      "file": "Test Plan (Phase 1 unitintegration).md",
+      "x": 12680,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_source_analysis_sartname",
+      "type": "file",
+      "file": "T\u00dcRKSAT 2026 \u015eartname V4.0 (Specification).md",
+      "x": 12880,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_zirh",
+      "type": "file",
+      "file": "Z.I.R.H Store-and-Forward (BONUS-3).md",
+      "x": 13080,
+      "y": 800,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g8",
+      "type": "group",
+      "label": "HAL Arayuzleri",
+      "x": 0,
+      "y": 3500,
+      "width": 1320,
+      "height": 1020,
+      "color": "3"
+    },
+    {
+      "id": "n_hal_interfaces_motorgroup_arm",
+      "type": "file",
+      "file": ".arm()_1.md",
+      "x": 20,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_motorgroup_arm_state",
+      "type": "file",
+      "file": ".arm_state()_1.md",
+      "x": 220,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_motorgroup_disarm",
+      "type": "file",
+      "file": ".disarm()_1.md",
+      "x": 420,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_telemetrylink_is_connected",
+      "type": "file",
+      "file": ".is_connected()_1.md",
+      "x": 20,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_flightcontrollerlink_is_connected",
+      "type": "file",
+      "file": ".is_connected()_2.md",
+      "x": 220,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_motorgroup_kill",
+      "type": "file",
+      "file": ".kill()_1.md",
+      "x": 420,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_servo_move_to",
+      "type": "file",
+      "file": ".move_to()_1.md",
+      "x": 20,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_servo_position",
+      "type": "file",
+      "file": ".position()_1.md",
+      "x": 220,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_flightcontrollerlink_read_telemetry",
+      "type": "file",
+      "file": ".read_telemetry().md",
+      "x": 420,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_telemetrylink_send",
+      "type": "file",
+      "file": ".send()_1.md",
+      "x": 20,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_flightcontrollerlink_send_setpoint",
+      "type": "file",
+      "file": ".send_setpoint().md",
+      "x": 220,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_motorgroup_set_throttle",
+      "type": "file",
+      "file": ".set_throttle()_1.md",
+      "x": 420,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_motorgroup_throttle",
+      "type": "file",
+      "file": ".throttle()_1.md",
+      "x": 20,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_servo_to_safe",
+      "type": "file",
+      "file": ".to_safe()_2.md",
+      "x": 220,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_rationale_102",
+      "type": "file",
+      "file": "4\u00d7 f\u0131r\u00e7as\u0131z motor grubu (S\u0130GMA). Throttle 0..1. Arm olmadan \u00e7al\u0131\u015fmaz..md",
+      "x": 420,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_flightcontrollerlink",
+      "type": "file",
+      "file": "FlightControllerLink.md",
+      "x": 20,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_flightcontrollertelemetry",
+      "type": "file",
+      "file": "FlightControllerTelemetry.md",
+      "x": 220,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_motorgroup",
+      "type": "file",
+      "file": "MotorGroup.md",
+      "x": 420,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_rationale_134",
+      "type": "file",
+      "file": "PixMinSTM32'den gelen \u00fcst seviye durum (EKS\u0130K-001, ASSUMPTION-001)..md",
+      "x": 20,
+      "y": 4060,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_rationale_146",
+      "type": "file",
+      "file": "RPi 5 \u2194 PixMin aras\u0131 soyut ba\u011f. Protokol PDR'de belirtilmemi\u015f (EKS\u0130K-001);     M.md",
+      "x": 220,
+      "y": 4060,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_hal_interfaces_py_result",
+      "type": "file",
+      "file": "Result_3.md",
+      "x": 420,
+      "y": 4060,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_servo",
+      "type": "file",
+      "file": "Servo.md",
+      "x": 20,
+      "y": 4140,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_interfaces_rationale_121",
+      "type": "file",
+      "file": "Tekil servo (ayr\u0131lma  APAM para\u015f\u00fct kapa\u011f\u0131  kol)..md",
+      "x": 220,
+      "y": 4140,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_hal_interfaces_py_bool",
+      "type": "file",
+      "file": "bool_5.md",
+      "x": 420,
+      "y": 4140,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_hal_interfaces_py_float",
+      "type": "file",
+      "file": "float_6.md",
+      "x": 20,
+      "y": 4220,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_hal_interfaces_py_str",
+      "type": "file",
+      "file": "str_6.md",
+      "x": 220,
+      "y": 4220,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g9",
+      "type": "group",
+      "label": "Cift Islemci & ADR-001",
+      "x": 2280,
+      "y": 3500,
+      "width": 1100,
+      "height": 820,
+      "color": "4"
+    },
+    {
+      "id": "n_adr_001_language_and_target_platform_adr_001",
+      "type": "file",
+      "file": "ADR-001 Language and Target Platform.md",
+      "x": 2300,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_assumption_001",
+      "type": "file",
+      "file": "ASSUMPTION-001 RPi-PixMin Protocol is MAVLink.md",
+      "x": 2500,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_conflict_005",
+      "type": "file",
+      "file": "CONFLICT-005 Programming Language  Target Platform.md",
+      "x": 2700,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_dual_processor",
+      "type": "file",
+      "file": "Dual-Processor Architecture (RPi 5 + PixMin).md",
+      "x": 2300,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_eksik_001",
+      "type": "file",
+      "file": "EKS\u0130K-001 RPi 5 to PixMin Protocol Missing.md",
+      "x": 2500,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_fsw",
+      "type": "file",
+      "file": "Flight Software (FSW) Project.md",
+      "x": 2700,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_flight_controller_link",
+      "type": "file",
+      "file": "FlightControllerLink HAL Interface.md",
+      "x": 2300,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_requirements_hardware_requirements_hardware",
+      "type": "file",
+      "file": "Hardware Requirements (pyserialpymavlinksmbus2).md",
+      "x": 2500,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_source_analysis_pdr",
+      "type": "file",
+      "file": "KILAVUZ M\u0130RASAT PDR Report.md",
+      "x": 2700,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_readme_kilavuz_mirasat",
+      "type": "file",
+      "file": "KILAVUZ M\u0130RASAT Team (No 947450).md",
+      "x": 2300,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_pixmin",
+      "type": "file",
+      "file": "PixMin V1.0 Flight Controller (STM32F405).md",
+      "x": 2500,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_technology_decisions_python",
+      "type": "file",
+      "file": "Python 3 FSW Language Decision.md",
+      "x": 2700,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_bonus_002",
+      "type": "file",
+      "file": "REQ-BONUS-002 S2D-IoT RHRHRH.md",
+      "x": 2300,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_hw_001",
+      "type": "file",
+      "file": "REQ-HW-001 Mission Computer RPi 5 4GB.md",
+      "x": 2500,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_rpi5",
+      "type": "file",
+      "file": "Raspberry Pi 5 4GB Mission Computer.md",
+      "x": 2700,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_s2d_iot",
+      "type": "file",
+      "file": "S2D-IoT (BONUS-2, RHRHRH command relay).md",
+      "x": 2300,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_readme_sigma",
+      "type": "file",
+      "file": "SIGMA Concept (Stabil \u0130ni\u015f G\u00fcd\u00fcml\u00fc Mekanik Akt\u00fcat\u00f6r).md",
+      "x": 2500,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_safety_concept_simulation_only",
+      "type": "file",
+      "file": "SIMULATION_ONLY Profile.md",
+      "x": 2700,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_safety_concept_safe_state",
+      "type": "file",
+      "file": "Safe State.md",
+      "x": 2300,
+      "y": 4060,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_task_tracker_task_tracker",
+      "type": "file",
+      "file": "TASK_TRACKER (Open Items  Tech Debt).md",
+      "x": 2500,
+      "y": 4060,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g10",
+      "type": "group",
+      "label": "Haberlesme & Bonus Gorevler (PDR)",
+      "x": 4340,
+      "y": 3500,
+      "width": 1100,
+      "height": 820,
+      "color": "5"
+    },
+    {
+      "id": "n_pdr_status_conflict",
+      "type": "file",
+      "file": "CONFLICT PDR statu 2=Ayrilma, 3=Model Uydu Inis (spec ters).md",
+      "x": 4360,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_esp32_iot",
+      "type": "file",
+      "file": "ESP32 IoT Istasyonu Islemcisi.md",
+      "x": 4560,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim16_1hz_telemetri",
+      "type": "file",
+      "file": "Gereksinim-16 1 Hz Telemetri.md",
+      "x": 4760,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim37_bonus2_s2d_iot",
+      "type": "file",
+      "file": "Gereksinim-37 BONUS-2 S2D-IOT Telekomut.md",
+      "x": 4360,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_gereksinim38_bonus3_zirh",
+      "type": "file",
+      "file": "Gereksinim-38 BONUS-3 TURKSAT-Z.I.R.H (Anti-jamming).md",
+      "x": 4560,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_iot_dry_contact",
+      "type": "file",
+      "file": "IoT Cihazi 3x Kuru Kontak (Dry-Contact NOCOM) Role.md",
+      "x": 4760,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_lora_e22",
+      "type": "file",
+      "file": "LoRa E22 900T22D Haberlesme Modulu.md",
+      "x": 4360,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_s2d_iot_cozumu",
+      "type": "file",
+      "file": "PDR S2D-IOT Cozumu (E22 LoRa, RoleKuru Kontak, RGB Panel).md",
+      "x": 4560,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_telemetri_formati",
+      "type": "file",
+      "file": "PDR Telemetri Formati (17 alan, CSV, ornek 152,4,0000...).md",
+      "x": 4760,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_s2d_iot_sifre",
+      "type": "file",
+      "file": "S2D-IOT RHRHRH Sifre (RGB LED, 012 OPENCLOSEFLASHING).md",
+      "x": 4360,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_stm32f405",
+      "type": "file",
+      "file": "STM32F405VGT6 Islemci.md",
+      "x": 4560,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_tlm_rhrhrh",
+      "type": "file",
+      "file": "TLM RHRHRH (Bonus komutu).md",
+      "x": 4760,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_tlm_uydu_statusu",
+      "type": "file",
+      "file": "TLM Uydu Statusu.md",
+      "x": 4360,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_telemetri_formati",
+      "type": "file",
+      "file": "Telemetri Formati (17 alan, 2.4).md",
+      "x": 4560,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_ucus_yazilimi",
+      "type": "file",
+      "file": "Ucus Yazilimi (CC++, VS Code + Arduino IDE).md",
+      "x": 4760,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_durum_diyagrami",
+      "type": "file",
+      "file": "Ucus Yazilimi Durum Diyagrami (State Machine).md",
+      "x": 4360,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_status_2_model_uydu_inis",
+      "type": "file",
+      "file": "Uydu Statusu 2 Model Uydu Inis (spec).md",
+      "x": 4560,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_status_3_ayrilma",
+      "type": "file",
+      "file": "Uydu Statusu 3 Ayrilma (spec).md",
+      "x": 4760,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_pdr_zirh_cozumu",
+      "type": "file",
+      "file": "Z.I.R.H Cozumu (868 MHz SAW filtre, RSSISNR, CRC, SD buffer).md",
+      "x": 4360,
+      "y": 4060,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g11",
+      "type": "group",
+      "label": "Result Hata Modeli",
+      "x": 6180,
+      "y": 3500,
+      "width": 1100,
+      "height": 720,
+      "color": "6"
+    },
+    {
+      "id": "n_common_result_result_ok",
+      "type": "file",
+      "file": ".ok().md",
+      "x": 6200,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_result_unwrap",
+      "type": "file",
+      "file": ".unwrap().md",
+      "x": 6400,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_result_unwrap_or",
+      "type": "file",
+      "file": ".unwrap_or().md",
+      "x": 6600,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_rationale_33",
+      "type": "file",
+      "file": "Bir hata sonucu unwrap edilmeye \u00e7al\u0131\u015f\u0131ld\u0131\u011f\u0131nda y\u00fckseltilir..md",
+      "x": 6200,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_rationale_68",
+      "type": "file",
+      "file": "De\u011feri d\u00f6nd\u00fcr\u00fcr; hata ise ResultError y\u00fckseltir (sessiz ge\u00e7i\u015f yok)..md",
+      "x": 6400,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_exception",
+      "type": "file",
+      "file": "Exception.md",
+      "x": 6600,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         A\u00e7\u0131k hatasonu\u00e7 modeli (ResultT + ErrorCode). Sessizce ba\u015far\u0131s.md",
+      "x": 6200,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result_rationale_1",
+      "type": "file",
+      "file": "ResultErrorCode birim testleri (REQ-SW-005)..md",
+      "x": 6400,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result_resulterror",
+      "type": "file",
+      "file": "ResultError.md",
+      "x": 6600,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_t",
+      "type": "file",
+      "file": "T.md",
+      "x": 6200,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_result",
+      "type": "file",
+      "file": "result.py.md",
+      "x": 6400,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result_test_err_cannot_be_ok_code",
+      "type": "file",
+      "file": "test_err_cannot_be_ok_code().md",
+      "x": 6600,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result_test_err_carries_code_and_message",
+      "type": "file",
+      "file": "test_err_carries_code_and_message().md",
+      "x": 6200,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result_test_ok_allows_none_value",
+      "type": "file",
+      "file": "test_ok_allows_none_value().md",
+      "x": 6400,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result_test_ok_carries_value",
+      "type": "file",
+      "file": "test_ok_carries_value().md",
+      "x": 6600,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result",
+      "type": "file",
+      "file": "test_result.py.md",
+      "x": 6200,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result_test_unwrap_on_error_raises",
+      "type": "file",
+      "file": "test_unwrap_on_error_raises().md",
+      "x": 6400,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_result_test_unwrap_or_default",
+      "type": "file",
+      "file": "test_unwrap_or_default().md",
+      "x": 6600,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g12",
+      "type": "group",
+      "label": "Ucus Profili Simulasyonu",
+      "x": 8020,
+      "y": 3500,
+      "width": 880,
+      "height": 720,
+      "color": "1"
+    },
+    {
+      "id": "n_drivers_flight_profile_flightprofile_init",
+      "type": "file",
+      "file": ".__init__()_2.md",
+      "x": 8040,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_flightprofile_interp",
+      "type": "file",
+      "file": "._interp().md",
+      "x": 8240,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_flightprofile_make",
+      "type": "file",
+      "file": "._make().md",
+      "x": 8440,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_flightprofile_time_at_altitude_descending",
+      "type": "file",
+      "file": "._time_at_altitude_descending().md",
+      "x": 8040,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_flightprofile_name",
+      "type": "file",
+      "file": ".name().md",
+      "x": 8240,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_flightprofile_sample",
+      "type": "file",
+      "file": ".sample().md",
+      "x": 8440,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_rationale_24",
+      "type": "file",
+      "file": "Barometrik form\u00fcl (kalk\u0131\u015f = deniz seviyesi kabul\u00fc, sim i\u00e7in yeterli)..md",
+      "x": 8040,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_rationale_37",
+      "type": "file",
+      "file": "Belirli bir g\u00f6rev zaman\u0131ndaki ger\u00e7ek (sim\u00fcle) durum..md",
+      "x": 8240,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_rationale_1",
+      "type": "file",
+      "file": "G\u00f6revi         Deterministik u\u00e7u\u015f profili (yer ger\u00e7ekli\u011fi). G\u00f6rev zaman\u0131na g\u00f6re.md",
+      "x": 8440,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_truthstate",
+      "type": "file",
+      "file": "TruthState.md",
+      "x": 8040,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_altitude_to_pressure",
+      "type": "file",
+      "file": "altitude_to_pressure().md",
+      "x": 8240,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_flight_profile_py_bool",
+      "type": "file",
+      "file": "bool_2.md",
+      "x": 8440,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile",
+      "type": "file",
+      "file": "flight_profile.py.md",
+      "x": 8040,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_flight_profile_py_float",
+      "type": "file",
+      "file": "float_3.md",
+      "x": 8240,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_src_drivers_flight_profile_py_str",
+      "type": "file",
+      "file": "str_3.md",
+      "x": 8440,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_flight_profile_rationale_115",
+      "type": "file",
+      "file": "\u0130rtifan\u0131n al\u00e7al\u0131rken target_alt'a ula\u015ft\u0131\u011f\u0131 ilk zaman (ayr\u0131lma an\u0131)..md",
+      "x": 8040,
+      "y": 3980,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g13",
+      "type": "group",
+      "label": "ARAS Hata Kodu",
+      "x": 9640,
+      "y": 3500,
+      "width": 880,
+      "height": 620,
+      "color": "2"
+    },
+    {
+      "id": "n_tests_test_error_code_rationale_1",
+      "type": "file",
+      "file": "ARAS hata kodu testleri \u2014 \u015eartname \u00a72.2 (REQ-TLM-011..015, CONFLICT-003)..md",
+      "x": 9660,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_rationale_48",
+      "type": "file",
+      "file": "ARAS hata kodunu \u00fcretir \u2014 \u015eartname \u00a72.2 s.13-14 (DO\u011eRULANMI\u015e)       Bit-1 ini\u015f.md",
+      "x": 9860,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_inp",
+      "type": "file",
+      "file": "_inp().md",
+      "x": 10060,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_packet_compute_error_code",
+      "type": "file",
+      "file": "compute_error_code().md",
+      "x": 9660,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_all_nominal_is_0000",
+      "type": "file",
+      "file": "test_all_nominal_is_0000().md",
+      "x": 9860,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_apam_active_is_0001",
+      "type": "file",
+      "file": "test_apam_active_is_0001().md",
+      "x": 10060,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_digits_config_padding",
+      "type": "file",
+      "file": "test_digits_config_padding().md",
+      "x": 9660,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_digits_too_small_raises",
+      "type": "file",
+      "file": "test_digits_too_small_raises().md",
+      "x": 9860,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code",
+      "type": "file",
+      "file": "test_error_code.py.md",
+      "x": 10060,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_multiple_faults",
+      "type": "file",
+      "file": "test_multiple_faults().md",
+      "x": 9660,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_not_separated_sets_bit3",
+      "type": "file",
+      "file": "test_not_separated_sets_bit3().md",
+      "x": 9860,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_position_lost_is_0100",
+      "type": "file",
+      "file": "test_position_lost_is_0100().md",
+      "x": 10060,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_speed_check_inactive_gives_bit1_zero",
+      "type": "file",
+      "file": "test_speed_check_inactive_gives_bit1_zero().md",
+      "x": 9660,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_error_code_test_speed_out_of_range_sets_bit1",
+      "type": "file",
+      "file": "test_speed_out_of_range_sets_bit1().md",
+      "x": 9860,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g14",
+      "type": "group",
+      "label": "Katmanli Mimari (READMEs)",
+      "x": 11260,
+      "y": 3500,
+      "width": 880,
+      "height": 620,
+      "color": "3"
+    },
+    {
+      "id": "n_config_readme",
+      "type": "file",
+      "file": "config layer profiles and parameters.md",
+      "x": 11280,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_failsafe_apam_concept",
+      "type": "file",
+      "file": "failsafe  APAM logic.md",
+      "x": 11480,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_simulation_readme",
+      "type": "file",
+      "file": "simulation simulation scenario helpers.md",
+      "x": 11680,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_app_readme",
+      "type": "file",
+      "file": "srcapp bounded main application loop.md",
+      "x": 11280,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_common_readme",
+      "type": "file",
+      "file": "srccommon cross-cutting core (ResultErrorCodeClock).md",
+      "x": 11480,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_control_readme",
+      "type": "file",
+      "file": "srccontrol controlnavigation layer.md",
+      "x": 11680,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_drivers_readme",
+      "type": "file",
+      "file": "srcdrivers mock sensoractuator drivers.md",
+      "x": 11280,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_hal_readme",
+      "type": "file",
+      "file": "srchal hardware abstraction interfaces.md",
+      "x": 11480,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_mission_readme",
+      "type": "file",
+      "file": "srcmission mission orchestration.md",
+      "x": 11680,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_services_readme",
+      "type": "file",
+      "file": "srcservices persistence, health, failsafeAPAM.md",
+      "x": 11280,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_state_machine_readme",
+      "type": "file",
+      "file": "srcstate_machine flight state machine.md",
+      "x": 11480,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_telemetry_readme",
+      "type": "file",
+      "file": "srctelemetry 17-field telemetry packet.md",
+      "x": 11680,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_readme",
+      "type": "file",
+      "file": "tests unit and integration tests.md",
+      "x": 11280,
+      "y": 3900,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g15",
+      "type": "group",
+      "label": "Saglik Izleme",
+      "x": 12660,
+      "y": 3500,
+      "width": 880,
+      "height": 520,
+      "color": "4"
+    },
+    {
+      "id": "n_tests_test_health_monitor_rationale_1",
+      "type": "file",
+      "file": "Sa\u011fl\u0131k izleyici testleri (REQ-SAFE-009)..md",
+      "x": 12680,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_hm",
+      "type": "file",
+      "file": "_hm().md",
+      "x": 12880,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_inp",
+      "type": "file",
+      "file": "_inp()_1.md",
+      "x": 13080,
+      "y": 3580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_all_nominal_no_flags",
+      "type": "file",
+      "file": "test_all_nominal_no_flags().md",
+      "x": 12680,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_any_fault_only_critical",
+      "type": "file",
+      "file": "test_any_fault_only_critical().md",
+      "x": 12880,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_critical_battery",
+      "type": "file",
+      "file": "test_critical_battery().md",
+      "x": 13080,
+      "y": 3660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor",
+      "type": "file",
+      "file": "test_health_monitor.py.md",
+      "x": 12680,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_link_loss",
+      "type": "file",
+      "file": "test_link_loss().md",
+      "x": 12880,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_loop_overrun",
+      "type": "file",
+      "file": "test_loop_overrun().md",
+      "x": 13080,
+      "y": 3740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_low_battery",
+      "type": "file",
+      "file": "test_low_battery().md",
+      "x": 12680,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_stale_sensor_by_age",
+      "type": "file",
+      "file": "test_stale_sensor_by_age().md",
+      "x": 12880,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_health_monitor_test_stale_sensor_when_none_valid",
+      "type": "file",
+      "file": "test_stale_sensor_when_none_valid().md",
+      "x": 13080,
+      "y": 3820,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g16",
+      "type": "group",
+      "label": "Durum Makinesi Testleri",
+      "x": 0,
+      "y": 4600,
+      "width": 880,
+      "height": 520,
+      "color": "5"
+    },
+    {
+      "id": "n_tests_test_state_machine_rationale_1",
+      "type": "file",
+      "file": "Durum makinesi testleri \u2014 faz ge\u00e7i\u015fleri + stat\u00fc 0..5 (REQ-TLM-007, CONFLICT-002).md",
+      "x": 20,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_ctx",
+      "type": "file",
+      "file": "_ctx()_1.md",
+      "x": 220,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_sm",
+      "type": "file",
+      "file": "_sm().md",
+      "x": 420,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_test_apam_forces_emergency_phase",
+      "type": "file",
+      "file": "test_apam_forces_emergency_phase().md",
+      "x": 20,
+      "y": 4760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_test_boot_to_ready",
+      "type": "file",
+      "file": "test_boot_to_ready().md",
+      "x": 220,
+      "y": 4760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_test_fault_status_before_separation_is_ready",
+      "type": "file",
+      "file": "test_fault_status_before_separation_is_ready().md",
+      "x": 420,
+      "y": 4760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_test_full_nominal_sequence",
+      "type": "file",
+      "file": "test_full_nominal_sequence().md",
+      "x": 20,
+      "y": 4840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_test_hovering_then_final_and_land",
+      "type": "file",
+      "file": "test_hovering_then_final_and_land().md",
+      "x": 220,
+      "y": 4840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_test_manual_separation_command_transitions",
+      "type": "file",
+      "file": "test_manual_separation_command_transitions().md",
+      "x": 420,
+      "y": 4840,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine",
+      "type": "file",
+      "file": "test_state_machine.py.md",
+      "x": 20,
+      "y": 4920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_tests_test_state_machine_test_status_code_mapping_matches_spec",
+      "type": "file",
+      "file": "test_status_code_mapping_matches_spec().md",
+      "x": 220,
+      "y": 4920,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g17",
+      "type": "group",
+      "label": "Ayrilma Fazi",
+      "x": 2280,
+      "y": 4600,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_docs_architecture_phase_separation",
+      "type": "file",
+      "file": "Phase SEPARATION.md",
+      "x": 2300,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_mission_005",
+      "type": "file",
+      "file": "REQ-MISSION-005 Autonomous Separation at 1000m.md",
+      "x": 2500,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_arm_deploy",
+      "type": "file",
+      "file": "SIGMA Arm DeployLock Mechanism.md",
+      "x": 2700,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g18",
+      "type": "group",
+      "label": "Hovering (BONUS-1)",
+      "x": 4340,
+      "y": 4600,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_ana_prompt_hovering",
+      "type": "file",
+      "file": "Hovering  Station Keeping (BONUS-1).md",
+      "x": 4360,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_architecture_phase_hovering",
+      "type": "file",
+      "file": "Phase HOVERING.md",
+      "x": 4560,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_ctrl_004",
+      "type": "file",
+      "file": "REQ-CTRL-004 BONUS-1 Hovering 200m 10s.md",
+      "x": 4760,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g19",
+      "type": "group",
+      "label": "LoRa Donanim Gereksinimi",
+      "x": 6180,
+      "y": 4600,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_eksik_002",
+      "type": "file",
+      "file": "EKS\u0130K-002 Low-Level Parameters Missing.md",
+      "x": 6200,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_ana_prompt_lora_e22",
+      "type": "file",
+      "file": "LoRa E22 900T22D Telemetry Radio.md",
+      "x": 6400,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_hw_003",
+      "type": "file",
+      "file": "REQ-HW-003 LoRa E22 900T22D Telemetry.md",
+      "x": 6600,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g20",
+      "type": "group",
+      "label": "Aktif Inis Fazi",
+      "x": 8020,
+      "y": 4600,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_docs_architecture_phase_active_descent",
+      "type": "file",
+      "file": "Phase ACTIVE_DESCENT.md",
+      "x": 8040,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_requirements_req_mission_008",
+      "type": "file",
+      "file": "REQ-MISSION-008 SIGMA Active Descent 8-10 ms.md",
+      "x": 8240,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g21",
+      "type": "group",
+      "label": "Tasiyici Inis Fazi",
+      "x": 9640,
+      "y": 4600,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_docs_assumptions_and_conflicts_conflict_004",
+      "type": "file",
+      "file": "CONFLICT-004 Carrier Passive Descent Speed.md",
+      "x": 9660,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_docs_architecture_phase_carrier_descent",
+      "type": "file",
+      "file": "Phase CARRIER_DESCENT.md",
+      "x": 9860,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g22",
+      "type": "group",
+      "label": "Pil Gerilimi Olcumu",
+      "x": 11260,
+      "y": 4600,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_pdr_max471",
+      "type": "file",
+      "file": "MAX471 AkimGerilim Sensoru (izole 5V hattinda).md",
+      "x": 11280,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_tlm_pil_gerilimi",
+      "type": "file",
+      "file": "TLM Pil Gerilimi (V).md",
+      "x": 11480,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g23",
+      "type": "group",
+      "label": "Gorev Zamani Kaliciligi",
+      "x": 12660,
+      "y": 4600,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_sartname_gereksinim17_gorev_zamani",
+      "type": "file",
+      "file": "Gereksinim-17 Gorev Zamani (reset'te korunur).md",
+      "x": 12680,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_tlm_gonderme_saati",
+      "type": "file",
+      "file": "TLM Gonderme Saati.md",
+      "x": 12880,
+      "y": 4680,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g24",
+      "type": "group",
+      "label": "Paket Sayaci Kaliciligi",
+      "x": 0,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_sartname_gereksinim18_paket_sayaci",
+      "type": "file",
+      "file": "Gereksinim-18 Paket Sayaci (1'den baslar, reset'te devam).md",
+      "x": 20,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_tlm_paket_numarasi",
+      "type": "file",
+      "file": "TLM Paket Numarasi.md",
+      "x": 220,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g25",
+      "type": "group",
+      "label": "Kurtarma Sesli Ikaz",
+      "x": 2280,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_sartname_gereksinim28_sesli_ikaz",
+      "type": "file",
+      "file": "Gereksinim-28 Sesli Ikaz (Kurtarma).md",
+      "x": 2300,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_sartname_status_5_kurtarma",
+      "type": "file",
+      "file": "Uydu Statusu 5 Kurtarma.md",
+      "x": 2500,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g26",
+      "type": "group",
+      "label": "Dogrulanmis Gorev Profili",
+      "x": 4340,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_ana_prompt_mission_profile",
+      "type": "file",
+      "file": "Verified Mission Profile.md",
+      "x": 4360,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g27",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 6180,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_app_init",
+      "type": "file",
+      "file": "__init__.py_2.md",
+      "x": 6200,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g28",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 8020,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_common_init",
+      "type": "file",
+      "file": "__init__.py_3.md",
+      "x": 8040,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g29",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 9640,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_config_init",
+      "type": "file",
+      "file": "__init__.py.md",
+      "x": 9660,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g30",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 11260,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_control_init",
+      "type": "file",
+      "file": "__init__.py_4.md",
+      "x": 11280,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g31",
+      "type": "group",
+      "label": "Yukselme Fazi",
+      "x": 12660,
+      "y": 5200,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_docs_architecture_phase_ascent",
+      "type": "file",
+      "file": "Phase ASCENT.md",
+      "x": 12680,
+      "y": 5280,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g32",
+      "type": "group",
+      "label": "BOOT/Hazir Fazi",
+      "x": 0,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_docs_architecture_phase_boot",
+      "type": "file",
+      "file": "Phase BOOTREADY_TO_FLY.md",
+      "x": 20,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g33",
+      "type": "group",
+      "label": "Inis/Kurtarma Fazi",
+      "x": 2280,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_docs_architecture_phase_recovery",
+      "type": "file",
+      "file": "Phase LANDEDRECOVERY.md",
+      "x": 2300,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g34",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 4340,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_drivers_init",
+      "type": "file",
+      "file": "__init__.py_5.md",
+      "x": 4360,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g35",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 6180,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_hal_init",
+      "type": "file",
+      "file": "__init__.py_6.md",
+      "x": 6200,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g36",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 8020,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_mission_init",
+      "type": "file",
+      "file": "__init__.py_7.md",
+      "x": 8040,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g37",
+      "type": "group",
+      "label": "Statu 0: Ucusa Hazir",
+      "x": 9640,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_sartname_status_0_ucusa_hazir",
+      "type": "file",
+      "file": "Uydu Statusu 0 Ucusa Hazir.md",
+      "x": 9660,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g38",
+      "type": "group",
+      "label": "Statu 1: Yukselme",
+      "x": 11260,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_sartname_status_1_yukselme",
+      "type": "file",
+      "file": "Uydu Statusu 1 Yukselme.md",
+      "x": 11280,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g39",
+      "type": "group",
+      "label": "Statu 4: Gorev Yuku Inis",
+      "x": 12660,
+      "y": 5680,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_sartname_status_4_gorev_yuku_inis",
+      "type": "file",
+      "file": "Uydu Statusu 4 Gorev Yuku Inis.md",
+      "x": 12680,
+      "y": 5760,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g40",
+      "type": "group",
+      "label": "Telemetri: Basinc",
+      "x": 0,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_sartname_tlm_basinc",
+      "type": "file",
+      "file": "TLM Basinc (Pa).md",
+      "x": 20,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g41",
+      "type": "group",
+      "label": "Telemetri: GPS Altitude",
+      "x": 2280,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_sartname_tlm_gps_altitude",
+      "type": "file",
+      "file": "TLM GPS Altitude.md",
+      "x": 2300,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g42",
+      "type": "group",
+      "label": "Telemetri: GPS Latitude",
+      "x": 4340,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_sartname_tlm_gps_latitude",
+      "type": "file",
+      "file": "TLM GPS Latitude.md",
+      "x": 4360,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g43",
+      "type": "group",
+      "label": "Telemetri: GPS Longitude",
+      "x": 6180,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_sartname_tlm_gps_longitude",
+      "type": "file",
+      "file": "TLM GPS Longitude.md",
+      "x": 6200,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g44",
+      "type": "group",
+      "label": "Telemetri: Inis Hizi",
+      "x": 8020,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_sartname_tlm_inis_hizi",
+      "type": "file",
+      "file": "TLM Inis Hizi (ms).md",
+      "x": 8040,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g45",
+      "type": "group",
+      "label": "Telemetri: Pitch",
+      "x": 9640,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_sartname_tlm_pitch",
+      "type": "file",
+      "file": "TLM Pitch (derece).md",
+      "x": 9660,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g46",
+      "type": "group",
+      "label": "Telemetri: Roll",
+      "x": 11260,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_sartname_tlm_roll",
+      "type": "file",
+      "file": "TLM Roll (derece).md",
+      "x": 11280,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g47",
+      "type": "group",
+      "label": "Telemetri: Sicaklik",
+      "x": 12660,
+      "y": 6160,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_sartname_tlm_sicaklik",
+      "type": "file",
+      "file": "TLM Sicaklik (C).md",
+      "x": 12680,
+      "y": 6240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g48",
+      "type": "group",
+      "label": "Telemetri: Takim No",
+      "x": 0,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_sartname_tlm_takim_no",
+      "type": "file",
+      "file": "TLM Takim No.md",
+      "x": 20,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g49",
+      "type": "group",
+      "label": "Telemetri: Yaw",
+      "x": 2280,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_sartname_tlm_yaw",
+      "type": "file",
+      "file": "TLM Yaw (derece).md",
+      "x": 2300,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g50",
+      "type": "group",
+      "label": "Telemetri: Yukseklik",
+      "x": 4340,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_sartname_tlm_yukseklik",
+      "type": "file",
+      "file": "TLM Yukseklik (m).md",
+      "x": 4360,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g51",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 6180,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "4"
+    },
+    {
+      "id": "n_services_init",
+      "type": "file",
+      "file": "__init__.py_8.md",
+      "x": 6200,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g52",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 8020,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_src_init",
+      "type": "file",
+      "file": "__init__.py_1.md",
+      "x": 8040,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g53",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 9640,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_state_machine_init",
+      "type": "file",
+      "file": "__init__.py_9.md",
+      "x": 9660,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g54",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 11260,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "1"
+    },
+    {
+      "id": "n_telemetry_init",
+      "type": "file",
+      "file": "__init__.py_10.md",
+      "x": 11280,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g55",
+      "type": "group",
+      "label": "Python Paket Init",
+      "x": 12660,
+      "y": 6640,
+      "width": 600,
+      "height": 400,
+      "color": "2"
+    },
+    {
+      "id": "n_tests_init",
+      "type": "file",
+      "file": "__init__.py_11.md",
+      "x": 12680,
+      "y": 6720,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g56",
+      "type": "group",
+      "label": "Araclar (tools)",
+      "x": 0,
+      "y": 7120,
+      "width": 600,
+      "height": 400,
+      "color": "3"
+    },
+    {
+      "id": "n_tools_readme",
+      "type": "file",
+      "file": "tools helper scripts.md",
+      "x": 20,
+      "y": 7200,
+      "width": 180,
+      "height": 60
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_config_default_app_main",
+      "fromNode": "n_config_default",
+      "toNode": "n_app_main",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_apamconfig",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_apamconfig",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_appconfig",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_appconfig",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_get_config",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_get_config",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_healthconfig",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_healthconfig",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_missionconfig",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_missionconfig",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_pathsconfig",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_pathsconfig",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_runprofile",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_runprofile",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_telemetryconfig",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_telemetryconfig",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_with_overrides",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_with_overrides",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_enum",
+      "fromNode": "n_config_default",
+      "toNode": "n_enum",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_config_default_rationale_1",
+      "fromNode": "n_config_default",
+      "toNode": "n_config_default_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_services_failsafe",
+      "fromNode": "n_config_default",
+      "toNode": "n_services_failsafe",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_services_health_monitor",
+      "fromNode": "n_config_default",
+      "toNode": "n_services_health_monitor",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_state_machine_flight_state_machine",
+      "fromNode": "n_config_default",
+      "toNode": "n_state_machine_flight_state_machine",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_tests_test_app_integration",
+      "fromNode": "n_config_default",
+      "toNode": "n_tests_test_app_integration",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_tests_test_config",
+      "fromNode": "n_config_default",
+      "toNode": "n_tests_test_config",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_tests_test_failsafe_apam",
+      "fromNode": "n_config_default",
+      "toNode": "n_tests_test_failsafe_apam",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_tests_test_health_monitor",
+      "fromNode": "n_config_default",
+      "toNode": "n_tests_test_health_monitor",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_tests_test_state_machine",
+      "fromNode": "n_config_default",
+      "toNode": "n_tests_test_state_machine",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_runprofile_config_default_rationale_20",
+      "fromNode": "n_config_default_runprofile",
+      "toNode": "n_config_default_rationale_20",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_runprofile_enum",
+      "fromNode": "n_config_default_runprofile",
+      "toNode": "n_enum",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_runprofile_tests_test_config",
+      "fromNode": "n_config_default_runprofile",
+      "toNode": "n_tests_test_config",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_common_result",
+      "fromNode": "n_enum",
+      "toNode": "n_common_result",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_common_result_errorcode",
+      "fromNode": "n_enum",
+      "toNode": "n_common_result_errorcode",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_drivers_mock_sensors",
+      "fromNode": "n_enum",
+      "toNode": "n_drivers_mock_sensors",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_drivers_mock_sensors_sensormode",
+      "fromNode": "n_enum",
+      "toNode": "n_drivers_mock_sensors_sensormode",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_hal_interfaces",
+      "fromNode": "n_enum",
+      "toNode": "n_hal_interfaces",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_hal_interfaces_armstate",
+      "fromNode": "n_enum",
+      "toNode": "n_hal_interfaces_armstate",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_hal_interfaces_servoposition",
+      "fromNode": "n_enum",
+      "toNode": "n_hal_interfaces_servoposition",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_services_failsafe",
+      "fromNode": "n_enum",
+      "toNode": "n_services_failsafe",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_services_failsafe_apamtrigger",
+      "fromNode": "n_enum",
+      "toNode": "n_services_failsafe_apamtrigger",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_state_machine_flight_state_machine",
+      "fromNode": "n_enum",
+      "toNode": "n_state_machine_flight_state_machine",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_state_machine_flight_state_machine_flightphase",
+      "fromNode": "n_enum",
+      "toNode": "n_state_machine_flight_state_machine_flightphase",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_enum_telemetry_packet",
+      "fromNode": "n_enum",
+      "toNode": "n_telemetry_packet",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_config_default_rationale_29",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_config_default_rationale_29",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_services_failsafe",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_services_failsafe",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_altitude_guard_below_100m_no_deploy",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_altitude_guard_below_100m_no_deploy",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_apam_latches_active",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_apam_latches_active",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_counter_resets_when_speed_safe",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_counter_resets_when_speed_safe",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_execute_apam_kills_motors_before_parachute",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_execute_apam_kills_motors_before_parachute",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_link_loss_alone_does_not_trigger",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_link_loss_alone_does_not_trigger",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_manual_apam_blocked_below_100m",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_manual_apam_blocked_below_100m",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_manual_apam_triggers_above_100m",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_manual_apam_triggers_above_100m",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_no_trigger_before_10s",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_no_trigger_before_10s",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_no_trigger_during_ascent",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_no_trigger_during_ascent",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_apamconfig_tests_test_failsafe_apam_test_triggers_after_16mps_10s",
+      "fromNode": "n_config_default_apamconfig",
+      "toNode": "n_tests_test_failsafe_apam_test_triggers_after_16mps_10s",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_telemetryconfig_config_default_rationale_40",
+      "fromNode": "n_config_default_telemetryconfig",
+      "toNode": "n_config_default_rationale_40",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_healthconfig_config_default_rationale_53",
+      "fromNode": "n_config_default_healthconfig",
+      "toNode": "n_config_default_rationale_53",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_healthconfig_services_health_monitor",
+      "fromNode": "n_config_default_healthconfig",
+      "toNode": "n_services_health_monitor",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_healthconfig_tests_test_health_monitor",
+      "fromNode": "n_config_default_healthconfig",
+      "toNode": "n_tests_test_health_monitor",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_healthconfig_tests_test_health_monitor_hm",
+      "fromNode": "n_config_default_healthconfig",
+      "toNode": "n_tests_test_health_monitor_hm",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_missionconfig_config_default_rationale_64",
+      "fromNode": "n_config_default_missionconfig",
+      "toNode": "n_config_default_rationale_64",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_missionconfig_state_machine_flight_state_machine",
+      "fromNode": "n_config_default_missionconfig",
+      "toNode": "n_state_machine_flight_state_machine",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_missionconfig_tests_test_state_machine",
+      "fromNode": "n_config_default_missionconfig",
+      "toNode": "n_tests_test_state_machine",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_missionconfig_tests_test_state_machine_sm",
+      "fromNode": "n_config_default_missionconfig",
+      "toNode": "n_tests_test_state_machine_sm",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_pathsconfig_config_default_rationale_84",
+      "fromNode": "n_config_default_pathsconfig",
+      "toNode": "n_config_default_rationale_84",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_app_main",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_app_main",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_config_default_appconfig_is_simulation",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_config_default_appconfig_is_simulation",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_config_default_appconfig_loop_period_s",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_config_default_appconfig_loop_period_s",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_config_default_appconfig_telemetry_period_s",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_config_default_appconfig_telemetry_period_s",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_config_default_get_config",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_config_default_get_config",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_config_default_rationale_94",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_config_default_rationale_94",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_config_default_with_overrides",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_config_default_with_overrides",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_tests_test_config",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_tests_test_config",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_tests_test_config_test_loop_period",
+      "fromNode": "n_config_default_appconfig",
+      "toNode": "n_tests_test_config_test_loop_period",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_loop_period_s_config_default_py_float",
+      "fromNode": "n_config_default_appconfig_loop_period_s",
+      "toNode": "n_config_default_py_float",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_py_float_config_default_appconfig_telemetry_period_s",
+      "fromNode": "n_config_default_py_float",
+      "toNode": "n_config_default_appconfig_telemetry_period_s",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_appconfig_is_simulation_config_default_py_bool",
+      "fromNode": "n_config_default_appconfig_is_simulation",
+      "toNode": "n_config_default_py_bool",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_app_main",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_app_main",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_app_main_main",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_app_main_main",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_config_default_py_str",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_config_default_py_str",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_config_default_rationale_129",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_config_default_rationale_129",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_app_integration",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_app_integration",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_app_integration_cfg",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_app_integration_cfg",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config_test_apam_thresholds_from_spec",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config_test_apam_thresholds_from_spec",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config_test_config_is_immutable",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config_test_config_is_immutable",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config_test_conflict_defaults",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config_test_conflict_defaults",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config_test_default_profile_is_simulation_only",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config_test_default_profile_is_simulation_only",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config_test_team_number_verified",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config_test_team_number_verified",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config_test_telemetry_rate_is_1hz",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config_test_telemetry_rate_is_1hz",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_get_config_tests_test_config_test_unknown_profile_raises",
+      "fromNode": "n_config_default_get_config",
+      "toNode": "n_tests_test_config_test_unknown_profile_raises",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_with_overrides_config_default_rationale_144",
+      "fromNode": "n_config_default_with_overrides",
+      "toNode": "n_config_default_rationale_144",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_with_overrides_tests_test_app_integration",
+      "fromNode": "n_config_default_with_overrides",
+      "toNode": "n_tests_test_app_integration",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_with_overrides_tests_test_app_integration_cfg",
+      "fromNode": "n_config_default_with_overrides",
+      "toNode": "n_tests_test_app_integration_cfg",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_with_overrides_tests_test_config",
+      "fromNode": "n_config_default_with_overrides",
+      "toNode": "n_tests_test_config",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_config_default_with_overrides_tests_test_config_test_loop_period",
+      "fromNode": "n_config_default_with_overrides",
+      "toNode": "n_tests_test_config_test_loop_period",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_app_main_build_and_run",
+      "fromNode": "n_app_main",
+      "toNode": "n_app_main_build_and_run",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_app_main_main",
+      "fromNode": "n_app_main",
+      "toNode": "n_app_main_main",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_app_main_runsummary",
+      "fromNode": "n_app_main",
+      "toNode": "n_app_main_runsummary",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_app_main_simclock",
+      "fromNode": "n_app_main",
+      "toNode": "n_app_main_simclock",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_common_clock_clock",
+      "fromNode": "n_app_main",
+      "toNode": "n_common_clock_clock",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_common_clock_fakeclock",
+      "fromNode": "n_app_main",
+      "toNode": "n_common_clock_fakeclock",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_flight_profile_flightprofile",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_flight_profile_flightprofile",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_flight_profile_pressure_to_altitude",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_flight_profile_pressure_to_altitude",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_mock_actuators_actuatorsuite",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_mock_actuators_actuatorsuite",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_mock_sensors_mockbarometer",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_mock_sensors_mockbarometer",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_mock_sensors_mockbattery",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_mock_sensors_mockbattery",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_mock_sensors_mockgps",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_mock_sensors_mockgps",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_mock_sensors_mockimu",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_mock_sensors_mockimu",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_drivers_mock_sensors_mocktelemetrylink",
+      "fromNode": "n_app_main",
+      "toNode": "n_drivers_mock_sensors_mocktelemetrylink",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_hal_interfaces_servoposition",
+      "fromNode": "n_app_main",
+      "toNode": "n_hal_interfaces_servoposition",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_mission_context_flightcontext",
+      "fromNode": "n_app_main",
+      "toNode": "n_mission_context_flightcontext",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_services_failsafe_failsafemanager",
+      "fromNode": "n_app_main",
+      "toNode": "n_services_failsafe_failsafemanager",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_services_health_monitor_healthinputs",
+      "fromNode": "n_app_main",
+      "toNode": "n_services_health_monitor_healthinputs",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_services_health_monitor_healthmonitor",
+      "fromNode": "n_app_main",
+      "toNode": "n_services_health_monitor_healthmonitor",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_services_persistence_persistencestore",
+      "fromNode": "n_app_main",
+      "toNode": "n_services_persistence_persistencestore",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_state_machine_flight_state_machine_flightphase",
+      "fromNode": "n_app_main",
+      "toNode": "n_state_machine_flight_state_machine_flightphase",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_state_machine_flight_state_machine_flightstatemachine",
+      "fromNode": "n_app_main",
+      "toNode": "n_state_machine_flight_state_machine_flightstatemachine",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_telemetry_packet_arasinputs",
+      "fromNode": "n_app_main",
+      "toNode": "n_telemetry_packet_arasinputs",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_telemetry_packet_compute_error_code",
+      "fromNode": "n_app_main",
+      "toNode": "n_telemetry_packet_compute_error_code",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_telemetry_packet_telemetryfields",
+      "fromNode": "n_app_main",
+      "toNode": "n_telemetry_packet_telemetryfields",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_telemetry_packet_telemetrypacketbuilder",
+      "fromNode": "n_app_main",
+      "toNode": "n_telemetry_packet_telemetrypacketbuilder",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_telemetry_telemetry_service_telemetryservice",
+      "fromNode": "n_app_main",
+      "toNode": "n_telemetry_telemetry_service_telemetryservice",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_app_main_rationale_1",
+      "fromNode": "n_app_main",
+      "toNode": "n_app_main_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_runsummary_app_main_build_and_run",
+      "fromNode": "n_app_main_runsummary",
+      "toNode": "n_app_main_build_and_run",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_runsummary_app_main_rationale_46",
+      "fromNode": "n_app_main_runsummary",
+      "toNode": "n_app_main_rationale_46",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_app_main_build_and_run",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_app_main_build_and_run",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_app_main_rationale_58",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_app_main_rationale_58",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration_test_bounded_run_respects_max_cycles",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration_test_bounded_run_respects_max_cycles",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration_test_deterministic_repeatable",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration_test_deterministic_repeatable",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration_test_nominal_reaches_descent_or_landing",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration_test_nominal_reaches_descent_or_landing",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration_test_run_produces_packets_and_csv",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration_test_run_produces_packets_and_csv",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration_test_runaway_profile_triggers_apam",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration_test_runaway_profile_triggers_apam",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration_test_safe_state_no_motor_output_in_simulation",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration_test_safe_state_no_motor_output_in_simulation",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_simclock_tests_test_app_integration_test_telemetry_is_1hz",
+      "fromNode": "n_app_main_simclock",
+      "toNode": "n_tests_test_app_integration_test_telemetry_is_1hz",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_appconfig",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_appconfig",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_flight_profile_flightprofile",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_flight_profile_flightprofile",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_flight_profile_pressure_to_altitude",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_flight_profile_pressure_to_altitude",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_mock_actuators_actuatorsuite",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_mock_actuators_actuatorsuite",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_mock_sensors_mockbarometer",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_mock_sensors_mockbarometer",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_mock_sensors_mockbattery",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_mock_sensors_mockbattery",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_mock_sensors_mockgps",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_mock_sensors_mockgps",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_mock_sensors_mockimu",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_mock_sensors_mockimu",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_drivers_mock_sensors_mocktelemetrylink",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_drivers_mock_sensors_mocktelemetrylink",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_mission_context_flightcontext",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_mission_context_flightcontext",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_services_failsafe_failsafemanager",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_services_failsafe_failsafemanager",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_services_health_monitor_healthinputs",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_services_health_monitor_healthinputs",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_services_health_monitor_healthmonitor",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_services_health_monitor_healthmonitor",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_services_persistence_persistencestore",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_services_persistence_persistencestore",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_src_app_main_py_clock",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_src_app_main_py_clock",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_src_app_main_py_float",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_src_app_main_py_float",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_src_app_main_py_int",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_src_app_main_py_int",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_src_app_main_py_str",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_src_app_main_py_str",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_state_machine_flight_state_machine_flightstatemachine",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_state_machine_flight_state_machine_flightstatemachine",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_telemetry_packet_arasinputs",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_telemetry_packet_arasinputs",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_telemetry_packet_compute_error_code",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_telemetry_packet_compute_error_code",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_telemetry_packet_telemetryfields",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_telemetry_packet_telemetryfields",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_telemetry_packet_telemetrypacketbuilder",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_telemetry_packet_telemetrypacketbuilder",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_telemetry_telemetry_service_telemetryservice",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_telemetry_telemetry_service_telemetryservice",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_app_main_main",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_app_main_main",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_app_main_rationale_64",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_app_main_rationale_64",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration_test_bounded_run_respects_max_cycles",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration_test_bounded_run_respects_max_cycles",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration_test_deterministic_repeatable",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration_test_deterministic_repeatable",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration_test_nominal_reaches_descent_or_landing",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration_test_nominal_reaches_descent_or_landing",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration_test_run_produces_packets_and_csv",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration_test_run_produces_packets_and_csv",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration_test_runaway_profile_triggers_apam",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration_test_runaway_profile_triggers_apam",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration_test_safe_state_no_motor_output_in_simulation",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration_test_safe_state_no_motor_output_in_simulation",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_app_main_build_and_run_tests_test_app_integration_test_telemetry_is_1hz",
+      "fromNode": "n_app_main_build_and_run",
+      "toNode": "n_tests_test_app_integration_test_telemetry_is_1hz",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_src_app_main_py_int_app_main_main",
+      "fromNode": "n_src_app_main_py_int",
+      "toNode": "n_app_main_main",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_src_app_main_py_str_app_main_main",
+      "fromNode": "n_src_app_main_py_str",
+      "toNode": "n_app_main_main",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_common_clock_clock",
+      "fromNode": "n_common_clock",
+      "toNode": "n_common_clock_clock",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_common_clock_fakeclock",
+      "fromNode": "n_common_clock",
+      "toNode": "n_common_clock_fakeclock",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_common_clock_realclock",
+      "fromNode": "n_common_clock",
+      "toNode": "n_common_clock_realclock",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_datetime",
+      "fromNode": "n_common_clock",
+      "toNode": "n_datetime",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_common_clock_rationale_1",
+      "fromNode": "n_common_clock",
+      "toNode": "n_common_clock_rationale_1",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_common_clock_clock_now_monotonic",
+      "fromNode": "n_common_clock_clock",
+      "toNode": "n_common_clock_clock_now_monotonic",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_common_clock_clock_now_utc",
+      "fromNode": "n_common_clock_clock",
+      "toNode": "n_common_clock_clock_now_utc",
+      "label": "method [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_protocol",
+      "fromNode": "n_common_clock_clock",
+      "toNode": "n_protocol",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_common_clock_rationale_20",
+      "fromNode": "n_common_clock_clock",
+      "toNode": "n_common_clock_rationale_20",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_drivers_mock_sensors",
+      "fromNode": "n_common_clock_clock",
+      "toNode": "n_drivers_mock_sensors",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_services_persistence",
+      "fromNode": "n_common_clock_clock",
+      "toNode": "n_services_persistence",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_tests_test_clock",
+      "fromNode": "n_common_clock_clock",
+      "toNode": "n_tests_test_clock",
+      "label": "imports [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_barometer",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_barometer",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_battery",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_battery",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_flightcontrollerlink",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_flightcontrollerlink",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_gps",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_gps",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_imu",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_imu",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_motorgroup",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_motorgroup",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_servo",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_servo",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_protocol_hal_interfaces_telemetrylink",
+      "fromNode": "n_protocol",
+      "toNode": "n_hal_interfaces_telemetrylink",
+      "label": "inherits [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_now_monotonic_src_common_clock_py_float",
+      "fromNode": "n_common_clock_clock_now_monotonic",
+      "toNode": "n_src_common_clock_py_float",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_now_monotonic_common_clock_rationale_23",
+      "fromNode": "n_common_clock_clock_now_monotonic",
+      "toNode": "n_common_clock_rationale_23",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_src_common_clock_py_float_common_clock_fakeclock_advance",
+      "fromNode": "n_src_common_clock_py_float",
+      "toNode": "n_common_clock_fakeclock_advance",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_src_common_clock_py_float_common_clock_fakeclock_init",
+      "fromNode": "n_src_common_clock_py_float",
+      "toNode": "n_common_clock_fakeclock_init",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_src_common_clock_py_float_common_clock_fakeclock_now_monotonic",
+      "fromNode": "n_src_common_clock_py_float",
+      "toNode": "n_common_clock_fakeclock_now_monotonic",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_src_common_clock_py_float_common_clock_realclock_now_monotonic",
+      "fromNode": "n_src_common_clock_py_float",
+      "toNode": "n_common_clock_realclock_now_monotonic",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_now_utc_datetime",
+      "fromNode": "n_common_clock_clock_now_utc",
+      "toNode": "n_datetime",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_common_clock_clock_now_utc_common_clock_rationale_27",
+      "fromNode": "n_common_clock_clock_now_utc",
+      "toNode": "n_common_clock_rationale_27",
+      "label": "rationale_for [EXTRACTED]"
+    },
+    {
+      "id": "e_datetime_common_clock_fakeclock_init",
+      "fromNode": "n_datetime",
+      "toNode": "n_common_clock_fakeclock_init",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_datetime_common_clock_fakeclock_now_utc",
+      "fromNode": "n_datetime",
+      "toNode": "n_common_clock_fakeclock_now_utc",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_datetime_common_clock_fakeclock_set_utc",
+      "fromNode": "n_datetime",
+      "toNode": "n_common_clock_fakeclock_set_utc",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_datetime_common_clock_realclock_now_utc",
+      "fromNode": "n_datetime",
+      "toNode": "n_common_clock_realclock_now_utc",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_datetime_telemetry_packet",
+      "fromNode": "n_datetime",
+      "toNode": "n_telemetry_packet",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_datetime_tests_test_clock",
+      "fromNode": "n_datetime",
+      "toNode": "n_tests_test_clock",
+      "label": "imports_from [EXTRACTED]"
+    },
+    {
+      "id": "e_datetime_tests_test_clock_test_fake_clock_advance_moves_both",
+      "fromNode": "n_datetime",
+      "toNode": "n_tests_test_clock_test_fake_clock_advance_moves_both",
+      "label": "calls [INFERRED]"
+    }
+  ]
+}

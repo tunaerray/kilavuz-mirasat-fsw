@@ -111,6 +111,22 @@ def test_execute_apam_kills_motors_before_parachute():
     assert fm.parachute_deployed
 
 
+def test_contradicting_gps_blocks_apam():
+    """GPS mevcut ve baro aşırı hızını yalanlıyorsa APAM tetiklenmez (false-trigger)."""
+    fm = FailsafeManager(ApamConfig())
+    fm.update(_ctx(0.0, gps_valid=True, speed_consistent=False))
+    dec = _step(fm, 1.0, 15.0, 1.0, gps_valid=True, speed_consistent=False)
+    assert not dec.apam_active
+
+
+def test_gps_lost_still_triggers_single_sensor():
+    """GPS yoksa çoklu-sensör filtresi uygulanmaz; APAM tek sensörle tetiklenir."""
+    fm = FailsafeManager(ApamConfig())
+    fm.update(_ctx(0.0, gps_valid=False, speed_consistent=False))
+    dec = _step(fm, 1.0, 12.0, 1.0, gps_valid=False, speed_consistent=False)
+    assert dec.apam_active
+
+
 def test_apam_latches_active():
     fm = FailsafeManager(ApamConfig())
     fm.update(_ctx(0.0))

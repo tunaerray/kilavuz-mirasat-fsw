@@ -41,4 +41,8 @@ class FlightContext:
     apam_active: bool = False
     manual_separation_cmd: bool = False
     manual_apam_cmd: bool = False
+    # Aşama 2 füzyon bayrakları (varsayılanlar Aşama 1 davranışını korur):
+    # speed_consistent=True → çoklu-sensör uyumu (APAM false-trigger filtresi).
+    speed_consistent: bool = True
+    motor_fault: bool = False
     health: HealthFlags = field(default_factory=HealthFlags)

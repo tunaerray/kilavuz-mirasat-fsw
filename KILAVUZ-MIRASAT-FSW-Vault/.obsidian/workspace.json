@@ -1,0 +1,209 @@
+{
+  "main": {
+    "id": "248ea53fc470aab0",
+    "type": "split",
+    "children": [
+      {
+        "id": "9bb98c8b192d712c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6450622636cff545",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Grafik Görünümü"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "746920df1e3cd11e",
+    "type": "split",
+    "children": [
+      {
+        "id": "99ab5afa3be8db1f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f340e2586bfe9517",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Dosya Gezgini"
+            }
+          },
+          {
+            "id": "cb104daedf128aa1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Ara"
+            }
+          },
+          {
+            "id": "2c3814793447d461",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Yer İmleri"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "619f614ba51ba410",
+    "type": "split",
+    "children": [
+      {
+        "id": "daa01648c555c9a7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "eb390ea54726e434",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Geri Bağlantılar"
+            }
+          },
+          {
+            "id": "1d2fb43c33e65276",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Giden bağlantılar"
+            }
+          },
+          {
+            "id": "a73512de05e31693",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etiketler"
+            }
+          },
+          {
+            "id": "34f8cdff667d9614",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Tüm özellikler"
+            }
+          },
+          {
+            "id": "4b2911bb376630af",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Anahat"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Hızlı geçişi aç": false,
+      "graph:Grafik görünümünü aç": false,
+      "canvas:Yeni tuval oluşturun": false,
+      "daily-notes:Bugünün Notunu Aç": false,
+      "templates:Şablon ekle": false,
+      "command-palette:Komut paletini aç": false,
+      "bases:Yeni taban oluştur": false
+    }
+  },
+  "active": "6450622636cff545",
+  "lastOpenFiles": [
+    "FlightStateMachine.md",
+    "Zaman tabanlı senaryo. Anahtar kareler (keyframe) arasında irtifa DOĞRUSAL     i.md",
+    "Zaman kaynağı sözleşmesi..md",
+    "Z.I.R.H Store-and-Forward (BONUS-3).md",
+    "Z.I.R.H Cozumu (868 MHz SAW filtre, RSSISNR, CRC, SD buffer).md",
+    "Yükselme sırasında APAM tetiklenmez (iniş fazı kilidi)..md",
+    "Yer Istasyonu Yazilimi (Python + PyQt5).md",
+    "with_overrides().md",
+    "Verified Mission Profile.md",
+    "Varsa önceki durumu yükler ve boot_count'u artırır. Dosya yoksa temiz         ba.md",
+    "Üretim saati OS monoton sayacı + UTC duvar saati..md",
+    "UYDU STATÜSÜ kodları — Şartname §2.4 s.16 (BAĞLAYICI).     CONFLICT-002 PDR s.6.md",
+    "Uydu Statusu 5 Kurtarma.md",
+    "Uydu Statusu 4 Gorev Yuku Inis.md",
+    "Uydu Statusu 3 Ayrilma (spec).md",
+    "Uydu Statusu 2 Model Uydu Inis (spec).md",
+    "TLM Yaw (derece).md",
+    "TLM Uydu Statusu.md",
+    "TLM Takim No.md",
+    "TLM Sicaklik (C).md",
+    "TLM Roll (derece).md",
+    "TLM RHRHRH (Bonus komutu).md",
+    "TLM Pitch (derece).md",
+    "TLM Pil Gerilimi (V).md",
+    "TLM Paket Numarasi.md",
+    "TLM Inis Hizi (ms).md",
+    "graph.canvas"
+  ]
+}

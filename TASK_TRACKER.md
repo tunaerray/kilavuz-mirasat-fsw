@@ -3,13 +3,20 @@
 Aşama 1'de bilinçli olarak ERTELENEN işler. Placeholder/boş fonksiyon bırakma
 yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
 
-## Aşama 2 — Kontrol & Navigasyon
-- [ ] REQ-CTRL-001: Sensör füzyonu (baro+IMU+GPS) irtifa/iniş hızı/yönelim kestirimi.
-- [ ] REQ-CTRL-002: PID ile 8–10 m/s kontrollü alçalma.
-- [ ] REQ-CTRL-003: SİGMA kol açma/kilitleme kontrol dizisi.
-- [ ] REQ-CTRL-005: Motor/servo komut üretimi + endpoint/açı limiti.
-- [ ] REQ-SAFE-010: Motor PWM/RPM tutarsızlığı → motor arıza tespiti.
-- [ ] EKSİK-001: `FlightControllerLink` somut MAVLink implementasyonu (ASSUMPTION-001).
+## Aşama 2 — Kontrol & Navigasyon ✅ (TAMAMLANDI)
+- [x] REQ-CTRL-001: Sensör füzyonu (baro+GPS irtifa/hız, IMU yönelim, çoklu-sensör
+      tutarlılık) → `src/control/estimator.py`.
+- [x] REQ-CTRL-002: PID ile 8–10 m/s kontrollü alçalma → `pid.py`,
+      `descent_controller.py`.
+- [~] REQ-CTRL-003: SİGMA kol açma/kilitleme — temel dizi `main.py`'de; tam
+      kontrol koreografisi (zamanlama/geri bildirim) Aşama 3'te olgunlaşacak.
+- [x] REQ-CTRL-005: Motor komut üretimi + throttle endpoint limiti (arm interlock).
+- [x] REQ-SAFE-010: Motor PWM/RPM tutarsızlığı → `src/services/motor_health.py`.
+- [x] EKSİK-001 (sim): `SimulatedFlightControllerLink` (RPM modeli, arıza enjeksiyonu).
+- [x] APAM çoklu-sensör çelişki filtresi (GPS varsa yalanlamayı dikkate al, GPS
+      yoksa tek sensöre düş) → `failsafe.py`.
+- [ ] EKSİK-001 (gerçek): `FlightControllerLink` gerçek MAVLink implementasyonu
+      donanım gerektirir → Aşama 5.
 
 ## Aşama 3 — Görev & Bonus
 - [ ] REQ-MISSION-006: Manuel ayrılma komutu servisi.

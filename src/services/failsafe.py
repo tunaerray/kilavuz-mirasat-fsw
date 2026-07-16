@@ -87,11 +87,18 @@ class FailsafeManager:
             # Hız güvenli seviyeye düşerse sayaç SIFIRLANIR (anlık artış tetiklemez).
             self._overspeed_timer_s = 0.0
 
+        # --- Çoklu-sensör çelişki filtresi (false-trigger önlemi) ---
+        # İkinci bir sensör (GPS) MEVCUT ve aşırı hızı YALANLIYORSA tetikleme.
+        # GPS yoksa (gps_valid=False) tek sensöre güvenilir → filtre uygulanmaz
+        # (APAM güvenlik gereği yine de tetiklenebilmelidir).
+        speed_contradicted = ctx.gps_valid and (not ctx.speed_consistent)
+
         # --- Tetik koşulları ---
         algo_trigger = (
             in_descent
             and self._overspeed_timer_s >= c.trigger_duration_s
             and ctx.altitude_m > c.min_deploy_altitude_m   # >100 m kilidi
+            and not speed_contradicted                     # çoklu-sensör onayı
         )
         manual_trigger = ctx.manual_apam_cmd and ctx.altitude_m > c.min_deploy_altitude_m
 

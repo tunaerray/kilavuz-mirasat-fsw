@@ -67,10 +67,43 @@ def test_runaway_profile_triggers_apam(tmp_path):
     assert s.parachute_deployed
 
 
-def test_safe_state_no_motor_output_in_simulation(tmp_path):
-    # SIMULATION_ONLY: koşu boyunca motorlar hiç arm edilmez (Aşama 1'de kontrol yok)
+def test_short_run_no_parachute(tmp_path):
     cfg = _cfg(tmp_path)
     assert cfg.is_simulation
     s = build_and_run(cfg, max_cycles=100, duration_s=None, clock=SimClock())
-    # nominal koşuda paraşüt açılmamalı
+    # kısa nominal koşuda (henüz ayrılma yok) paraşüt açılmamalı
     assert not s.parachute_deployed
+
+
+# --- Aşama 2: kontrol & navigasyon entegrasyonu ---
+
+def test_active_descent_arms_motors_and_applies_throttle(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=180.0, clock=SimClock())
+    assert s.motors_ever_armed          # aktif iniş fazında motorlar arm edildi
+    assert s.max_throttle > 0.0         # throttle uygulandı
+    assert not s.motor_fault_detected   # sağlıklı motorlarda arıza yok
+
+
+def test_motor_fault_injection_detected(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=180.0, clock=SimClock(),
+                      motor_fault_factor=0.2)
+    assert s.motor_fault_detected       # düşük RPM → motor arıza tespiti (REQ-SAFE-010)
+
+
+def test_nominal_no_false_apam_with_fusion(tmp_path):
+    # Füzyon tabanlı kestirim nominal profilde APAM'ı yanlış tetiklememeli
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=180.0, clock=SimClock())
+    assert not s.apam_triggered
+    assert s.final_phase in (FlightPhase.LANDED, FlightPhase.RECOVERY)
+
+
+def test_pitch_roll_yaw_in_telemetry_from_fusion(tmp_path):
+    # Telemetri yönelim alanları füzyon kestiriminden dolar (0 değil)
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=200, duration_s=None, clock=SimClock())
+    parts = s.last_telemetry.split(",")
+    yaw = float(parts[14])
+    assert yaw != 0.0
