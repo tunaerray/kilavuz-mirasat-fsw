@@ -10,6 +10,7 @@ def _cfg(tmp_path):
         run_dir=str(tmp_path),
         persistence_file=str(tmp_path / "state.json"),
         telemetry_csv=str(tmp_path / "tlm.csv"),
+        s2d_csv=str(tmp_path / "TMUY2026_947450_S2D.csv"),
         event_log=str(tmp_path / "events.log"),
     )
     return with_overrides(base, paths=paths)
@@ -107,3 +108,48 @@ def test_pitch_roll_yaw_in_telemetry_from_fusion(tmp_path):
     parts = s.last_telemetry.split(",")
     yaw = float(parts[14])
     assert yaw != 0.0
+
+
+# --- Aşama 3: görev & bonus servisleri ---
+
+def test_hover_completes_in_nominal(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=200.0, clock=SimClock())
+    assert s.hover_completed              # BONUS-1 askı yapıldı ve tamamlandı
+
+
+def test_buzzer_on_and_telemetry_terminates_after_landing(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=200.0, clock=SimClock())
+    assert s.final_phase in (FlightPhase.LANDED, FlightPhase.RECOVERY)
+    assert s.buzzer_on                    # Gereksinim-28
+    assert s.telemetry_terminated         # iniş sonrası pencere kapandı
+
+
+def test_s2d_command_records_and_telemetry_field(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=120.0, clock=SimClock(),
+                      commands=[(60.0, "2R0G1B")])
+    assert s.commands_handled == 1
+    assert s.rhrhrh_last == "2R0G1B"
+    # SD kaydı oluştu
+    sd = (tmp_path / "TMUY2026_947450_S2D.csv").read_text(encoding="utf-8")
+    assert "2R0G1B" in sd
+    # telemetri alanı 16 (0-indeks 15) RHRHRH ile dolu
+    assert s.last_telemetry.split(",")[15] == "2R0G1B"
+
+
+def test_manual_apam_command_triggers_apam(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=200.0, clock=SimClock(),
+                      commands=[(100.0, "APAM")])   # ~600 m'de manuel APAM
+    assert s.apam_triggered
+    assert s.parachute_deployed
+
+
+def test_invalid_command_ignored_run_continues(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=300, duration_s=None, clock=SimClock(),
+                      commands=[(2.0, "LAUNCH")])   # bilinmeyen komut
+    assert s.commands_handled == 0                  # işlenmedi ama koşu sürdü
+    assert s.cycles == 300

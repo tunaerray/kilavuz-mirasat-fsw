@@ -26,15 +26,19 @@ from src.drivers.mock_sensors import (
     MockBattery,
     MockGps,
     MockImu,
+    MockIotLink,
     MockTelemetryLink,
 )
 from src.drivers.sim_flight_controller import SimulatedFlightControllerLink
 from src.hal.interfaces import ServoPosition
 from src.mission.context import FlightContext
+from src.services.command_service import CommandService
 from src.services.failsafe import FailsafeManager
 from src.services.health_monitor import HealthInputs, HealthMonitor
 from src.services.motor_health import MotorHealthMonitor
 from src.services.persistence import PersistenceStore
+from src.services.recovery import RecoveryManager
+from src.services.s2d_iot import S2dIotService
 from src.state_machine.flight_state_machine import FlightPhase, FlightStateMachine
 from src.telemetry.packet import (
     ArasInputs,
@@ -59,6 +63,11 @@ class RunSummary:
     motor_fault_detected: bool = False
     max_throttle: float = 0.0
     motors_ever_armed: bool = False
+    rhrhrh_last: str = ""
+    buzzer_on: bool = False
+    telemetry_terminated: bool = False
+    hover_completed: bool = False
+    commands_handled: int = 0
 
 
 class SimClock(FakeClock):
@@ -67,7 +76,8 @@ class SimClock(FakeClock):
 
 def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
                   clock: Clock | None = None, profile_name: str = "nominal_descent",
-                  event_sink=None, motor_fault_factor: float = 1.0) -> RunSummary:
+                  event_sink=None, motor_fault_factor: float = 1.0,
+                  commands: "list[tuple[float, str]] | None" = None) -> RunSummary:
     """
     Sınırlı döngüyü kurar ve çalıştırır. `clock` verilmezse SimClock kullanılır
     (deterministik, gerçek zaman beklemesiz). `event_sink(str)` log satırlarını alır.
@@ -131,6 +141,14 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     if motor_fault_factor < 1.0:
         fc_link.set_motor_fault(motor_fault_factor)   # test/senaryo enjeksiyonu
 
+    # Aşama 3: görev & bonus servisleri.
+    iot_link = MockIotLink()
+    s2d = S2dIotService(iot_link, config.paths.s2d_csv)
+    commander = CommandService(s2d)
+    recovery = RecoveryManager(config.mission)
+    pending_cmds = sorted(commands or [], key=lambda c: c[0])
+    cmd_idx = 0
+
     # Döngü durumu
     separation_confirmed = False
     arms_deployed = False
@@ -142,6 +160,7 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     motor_fault_ever = False
     max_throttle = 0.0
     motors_ever_armed = False
+    telemetry_terminated = False
 
     cycle = 0
     while cycle < max_cycles:
@@ -149,6 +168,14 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         t = mission_time()
         if duration_s is not None and t >= duration_s:
             break
+
+        # --- Uplink komutları (zamanı gelmiş olanları işle) ---
+        while cmd_idx < len(pending_cmds) and pending_cmds[cmd_idx][0] <= t:
+            _, cmd_str = pending_cmds[cmd_idx]
+            res = commander.handle(cmd_str)
+            log(f"KOMUT '{cmd_str}': "
+                f"{res.unwrap().detail if res.is_ok else 'RED - ' + res.message}")
+            cmd_idx += 1
 
         # --- Sensörleri oku ---
         b = baro.read()
@@ -167,15 +194,17 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         ascending = descent_speed < -0.5
         gps_valid = est.gps_valid
 
-        # --- Görev mantığı: otonom ayrılma ve kol açma (Aşama 1 iskelet) ---
+        # --- Görev mantığı: otonom VEYA manuel ayrılma ve kol açma ---
         sep_alt = config.mission.separation_altitude_m
-        if (not separation_confirmed and not ascending
-                and altitude <= sep_alt and t > 0.0
-                and state.phase in (FlightPhase.CARRIER_DESCENT,
-                                    FlightPhase.SEPARATION)):
+        autonomous_sep = (not ascending and altitude <= sep_alt and t > 0.0
+                          and state.phase in (FlightPhase.CARRIER_DESCENT,
+                                              FlightPhase.SEPARATION))
+        manual_sep = commander.manual_separation_requested and t > 0.0
+        if not separation_confirmed and (autonomous_sep or manual_sep):
             actuators.separation_servo.move_to(ServoPosition.OPEN)
             separation_confirmed = True
-            log(f"SEPARATION: ~{altitude:.0f} m otonom ayrılma komutu")
+            kind = "manuel" if (manual_sep and not autonomous_sep) else "otonom"
+            log(f"SEPARATION: ~{altitude:.0f} m {kind} ayrılma komutu")
         if separation_confirmed and not arms_deployed and \
                 state.phase in (FlightPhase.SEPARATION, FlightPhase.ARM_DEPLOY):
             actuators.arms.deploy_and_lock()
@@ -201,6 +230,8 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             mission_time_s=t, altitude_m=altitude, descent_speed_mps=descent_speed,
             ascending=ascending, gps_valid=gps_valid,
             separation_confirmed=separation_confirmed, arms_deployed=arms_deployed,
+            manual_separation_cmd=commander.manual_separation_requested,
+            manual_apam_cmd=commander.manual_apam_requested,
             speed_consistent=est.speed_consistent, motor_fault=motor_fault_prev,
             health=hflags)
         decision = failsafe.update(ctx)
@@ -249,8 +280,15 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         motor_fault_prev = mh.fault
         motor_fault_ever = motor_fault_ever or mh.fault
 
+        # --- Kurtarma (Aşama 3): buzzer + iniş sonrası telemetri penceresi ---
+        rec = recovery.update(state.phase, t, actuators.buzzer)
+        if rec.landed and not telemetry_terminated and not rec.telemetry_active:
+            telemetry_terminated = True
+            log(f"KURTARMA: iniş sonrası {config.mission.post_landing_telemetry_s:.0f} sn "
+                "telemetri tamamlandı, iletim sonlandırıldı (buzzer açık)")
+
         # --- Telemetri (1 Hz) ---
-        if t >= next_telemetry_at:
+        if t >= next_telemetry_at and rec.telemetry_active:
             next_telemetry_at = t + config.telemetry_period_s
             pn = persistence.next_packet_number().unwrap()
             speed_check = state.phase in (
@@ -283,7 +321,7 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
                 pitch_deg=est.pitch_deg,
                 roll_deg=est.roll_deg,
                 yaw_deg=est.yaw_deg,
-                rhrhrh="",       # BONUS-2 Aşama 3'te doldurulur
+                rhrhrh=s2d.current_password,   # BONUS-2: son geçerli RHRHRH
                 team_number=config.team_number,
             )
             pub = telemetry.publish(fields)
@@ -310,6 +348,11 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         motor_fault_detected=motor_fault_ever,
         max_throttle=max_throttle,
         motors_ever_armed=motors_ever_armed,
+        rhrhrh_last=s2d.current_password,
+        buzzer_on=actuators.buzzer.is_on,
+        telemetry_terminated=telemetry_terminated,
+        hover_completed=state.hover_complete,
+        commands_handled=commander.handled_count,
     )
 
 
@@ -327,7 +370,19 @@ def main(argv: list[str] | None = None) -> int:
                         help="Simülasyon uçuş profili")
     parser.add_argument("--motor-fault", type=float, default=1.0,
                         help="Motor verim faktörü (1.0 sağlıklı, <1 arıza enjekte)")
+    parser.add_argument("--command", action="append", default=[],
+                        metavar="T:CMD",
+                        help="Zamanlı uplink komutu, ör. '25:2R0G1B' veya '30:APAM' "
+                             "(birden çok kez verilebilir)")
     args = parser.parse_args(argv)
+
+    injected = []
+    for spec in args.command:
+        try:
+            t_str, cmd_str = spec.split(":", 1)
+            injected.append((float(t_str), cmd_str))
+        except ValueError:
+            raise SystemExit(f"Geçersiz --command biçimi: {spec!r} (T:CMD bekleniyor)")
 
     config = get_config(args.config)
     # Güvenlik teyidi: yalnız SIMULATION_ONLY desteklenir.
@@ -337,7 +392,7 @@ def main(argv: list[str] | None = None) -> int:
     summary = build_and_run(
         config, max_cycles=args.max_cycles, duration_s=args.duration,
         profile_name=args.profile, event_sink=print,
-        motor_fault_factor=args.motor_fault)
+        motor_fault_factor=args.motor_fault, commands=injected)
 
     print("--- KOŞU ÖZETİ ---")
     print(f"Çevrim: {summary.cycles}  Paket: {summary.packets}")
@@ -347,6 +402,10 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Motorlar arm edildi: {summary.motors_ever_armed}  "
           f"Maks throttle: {summary.max_throttle:.2f}  "
           f"Motor arıza: {summary.motor_fault_detected}")
+    print(f"Askı tamamlandı (BONUS-1): {summary.hover_completed}  "
+          f"Komut: {summary.commands_handled}  RHRHRH: {summary.rhrhrh_last or '-'}")
+    print(f"Buzzer: {summary.buzzer_on}  "
+          f"Telemetri sonlandırıldı: {summary.telemetry_terminated}")
     print(f"Son telemetri: {summary.last_telemetry}")
     return 0
 

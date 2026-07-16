@@ -18,12 +18,17 @@ yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
 - [ ] EKSİK-001 (gerçek): `FlightControllerLink` gerçek MAVLink implementasyonu
       donanım gerektirir → Aşama 5.
 
-## Aşama 3 — Görev & Bonus
-- [ ] REQ-MISSION-006: Manuel ayrılma komutu servisi.
-- [ ] REQ-SAFE-006: Manuel APAM komutu.
-- [ ] REQ-BONUS-001: BONUS-1 Hovering (200 m, 10 sn, 0–1 m/s) kontrol modu.
-- [ ] REQ-BONUS-002: BONUS-2 S2D-IOT RHRHRH al→SD→IoT yönlendirme + doğrulama.
-- [ ] REQ-MISSION-010: Buzzer / kurtarma sesli ikaz; iniş sonrası TLM süre yönetimi.
+## Aşama 3 — Görev & Bonus ✅ (TAMAMLANDI)
+- [x] REQ-MISSION-006: Manuel ayrılma komutu → `command_service.py` + `main.py`.
+- [x] REQ-SAFE-006: Manuel APAM komutu → `command_service.py` → `failsafe.py`.
+- [x] REQ-BONUS-001: BONUS-1 Hovering (200 m, 10 sn) → durum makinesi zamanlayıcısı
+      + `descent_controller` hover modu.
+- [x] REQ-BONUS-002: BONUS-2 S2D-IOT RHRHRH doğrula→SD→IoT → `s2d_iot.py`.
+- [x] REQ-MISSION-010: Buzzer + iniş sonrası telemetri penceresi → `recovery.py`.
+- [x] CONFLICT-001: İniş sonrası telemetri süresi config penceresi olarak uygulandı
+      (varsayılan 10 sn; `post_landing_telemetry_s` ile 60 sn'ye çekilebilir).
+- Not: REQ-CTRL-003 (SİGMA kol koreografisi) temel dizi olarak çalışıyor; tam
+  zamanlama/geri bildirim Aşama 4/5 donanım entegrasyonunda olgunlaşacak.
 
 ## Aşama 4 — Haberleşme & Kayıt
 - [ ] REQ-TLM-008: CRC/checksum doğrulama.

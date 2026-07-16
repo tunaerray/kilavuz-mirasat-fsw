@@ -35,9 +35,15 @@ Gereksinim → Tasarım/Kod → Test eşlemesi. Yalnız Aşama 1'de uygulanan ö
 | REQ-SAFE-010 (PWM/RPM arıza) | ANA_PROMPT APAM | `src/services/motor_health.py` | `test_motor_health.py`, `test_app_integration.py` | ✅ Aşama 2 |
 | EKSİK-001 (FC link) | PDR (yok) | `src/drivers/sim_flight_controller.py` | `test_sim_flight_controller.py` | ✅ (sim) Aşama 2 |
 | APAM çoklu-sensör filtresi | ANA_PROMPT APAM | `failsafe.py` + `estimator.speed_consistent` | `test_failsafe_apam.py` | ✅ Aşama 2 |
-| REQ-CTRL-003 (kol dizisi) | PDR SİGMA | `main.py` (deploy_and_lock) | `test_app_integration.py` | ◑ kısmi (Aşama 3 tamamlanır) |
-| REQ-CTRL-004 (Hovering) | Şartname G-36 | `descent_controller` (hover modu hazır) | `test_descent_controller.py` | ◑ mod hazır, faz Aşama 3 |
-| REQ-BONUS-* | Şartname §2.3,G-36,38 | — | — | ⏳ Aşama 3/4 |
+| REQ-CTRL-003 (kol dizisi) | PDR SİGMA | `main.py` (deploy_and_lock) | `test_app_integration.py` | ◑ kısmi (Aşama 4'te olgunlaşır) |
+| REQ-CTRL-004 (Hovering) | Şartname G-36 | `descent_controller` + state machine timer | `test_descent_controller.py` | ✅ Aşama 3 |
+| REQ-MISSION-006 (manuel ayrılma) | Şartname G-7 | `command_service.py` + `main.py` | `test_command_service.py`, `test_app_integration.py` | ✅ Aşama 3 |
+| REQ-SAFE-006 (manuel APAM) | Şartname G-10 | `command_service.py` + `failsafe.py` | `test_command_service.py`, `test_app_integration.py` | ✅ Aşama 3 |
+| REQ-MISSION-010 (buzzer) | Şartname G-28 | `src/services/recovery.py` | `test_recovery.py`, `test_app_integration.py` | ✅ Aşama 3 |
+| REQ-BONUS-001 (Hovering) | Şartname G-36 | `flight_state_machine` (hover timer) | `test_state_machine.py` | ✅ Aşama 3 |
+| REQ-BONUS-002 (S2D-IOT) | Şartname §2.3 | `src/services/{s2d_iot,command_service}.py` | `test_s2d_iot.py`, `test_command_service.py` | ✅ Aşama 3 |
+| CONFLICT-001 (iniş sonrası TLM) | Şartname G-27/§1.3 | `recovery.py` (config penceresi) | `test_recovery.py` | ✅ Aşama 3 (config'e alındı) |
+| REQ-BONUS-003 (Z.I.R.H) | Şartname G-38 | — | — | ⏳ Aşama 4 |
 | REQ-TLM-008/009/010 | PDR/Şartname | — | — | ⏳ Aşama 4 |
 | EKSİK-001 (gerçek MAVLink) | PDR (yok) | — | — | ⏳ Aşama 5 (donanım) |
 | REQ-TEST-005 (FRR) | Şartname §4.2 | — | — | ⏳ Aşama 5 |

@@ -125,6 +125,7 @@ class PathsConfig:
     run_dir: str = "run_data"
     persistence_file: str = "run_data/state.json"
     telemetry_csv: str = "run_data/TMUY2026_947450_TLM.csv"
+    s2d_csv: str = "run_data/TMUY2026_947450_S2D.csv"   # BONUS-2 komut kaydı
     event_log: str = "run_data/events.log"
 
 
