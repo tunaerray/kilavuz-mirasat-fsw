@@ -56,6 +56,10 @@ Başlangıç: [`docs/SOURCE_ANALYSIS.md`](docs/SOURCE_ANALYSIS.md),
 [`docs/adr/ADR-001-language-and-target-platform.md`](docs/adr/ADR-001-language-and-target-platform.md),
 [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md).
 
+Donanıma geçiş: [`docs/HARDWARE_BRINGUP.md`](docs/HARDWARE_BRINGUP.md) ·
+[`docs/PREFLIGHT_CHECKLIST.md`](docs/PREFLIGHT_CHECKLIST.md) ·
+[`docs/FRR_TEST_PROCEDURES.md`](docs/FRR_TEST_PROCEDURES.md).
+
 ## Durum
 Aşama 1 (çekirdek iskelet) uygulanmıştır. Yol haritası: `docs/DEVELOPMENT_PLAN.md`.
 Açık işler: `TASK_TRACKER.md`.
