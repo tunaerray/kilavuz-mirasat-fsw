@@ -55,6 +55,8 @@ class HealthConfig:
     max_sensor_age_s: float = 0.5
     low_voltage_v: float = 14.0            # 4S ~3.5 V/hücre
     critical_voltage_v: float = 13.2       # 4S ~3.3 V/hücre
+    preflight_min_voltage_v: float = 15.0  # uçuş öncesi dolu batarya (4S ~3.75/hücre)
+    preflight_min_satellites: int = 6      # açık alan min GPS kilidi (test kriteri)
     link_timeout_s: float = 3.0
     loop_overrun_tolerance: float = 0.25   # periyodun %25 üzeri = aşım
 
