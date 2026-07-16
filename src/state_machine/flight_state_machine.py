@@ -64,11 +64,23 @@ class FlightStateMachine:
         self._phase = FlightPhase.BOOT
         self._ascent_seen = False
         self._hover_entered = False
+        self._hover_start_s: float | None = None   # BONUS-1 askı başlangıç zamanı
+        self._hover_complete = False
         self._faulted_after_separation = False
 
     @property
     def phase(self) -> FlightPhase:
         return self._phase
+
+    @property
+    def hover_complete(self) -> bool:
+        return self._hover_complete
+
+    def hover_elapsed_s(self, mission_time_s: float) -> float:
+        """Askı fazındaki geçen süre (askıya girilmediyse 0)."""
+        if self._hover_start_s is None:
+            return 0.0
+        return max(0.0, mission_time_s - self._hover_start_s)
 
     def status_code(self) -> SatelliteStatus:
         """Şartname 0..5 kodu. FAULT/SAFE_MODE için ayrılma durumuna göre eşle."""
@@ -122,16 +134,20 @@ class FlightStateMachine:
                 self._phase = FlightPhase.ACTIVE_DESCENT
 
         elif self._phase is FlightPhase.ACTIVE_DESCENT:
-            if not self._hover_entered and \
+            # BONUS-1: askı henüz yapılmadıysa ve 200 m'ye ulaşıldıysa askıya geç.
+            if not self._hover_complete and not self._hover_entered and \
                     abs(ctx.altitude_m - m.hovering_altitude_m) <= 5.0:
                 self._phase = FlightPhase.HOVERING
                 self._hover_entered = True
+                self._hover_start_s = ctx.mission_time_s
             elif ctx.altitude_m <= m.final_approach_altitude_m:
                 self._phase = FlightPhase.FINAL_APPROACH
 
         elif self._phase is FlightPhase.HOVERING:
-            # Askı sonrası tekrar alçalmaya başlayınca aktif inişe döner.
-            if ctx.altitude_m < m.hovering_altitude_m - 5.0:
+            # BONUS-1: konfigüre süre (10 sn) boyunca askıda kal, sonra inişe devam.
+            elapsed = ctx.mission_time_s - (self._hover_start_s or ctx.mission_time_s)
+            if elapsed >= m.hovering_duration_s:
+                self._hover_complete = True
                 self._phase = FlightPhase.ACTIVE_DESCENT
 
         elif self._phase is FlightPhase.FINAL_APPROACH:

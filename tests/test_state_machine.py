@@ -60,15 +60,44 @@ def test_full_nominal_sequence():
     assert int(sm.status_code()) == 4
 
 
-def test_hovering_then_final_and_land():
+def test_hovering_holds_for_duration_then_resumes():
+    """BONUS-1: 200 m'de yaklaşık 10 sn askı, sonra inişe devam (zamanlayıcı)."""
     sm = _sm()
     sm._phase = FlightPhase.ACTIVE_DESCENT
-    sm.update(_ctx(altitude_m=200, separation_confirmed=True, arms_deployed=True,
-                   descent_speed_mps=0.3))
+    # 200 m'ye ulaş → HOVERING (t=100)
+    sm.update(_ctx(mission_time_s=100.0, altitude_m=200, separation_confirmed=True,
+                   arms_deployed=True, descent_speed_mps=0.3))
     assert sm.phase is FlightPhase.HOVERING
-    # askı sonrası alçalma
-    sm.update(_ctx(altitude_m=150, separation_confirmed=True, descent_speed_mps=9))
+    # süre dolmadan askıda kalır (irtifa ~200 sabit, hız ~0)
+    sm.update(_ctx(mission_time_s=105.0, altitude_m=200, separation_confirmed=True,
+                   descent_speed_mps=0.2))
+    assert sm.phase is FlightPhase.HOVERING
+    assert abs(sm.hover_elapsed_s(105.0) - 5.0) < 1e-6
+    # 10 sn dolunca inişe devam
+    sm.update(_ctx(mission_time_s=110.5, altitude_m=200, separation_confirmed=True,
+                   descent_speed_mps=0.2))
     assert sm.phase is FlightPhase.ACTIVE_DESCENT
+    assert sm.hover_complete
+
+
+def test_hovering_not_reentered_after_complete():
+    sm = _sm()
+    sm._phase = FlightPhase.ACTIVE_DESCENT
+    sm.update(_ctx(mission_time_s=100.0, altitude_m=200, separation_confirmed=True,
+                   arms_deployed=True, descent_speed_mps=0.3))
+    sm.update(_ctx(mission_time_s=111.0, altitude_m=200, separation_confirmed=True,
+                   descent_speed_mps=0.2))
+    assert sm.phase is FlightPhase.ACTIVE_DESCENT
+    # tekrar 200 m civarında olsa bile yeniden askıya girmez
+    sm.update(_ctx(mission_time_s=112.0, altitude_m=200, separation_confirmed=True,
+                   descent_speed_mps=0.2))
+    assert sm.phase is FlightPhase.ACTIVE_DESCENT
+
+
+def test_final_approach_and_land():
+    sm = _sm()
+    sm._phase = FlightPhase.ACTIVE_DESCENT
+    sm._hover_complete = True    # askı tamamlanmış varsay
     sm.update(_ctx(altitude_m=40, separation_confirmed=True, descent_speed_mps=9))
     assert sm.phase is FlightPhase.FINAL_APPROACH
     sm.update(_ctx(altitude_m=1.0, separation_confirmed=True, descent_speed_mps=0.2))
