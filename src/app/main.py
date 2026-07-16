@@ -33,12 +33,14 @@ from src.drivers.mock_sensors import (
 from src.drivers.sim_flight_controller import SimulatedFlightControllerLink
 from src.hal.interfaces import ServoPosition
 from src.mission.context import FlightContext
+from src.services.calibration import BaroCalibrator
 from src.services.camera_service import CameraService
 from src.services.command_service import CommandService
 from src.services.failsafe import FailsafeManager
 from src.services.health_monitor import HealthInputs, HealthMonitor
 from src.services.motor_health import MotorHealthMonitor
 from src.services.persistence import PersistenceStore
+from src.services.preflight import PreflightCheck
 from src.services.recovery import RecoveryManager
 from src.services.s2d_iot import S2dIotService
 from src.services.store_forward import StoreForwardBuffer
@@ -77,6 +79,7 @@ class RunSummary:
     video_recorded: int = 0
     video_streamed: int = 0
     video_dropped_stream: int = 0
+    preflight_go: bool = False
 
 
 class SimClock(FakeClock):
@@ -136,16 +139,31 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     failsafe = FailsafeManager(config.apam)
     state = FlightStateMachine(config.mission)
 
-    # Baro sıfırlama (kalkış = 0 m). Referans basınç YALNIZ ilk boot'ta yakalanır
-    # ve kalıcı depoya yazılır; işlemci yeniden başlarsa aynı referans kullanılır
-    # (restart sonrası irtifa tutarlılığı — G-17 ile aynı ruh, EKSİK-003).
+    # Uçuşa hazırlık (preflight) go/no-go kontrolü — FRR (Şartname §4.2).
+    preflight = PreflightCheck(config.health).run(
+        baro, imu, gps, batt, actuators, persistence)
+    preflight_go = preflight.is_go
+    if preflight_go:
+        log("PREFLIGHT: GO — tüm kontroller geçti (uçuşa hazır)")
+    else:
+        failed = ", ".join(f.name for f in preflight.failed())
+        log(f"PREFLIGHT: NO-GO — başarısız: {failed}")
+
+    # Saha baro kalibrasyonu (çok örnekli). Referans YALNIZ ilk boot'ta belirlenir
+    # ve kalıcı depoya yazılır; restart'ta aynı referans kullanılır (EKSİK-003).
     zero_alt_pressure = persistence.altitude_zero_ref()
     if zero_alt_pressure is None:
-        first_baro = baro.read()
-        if first_baro.is_ok:
-            zero_alt_pressure = first_baro.unwrap().pressure_pa
+        calibrator = BaroCalibrator(sample_count=10, min_samples=3)
+        for _ in range(10):
+            br = baro.read()
+            if br.is_ok:
+                calibrator.add_sample(br.unwrap().pressure_pa)
+        cal = calibrator.calibrate()
+        if cal.is_ok:
+            zero_alt_pressure = cal.unwrap()
             persistence.set_altitude_zero_ref(zero_alt_pressure)
-            log(f"BOOT: barometre sıfırlandı (referans {zero_alt_pressure:.0f} Pa)")
+            log(f"BOOT: barometre kalibre edildi ({calibrator.sample_count} örnek, "
+                f"referans {zero_alt_pressure:.0f} Pa)")
 
     # Aşama 2: kontrol & navigasyon bileşenleri.
     estimator = StateEstimator(config.control, zero_alt_pressure or 101325.0)
@@ -404,6 +422,7 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         video_recorded=camera.frames_recorded,
         video_streamed=camera.frames_streamed,
         video_dropped_stream=camera.frames_dropped_stream,
+        preflight_go=preflight_go,
     )
 
 
@@ -427,6 +446,10 @@ def main(argv: list[str] | None = None) -> int:
                              "(birden çok kez verilebilir)")
     parser.add_argument("--jam", metavar="START:END", default=None,
                         help="Z.I.R.H karıştırma bölgesi, ör. '80:110' (saniye)")
+    parser.add_argument("--vibration", type=float, default=0.0,
+                        help="Titreşim gürültü şiddeti (FRR §4.2 analoğu, ör. 1.0)")
+    parser.add_argument("--preflight", action="store_true",
+                        help="Yalnız uçuşa hazırlık (preflight) kontrolünü çalıştır ve çık")
     args = parser.parse_args(argv)
 
     jam = None
@@ -450,12 +473,21 @@ def main(argv: list[str] | None = None) -> int:
     if not config.is_simulation:
         raise SystemExit("Yalnızca SIMULATION_ONLY profili desteklenir (Aşama 2).")
 
+    # --preflight: yalnız çok kısa bir koşuyla preflight sonucunu al ve çık.
+    if args.preflight:
+        summary = build_and_run(config, max_cycles=1, duration_s=None,
+                                profile_name=args.profile, event_sink=print)
+        print(f"--- PREFLIGHT: {'GO' if summary.preflight_go else 'NO-GO'} ---")
+        return 0 if summary.preflight_go else 1
+
     summary = build_and_run(
         config, max_cycles=args.max_cycles, duration_s=args.duration,
         profile_name=args.profile, event_sink=print,
-        motor_fault_factor=args.motor_fault, commands=injected, jam_window=jam)
+        motor_fault_factor=args.motor_fault, commands=injected, jam_window=jam,
+        vibration=args.vibration)
 
     print("--- KOŞU ÖZETİ ---")
+    print(f"Preflight: {'GO' if summary.preflight_go else 'NO-GO'}")
     print(f"Çevrim: {summary.cycles}  Paket: {summary.packets}")
     print(f"Son faz: {summary.final_phase.value}  Statü kodu: {summary.final_status}")
     print(f"APAM tetiklendi: {summary.apam_triggered}  "

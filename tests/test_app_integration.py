@@ -195,3 +195,11 @@ def test_video_recording_continues_during_jam(tmp_path):
     assert s.video_dropped_stream > 0     # karıştırma sırasında akış düştü
     # kayıt akış düşse bile sürdü: kaydedilen > akıtılan
     assert s.video_recorded > s.video_streamed
+
+
+# --- Aşama 5: preflight & FRR ---
+
+def test_preflight_go_in_nominal(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=10, duration_s=None, clock=SimClock())
+    assert s.preflight_go                 # nominal simülasyonda uçuşa hazır (GO)

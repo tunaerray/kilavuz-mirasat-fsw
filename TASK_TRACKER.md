@@ -39,9 +39,19 @@ yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
 - [ ] REQ-HW-003: LoRa E22 gerçek UART sürücüsü — framing + store-and-forward
       hazır; yalnız fiziksel taşıma katmanı donanım gerektirir → Aşama 5.
 
-## Aşama 5 — Donanım & FRR
-- [ ] REQ-HW-001..005: Gerçek sensör/aktüatör sürücüleri; HIL/FLIGHT profilleri.
-- [ ] REQ-TEST-005: 10G şok, 150–200 Hz titreşim, düşme, ayrılma sistem testleri.
+## Aşama 5 — Donanım & FRR (YAZILIM tarafı ✅; FİZİKSEL ⏳ donanım)
+- [x] Preflight go/no-go kontrolü (FRR gate) → `preflight.py` + `--preflight`.
+- [x] Saha baro kalibrasyonu (çok örnekli, aykırı ret) → `calibration.py`.
+- [x] Titreşim/gürültü dayanıklılığı (FRR §4.2 YAZILIM analoğu) → `--vibration`,
+      `test_vibration.py` (telemetri kesintisiz, APAM bağışık).
+- [x] Profil bazlı sürücü fabrikası + FLIGHT gate → `factory.py`.
+- [x] Gerçek LoRa E22 sürücü iskeleti (I/O donanım-guard'lı) → `real_lora.py`.
+- [ ] REQ-HW-001..005: Gerçek sensör/aktüatör sürücülerinin donanımda doğrulanması
+      (SPI/I2C/UART fiziksel I/O) → gerçek RPi 5 + PixMin gerekli.
+- [ ] EKSİK-001: Gerçek MAVLink implementasyonu → uçuş kontrol kartı gerekli.
+- [ ] REQ-TEST-005 FİZİKSEL: 10G şok, 150–200 Hz titreşim masası, düşme testleri
+      → laboratuvar/saha ekipmanı gerekli (bu ortamda ÇALIŞTIRILAMAZ; prosedür
+      `docs/FRR_TEST_PROCEDURES.md`).
 
 ## Aşama 5 kestirim ayar borçları (donanım/saha)
 - [ ] Titreşim altında near-ground touchdown tespiti: gürültülü dikey hız, anlık

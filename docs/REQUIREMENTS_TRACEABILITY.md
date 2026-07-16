@@ -46,6 +46,9 @@ Gereksinim → Tasarım/Kod → Test eşlemesi. Yalnız Aşama 1'de uygulanan ö
 | REQ-TLM-008 (CRC) | PDR test planı | `src/telemetry/framing.py` | `test_framing.py` | ✅ Aşama 4 |
 | REQ-TLM-009 / REQ-BONUS-003 (Z.I.R.H) | Şartname G-38 | `src/services/store_forward.py` | `test_store_forward.py`, `test_app_integration.py` | ✅ Aşama 4 |
 | REQ-TLM-010 (video) | Şartname G-20/22 | `src/services/camera_service.py`, `mock_camera.py` | `test_camera.py`, `test_app_integration.py` | ✅ Aşama 4 (sim) |
-| REQ-HW-003 (LoRa gerçek UART) | PDR s.6 | — (framing/S&F hazır) | — | ⏳ Aşama 5 (donanım) |
-| EKSİK-001 (gerçek MAVLink) | PDR (yok) | — | — | ⏳ Aşama 5 (donanım) |
-| REQ-TEST-005 (FRR) | Şartname §4.2 | — | — | ⏳ Aşama 5 |
+| REQ-HW-003 (LoRa gerçek UART) | PDR s.6 | `src/drivers/real_lora.py` + `factory.py` | `test_driver_factory.py` | ◑ iskelet+gate hazır; seri I/O saha testi (donanım) |
+| REQ-FUNC-004 (baro saha kalib.) | PDR s.90 | `src/services/calibration.py` | `test_calibration.py` | ✅ Aşama 5 |
+| FRR preflight gate | Şartname §4.2 | `src/services/preflight.py` | `test_preflight.py`, `test_app_integration.py` | ✅ Aşama 5 |
+| REQ-TEST-005 (FRR titreşim, yazılım analoğu) | Şartname §4.2 | vibration inj. + `main.py` | `test_vibration.py` | ✅ (sim analoğu); fiziksel test donanım gerekli |
+| REQ-TEST-005 (FRR fiziksel: 10G/titreşim/düşme) | Şartname §4.2 | — (prosedür belgelendi) | — | ⏳ Donanım/laboratuvar (bkz. FRR_TEST_PROCEDURES.md) |
+| EKSİK-001 (gerçek MAVLink) | PDR (yok) | — (soyut link hazır) | — | ⏳ Donanım (FC gerekli) |
