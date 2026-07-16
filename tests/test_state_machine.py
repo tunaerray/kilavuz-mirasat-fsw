@@ -2,7 +2,6 @@
 from config.default import MissionConfig
 from src.mission.context import FlightContext
 from src.state_machine.flight_state_machine import FlightPhase, FlightStateMachine
-from src.telemetry.packet import SatelliteStatus
 
 
 def _ctx(**kw):

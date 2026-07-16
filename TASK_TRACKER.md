@@ -35,4 +35,10 @@ yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
 - [ ] EKSİK-002: LoRa air-rate/kanal, sensör I2C adresleri kesinleştirilecek.
 
 ## Açık Kalan Sorunlar (Aşama 1 çalıştırma)
-- (Aşama 1 çalıştırma sonrası doldurulacak.)
+- Aşama 1 çalıştırmada **açık kalan bloke edici sorun YOK**. 88 test geçti,
+  simülasyon nominal (RECOVERY) ve runaway (APAM) senaryolarında doğrulandı.
+- Bilinen küçük konu: Windows konsolunda Türkçe karakterler cp1252'de bozuk
+  görünebilir; `PYTHONIOENCODING=utf-8` ile düzelir (yalnız kozmetik, log/CSV
+  UTF-8'dir). Teknik borç olarak Aşama 4 loglama iyileştirmesine bırakıldı.
+- İrtifa sıfır-referansı artık kalıcı (restart sonrası tutarlı); mid-flight ilk
+  boot için saha kalibrasyon prosedürü Aşama 5'te netleştirilecek (EKSİK-003).

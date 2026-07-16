@@ -26,7 +26,22 @@
       "Bash(python -m pytest tests/test_mock_sensors.py tests/test_actuators.py)",
       "Bash(git commit -q -m 'feat\\(hal+drivers\\): HAL interfaces, deterministic flight profile, mock sensors, safe actuators *)",
       "Bash(python -m pytest tests/test_state_machine.py tests/test_health_monitor.py tests/test_failsafe_apam.py)",
-      "Bash(git commit -q -m 'feat\\(state+safety\\): flight state machine, health monitor, APAM failsafe *)"
+      "Bash(git commit -q -m 'feat\\(state+safety\\): flight state machine, health monitor, APAM failsafe *)",
+      "Bash(python -m pytest tests/test_app_integration.py)",
+      "Bash(python -m pytest)",
+      "Bash(python -m src.app.main --config simulation --max-cycles 100)",
+      "Bash(export PYTHONIOENCODING=utf-8)",
+      "Bash(python -m src.app.main --config simulation --max-cycles 4000 --duration 180)",
+      "Bash(rm -rf run_data)",
+      "Bash(python -m src.app.main --config simulation --profile runaway_descent --max-cycles 4000 --duration 60)",
+      "Bash(python -m src.app.main --max-cycles 40)",
+      "Bash(python -m pip install -q pyflakes)",
+      "Bash(python -m pyflakes src config tests)",
+      "Bash(echo \"pyflakes done exit=$?\")",
+      "Bash(echo \"pyflakes exit=$?\")",
+      "Bash(python -m pytest --timeout=30)",
+      "Bash(python -m src.app.main --max-cycles 60)",
+      "Bash(git commit -q -m 'feat\\(app\\): bounded main loop, telemetry service; continuous flight profile *)"
     ]
   }
 }
