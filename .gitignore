@@ -27,3 +27,6 @@ KILAVUZ-MIRASAT-FSW-Vault/
 
 # graphify üretilen çıktılar (yeniden üretilebilir)
 graphify-out/
+
+# Teslim paketi çıktısı (yeniden üretilebilir)
+submission/
