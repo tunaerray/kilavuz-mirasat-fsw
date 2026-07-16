@@ -4,11 +4,11 @@ Görevi        : Telemetri servisi. Üretilen paket satırını SD karta CSV ola
                 üzerinden gönderir.
 Neden Gerekli : Şartname G-16 (1 Hz gönderim), G-19 (SD kayıt), §2.4 NOT (başlık/
                 birim düzeni; aksi halde %2 kesinti).
-İlişkiler     : TelemetryPacketBuilder'dan satır alır; TelemetryLink (HAL) ile
-                gönderir; app döngüsü 1 Hz'de çağırır. Link kopuksa gönderim
-                hatası raporlanır (Z.I.R.H store-and-forward Aşama 4'te eklenecek).
-Nasıl Test    : tests/test_app_integration.py — CSV başlık/birim + satır sayısı,
-                gönderim tamponu.
+İlişkiler     : TelemetryPacketBuilder'dan satır alır. RF gönderimi ya doğrudan
+                TelemetryLink ile ya da Aşama 4'te eklenen StoreForwardBuffer
+                (Z.I.R.H) üzerinden yapılır; frame=True ise CRC çerçevesi eklenir.
+Nasıl Test    : tests/test_app_integration.py — CSV başlık/birim + satır sayısı;
+                store-and-forward + CRC ile RF gönderimi.
 """
 from __future__ import annotations
 
@@ -16,15 +16,18 @@ import os
 
 from src.common.result import ErrorCode, Result
 from src.hal.interfaces import TelemetryLink
+from src.telemetry.framing import build_frame
 from src.telemetry.packet import TelemetryFields, TelemetryPacketBuilder
 
 
 class TelemetryService:
     def __init__(self, builder: TelemetryPacketBuilder, link: TelemetryLink,
-                 csv_path: str) -> None:
+                 csv_path: str, buffer=None, frame: bool = False) -> None:
         self._builder = builder
         self._link = link
         self._csv_path = csv_path
+        self._buffer = buffer       # StoreForwardBuffer (Z.I.R.H); None → doğrudan link
+        self._frame = frame         # True → CRC çerçevesi ekle
         self._header_written = False
         self.last_line: str = ""
         self.sent_count = 0
@@ -64,11 +67,17 @@ class TelemetryService:
         except OSError as exc:
             return Result.err(ErrorCode.IO_ERROR, f"CSV satırı yazılamadı: {exc}")
 
-        # RF gönderim (link kopukluğu kaydı engellemez)
-        send = self._link.send(line)
-        if send.is_ok:
-            self.sent_count += 1
+        # RF gönderim (link kopukluğu kaydı engellemez). Opsiyonel CRC çerçevesi
+        # ve store-and-forward tamponu (Z.I.R.H). Payload (CSV) her zaman ham kalır.
+        rf_payload = build_frame(line) if self._frame else line
+        if self._buffer is not None:
+            self._buffer.offer(rf_payload)   # tampon kopuklukta SD'ye taşar
+            self.sent_count += 1             # servis düzeyinde "üretildi" sayacı
         else:
-            self.buffered_count += 1
+            send = self._link.send(rf_payload)
+            if send.is_ok:
+                self.sent_count += 1
+            else:
+                self.buffered_count += 1
 
         return Result.ok(line)

@@ -30,11 +30,14 @@ yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
 - Not: REQ-CTRL-003 (SİGMA kol koreografisi) temel dizi olarak çalışıyor; tam
   zamanlama/geri bildirim Aşama 4/5 donanım entegrasyonunda olgunlaşacak.
 
-## Aşama 4 — Haberleşme & Kayıt
-- [ ] REQ-TLM-008: CRC/checksum doğrulama.
-- [ ] REQ-TLM-009 / REQ-BONUS-003: Z.I.R.H store-and-forward tamponu.
-- [ ] REQ-TLM-010: Kamera H.264 + 5 GHz Wi-Fi canlı akış, SD video.
-- [ ] REQ-HW-003: LoRa E22 gerçek UART sürücüsü (ASSUMPTION-002 parametreleri).
+## Aşama 4 — Haberleşme & Kayıt ✅ (TAMAMLANDI)
+- [x] REQ-TLM-008: CRC16-CCITT çerçeveleme/doğrulama → `src/telemetry/framing.py`.
+- [x] REQ-TLM-009 / REQ-BONUS-003: Z.I.R.H store-and-forward → `store_forward.py`
+      (kesintide SD'ye tampon, çıkışta burst geri-aktarım, kayıp yok).
+- [x] REQ-TLM-010: Kamera SD kayıt + canlı akış → `camera_service.py` (sim;
+      akış kopukluğunda kayıt sürer). Gerçek picamera2/H.264 sürücüsü Aşama 5.
+- [ ] REQ-HW-003: LoRa E22 gerçek UART sürücüsü — framing + store-and-forward
+      hazır; yalnız fiziksel taşıma katmanı donanım gerektirir → Aşama 5.
 
 ## Aşama 5 — Donanım & FRR
 - [ ] REQ-HW-001..005: Gerçek sensör/aktüatör sürücüleri; HIL/FLIGHT profilleri.

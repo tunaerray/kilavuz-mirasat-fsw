@@ -21,6 +21,7 @@ from src.control.descent_controller import DescentController
 from src.control.estimator import StateEstimator
 from src.drivers.flight_profile import FlightProfile
 from src.drivers.mock_actuators import ActuatorSuite
+from src.drivers.mock_camera import MockCamera, MockWifiVideoLink
 from src.drivers.mock_sensors import (
     MockBarometer,
     MockBattery,
@@ -32,6 +33,7 @@ from src.drivers.mock_sensors import (
 from src.drivers.sim_flight_controller import SimulatedFlightControllerLink
 from src.hal.interfaces import ServoPosition
 from src.mission.context import FlightContext
+from src.services.camera_service import CameraService
 from src.services.command_service import CommandService
 from src.services.failsafe import FailsafeManager
 from src.services.health_monitor import HealthInputs, HealthMonitor
@@ -39,6 +41,7 @@ from src.services.motor_health import MotorHealthMonitor
 from src.services.persistence import PersistenceStore
 from src.services.recovery import RecoveryManager
 from src.services.s2d_iot import S2dIotService
+from src.services.store_forward import StoreForwardBuffer
 from src.state_machine.flight_state_machine import FlightPhase, FlightStateMachine
 from src.telemetry.packet import (
     ArasInputs,
@@ -68,6 +71,12 @@ class RunSummary:
     telemetry_terminated: bool = False
     hover_completed: bool = False
     commands_handled: int = 0
+    zirh_buffered: int = 0
+    zirh_sent: int = 0
+    zirh_backlog: int = 0
+    video_recorded: int = 0
+    video_streamed: int = 0
+    video_dropped_stream: int = 0
 
 
 class SimClock(FakeClock):
@@ -77,7 +86,8 @@ class SimClock(FakeClock):
 def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
                   clock: Clock | None = None, profile_name: str = "nominal_descent",
                   event_sink=None, motor_fault_factor: float = 1.0,
-                  commands: "list[tuple[float, str]] | None" = None) -> RunSummary:
+                  commands: "list[tuple[float, str]] | None" = None,
+                  jam_window: "tuple[float, float] | None" = None) -> RunSummary:
     """
     Sınırlı döngüyü kurar ve çalıştırır. `clock` verilmezse SimClock kullanılır
     (deterministik, gerçek zaman beklemesiz). `event_sink(str)` log satırlarını alır.
@@ -114,7 +124,10 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     builder = TelemetryPacketBuilder(
         decimal_places=config.telemetry.decimal_places,
         separator=config.telemetry.field_separator)
-    telemetry = TelemetryService(builder, link, config.paths.telemetry_csv)
+    # Aşama 4: Z.I.R.H store-and-forward + CRC çerçeveleme ile dayanıklı RF gönderim.
+    zirh = StoreForwardBuffer(link, config.paths.zirh_spill)
+    telemetry = TelemetryService(builder, link, config.paths.telemetry_csv,
+                                 buffer=zirh, frame=True)
     health = HealthMonitor(config.health)
     failsafe = FailsafeManager(config.apam)
     state = FlightStateMachine(config.mission)
@@ -149,6 +162,16 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     pending_cmds = sorted(commands or [], key=lambda c: c[0])
     cmd_idx = 0
 
+    # Aşama 4: kamera (boot'tan itibaren SD kayıt + canlı akış).
+    wifi = MockWifiVideoLink()
+    camera = CameraService(MockCamera(), wifi, config.video)
+    cam_start = camera.start()
+    if cam_start.is_ok:
+        log(f"BOOT: kamera başlatıldı ({config.video.width}x{config.video.height} "
+            f"{config.video.fps}fps {config.video.codec})")
+    else:
+        log(f"BOOT: kamera başlatılamadı: {cam_start.message}")
+
     # Döngü durumu
     separation_confirmed = False
     arms_deployed = False
@@ -168,6 +191,15 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         t = mission_time()
         if duration_s is not None and t >= duration_s:
             break
+
+        # --- Karıştırma/kesinti bölgesi (Z.I.R.H senaryosu) ---
+        if jam_window is not None:
+            jamming = jam_window[0] <= t < jam_window[1]
+            link.set_connected(not jamming)
+            if jamming:
+                wifi.set_connected(False)
+            else:
+                wifi.set_connected(True)
 
         # --- Uplink komutları (zamanı gelmiş olanları işle) ---
         while cmd_idx < len(pending_cmds) and pending_cmds[cmd_idx][0] <= t:
@@ -328,14 +360,23 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             if pub.is_ok:
                 packets += 1
 
+        # --- Z.I.R.H: bağlantı geri geldiyse birikmiş çerçeveleri geri-aktar ---
+        zirh.pump()
+
+        # --- Kamera: her çevrim kare yakala (SD kayıt + canlı akış) ---
+        camera.tick(period)
+
         # --- Çevrim ilerlet ---
         cycle += 1
         if isinstance(clk, FakeClock):
             clk.advance(period)     # sim: gerçek zaman beklemeden ilerle
 
-    # KAPANIŞ: Safe State (güvenlik).
+    # KAPANIŞ: Safe State (güvenlik) + kamera durdur.
     actuators.enter_safe_state()
-    log(f"SHUTDOWN: {cycle} çevrim, {packets} paket; Safe State'e alındı")
+    camera.stop()
+    log(f"SHUTDOWN: {cycle} çevrim, {packets} paket; Safe State'e alındı "
+        f"(Z.I.R.H tampon: {zirh.buffered_total}, iletildi: {zirh.sent_total}, "
+        f"kalan: {zirh.backlog}; video kare: {camera.frames_recorded})")
 
     return RunSummary(
         cycles=cycle,
@@ -353,6 +394,12 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         telemetry_terminated=telemetry_terminated,
         hover_completed=state.hover_complete,
         commands_handled=commander.handled_count,
+        zirh_buffered=zirh.buffered_total,
+        zirh_sent=zirh.sent_total,
+        zirh_backlog=zirh.backlog,
+        video_recorded=camera.frames_recorded,
+        video_streamed=camera.frames_streamed,
+        video_dropped_stream=camera.frames_dropped_stream,
     )
 
 
@@ -374,7 +421,17 @@ def main(argv: list[str] | None = None) -> int:
                         metavar="T:CMD",
                         help="Zamanlı uplink komutu, ör. '25:2R0G1B' veya '30:APAM' "
                              "(birden çok kez verilebilir)")
+    parser.add_argument("--jam", metavar="START:END", default=None,
+                        help="Z.I.R.H karıştırma bölgesi, ör. '80:110' (saniye)")
     args = parser.parse_args(argv)
+
+    jam = None
+    if args.jam:
+        try:
+            a, b = args.jam.split(":", 1)
+            jam = (float(a), float(b))
+        except ValueError:
+            raise SystemExit(f"Geçersiz --jam biçimi: {args.jam!r} (START:END bekleniyor)")
 
     injected = []
     for spec in args.command:
@@ -392,7 +449,7 @@ def main(argv: list[str] | None = None) -> int:
     summary = build_and_run(
         config, max_cycles=args.max_cycles, duration_s=args.duration,
         profile_name=args.profile, event_sink=print,
-        motor_fault_factor=args.motor_fault, commands=injected)
+        motor_fault_factor=args.motor_fault, commands=injected, jam_window=jam)
 
     print("--- KOŞU ÖZETİ ---")
     print(f"Çevrim: {summary.cycles}  Paket: {summary.packets}")
@@ -406,6 +463,10 @@ def main(argv: list[str] | None = None) -> int:
           f"Komut: {summary.commands_handled}  RHRHRH: {summary.rhrhrh_last or '-'}")
     print(f"Buzzer: {summary.buzzer_on}  "
           f"Telemetri sonlandırıldı: {summary.telemetry_terminated}")
+    print(f"Z.I.R.H tampon: {summary.zirh_buffered}  iletildi: {summary.zirh_sent}  "
+          f"kalan: {summary.zirh_backlog}")
+    print(f"Video kare (SD): {summary.video_recorded}  akıtıldı: {summary.video_streamed}  "
+          f"akış düşen: {summary.video_dropped_stream}")
     print(f"Son telemetri: {summary.last_telemetry}")
     return 0
 

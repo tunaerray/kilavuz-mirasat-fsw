@@ -43,7 +43,9 @@ Gereksinim → Tasarım/Kod → Test eşlemesi. Yalnız Aşama 1'de uygulanan ö
 | REQ-BONUS-001 (Hovering) | Şartname G-36 | `flight_state_machine` (hover timer) | `test_state_machine.py` | ✅ Aşama 3 |
 | REQ-BONUS-002 (S2D-IOT) | Şartname §2.3 | `src/services/{s2d_iot,command_service}.py` | `test_s2d_iot.py`, `test_command_service.py` | ✅ Aşama 3 |
 | CONFLICT-001 (iniş sonrası TLM) | Şartname G-27/§1.3 | `recovery.py` (config penceresi) | `test_recovery.py` | ✅ Aşama 3 (config'e alındı) |
-| REQ-BONUS-003 (Z.I.R.H) | Şartname G-38 | — | — | ⏳ Aşama 4 |
-| REQ-TLM-008/009/010 | PDR/Şartname | — | — | ⏳ Aşama 4 |
+| REQ-TLM-008 (CRC) | PDR test planı | `src/telemetry/framing.py` | `test_framing.py` | ✅ Aşama 4 |
+| REQ-TLM-009 / REQ-BONUS-003 (Z.I.R.H) | Şartname G-38 | `src/services/store_forward.py` | `test_store_forward.py`, `test_app_integration.py` | ✅ Aşama 4 |
+| REQ-TLM-010 (video) | Şartname G-20/22 | `src/services/camera_service.py`, `mock_camera.py` | `test_camera.py`, `test_app_integration.py` | ✅ Aşama 4 (sim) |
+| REQ-HW-003 (LoRa gerçek UART) | PDR s.6 | — (framing/S&F hazır) | — | ⏳ Aşama 5 (donanım) |
 | EKSİK-001 (gerçek MAVLink) | PDR (yok) | — | — | ⏳ Aşama 5 (donanım) |
 | REQ-TEST-005 (FRR) | Şartname §4.2 | — | — | ⏳ Aşama 5 |

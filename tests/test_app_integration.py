@@ -11,6 +11,8 @@ def _cfg(tmp_path):
         persistence_file=str(tmp_path / "state.json"),
         telemetry_csv=str(tmp_path / "tlm.csv"),
         s2d_csv=str(tmp_path / "TMUY2026_947450_S2D.csv"),
+        zirh_spill=str(tmp_path / "TMUY2026_947450_ZIRH.txt"),
+        video_sd=str(tmp_path / "TMUY2026_947450_VIDEO.h264"),
         event_log=str(tmp_path / "events.log"),
     )
     return with_overrides(base, paths=paths)
@@ -153,3 +155,43 @@ def test_invalid_command_ignored_run_continues(tmp_path):
                       commands=[(2.0, "LAUNCH")])   # bilinmeyen komut
     assert s.commands_handled == 0                  # işlenmedi ama koşu sürdü
     assert s.cycles == 300
+
+
+# --- Aşama 4: haberleşme & kayıt ---
+
+def test_zirh_buffers_then_forwards_after_jam(tmp_path):
+    """Karıştırma bölgesinde tamponla, çıkınca geri-aktar; kayıp yok (BONUS-3)."""
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=200.0, clock=SimClock(),
+                      jam_window=(80.0, 110.0))
+    assert s.zirh_buffered > 0            # kesinti sırasında tamponlandı
+    assert s.zirh_backlog == 0            # bölgeden çıkınca tamamen boşaldı
+    assert s.zirh_sent == s.packets       # üretilen tüm paketler iletildi (kayıp yok)
+    # SD spill dosyası oluştu ve CRC çerçeveli satır içeriyor
+    spill = (tmp_path / "TMUY2026_947450_ZIRH.txt").read_text(encoding="utf-8")
+    assert "*" in spill                   # CRC çerçevesi
+
+
+def test_no_jam_no_buffering(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=300, duration_s=None, clock=SimClock())
+    assert s.zirh_buffered == 0           # link hep açık → tamponlamaya gerek yok
+    assert s.zirh_backlog == 0
+
+
+def test_video_records_and_streams(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=200, duration_s=None, clock=SimClock())
+    # 200 çevrim * 0.05 s = 10 s → 30 fps ile ~300 kare
+    assert s.video_recorded > 0
+    assert s.video_streamed == s.video_recorded   # jamming yok → hepsi akıtıldı
+    assert s.video_dropped_stream == 0
+
+
+def test_video_recording_continues_during_jam(tmp_path):
+    cfg = _cfg(tmp_path)
+    s = build_and_run(cfg, max_cycles=4000, duration_s=200.0, clock=SimClock(),
+                      jam_window=(80.0, 110.0))
+    assert s.video_dropped_stream > 0     # karıştırma sırasında akış düştü
+    # kayıt akış düşse bile sürdü: kaydedilen > akıtılan
+    assert s.video_recorded > s.video_streamed
