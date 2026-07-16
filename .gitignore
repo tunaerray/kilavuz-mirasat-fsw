@@ -24,3 +24,6 @@ Thumbs.db
 
 # Kullanıcının Obsidian vault'u (FSW deposu değil)
 KILAVUZ-MIRASAT-FSW-Vault/
+
+# graphify üretilen çıktılar (yeniden üretilebilir)
+graphify-out/
