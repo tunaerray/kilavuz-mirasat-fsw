@@ -19,7 +19,10 @@
       "Bash(git commit -q -m 'docs: source analysis, requirements, architecture, ADR-001 and Phase-1 plan *)",
       "Bash(python -m pytest tests/test_result.py tests/test_clock.py tests/test_config.py -q)",
       "Bash(python -m pytest tests/test_result.py tests/test_clock.py tests/test_config.py)",
-      "Bash(git commit -q -m 'feat\\(core\\): Result/ErrorCode, Clock abstraction, config system + tests *)"
+      "Bash(git commit -q -m 'feat\\(core\\): Result/ErrorCode, Clock abstraction, config system + tests *)",
+      "Bash(python -m pytest tests/test_persistence.py)",
+      "Bash(python -m pytest tests/test_error_code.py tests/test_telemetry_packet.py)",
+      "Bash(git commit -q -m 'feat\\(telemetry+persistence\\): 17-field packet, ARAS error code, restart-durable store *)"
     ]
   }
 }
