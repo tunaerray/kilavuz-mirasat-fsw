@@ -119,6 +119,16 @@ class ControlConfig:
 
 
 @dataclass(frozen=True)
+class VideoConfig:
+    """Kamera/video parametreleri — Şartname G-20/21/22 (yanal, ufka bakan ≥720p)."""
+
+    width: int = 1280
+    height: int = 720           # min 720p (Gereksinim-21)
+    fps: int = 30
+    codec: str = "H.264"        # PDR: H.264 → 5 GHz Wi-Fi
+
+
+@dataclass(frozen=True)
 class PathsConfig:
     """Çalışma zamanı dosya yolları (SD kart karşılığı)."""
 
@@ -126,6 +136,8 @@ class PathsConfig:
     persistence_file: str = "run_data/state.json"
     telemetry_csv: str = "run_data/TMUY2026_947450_TLM.csv"
     s2d_csv: str = "run_data/TMUY2026_947450_S2D.csv"   # BONUS-2 komut kaydı
+    zirh_spill: str = "run_data/TMUY2026_947450_ZIRH.txt"  # BONUS-3 tampon
+    video_sd: str = "run_data/TMUY2026_947450_VIDEO.h264"  # SD video kaydı
     event_log: str = "run_data/events.log"
 
 
@@ -141,6 +153,7 @@ class AppConfig:
     health: HealthConfig = field(default_factory=HealthConfig)
     mission: MissionConfig = field(default_factory=MissionConfig)
     control: ControlConfig = field(default_factory=ControlConfig)
+    video: VideoConfig = field(default_factory=VideoConfig)
     paths: PathsConfig = field(default_factory=PathsConfig)
 
     @property

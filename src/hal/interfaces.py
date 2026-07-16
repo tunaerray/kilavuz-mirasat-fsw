@@ -106,6 +106,32 @@ class Buzzer(Protocol):
     def is_on(self) -> bool: ...
 
 
+@runtime_checkable
+class Camera(Protocol):
+    """
+    Yanal yüzeyde ufka bakan ≥720p kamera (Gereksinim-20/21). SD'ye kaydeder ve
+    kare üretir; canlı akış ayrı bir VideoStreamLink üzerinden yapılır.
+    """
+
+    def start(self, width: int, height: int) -> Result[None]: ...
+
+    def capture(self) -> Result[int]: ...   # yeni karenin indeksini döndürür
+
+    def stop(self) -> Result[None]: ...
+
+    @property
+    def is_recording(self) -> bool: ...
+
+
+@runtime_checkable
+class VideoStreamLink(Protocol):
+    """Canlı video akışı (5 GHz Wi-Fi karşılığı)."""
+
+    def stream_frame(self, frame_index: int) -> Result[None]: ...
+
+    def is_connected(self) -> bool: ...
+
+
 # --------------------------------------------------------------------- aktüatörler
 class ArmState(Enum):
     DISARMED = "DISARMED"
