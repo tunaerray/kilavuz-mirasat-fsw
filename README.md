@@ -1,8 +1,13 @@
 # KILAVUZ MİRASAT — Uçuş Yazılımı (FSW)
 
+[![CI](https://github.com/tunaerray/kilavuz-mirasat-fsw/actions/workflows/ci.yml/badge.svg)](https://github.com/tunaerray/kilavuz-mirasat-fsw/actions/workflows/ci.yml)
+
 11. TÜRKSAT Model Uydu Yarışması 2026 — Konsept **SİGMA**. Takım No: **947450**.
 
 **Depo:** https://github.com/tunaerray/kilavuz-mirasat-fsw (private)
+
+> Not: Depo private olduğundan rozet görseli yalnız erişimi olan/oturum açmış
+> kullanıcılara render olur.
 
 Bu depo, görev yükünün **Raspberry Pi 5** üzerindeki üst seviye **Görev
 Yazılımıdır** (durum makinesi, telemetri, kalıcılık, güvenlik/APAM mantığı, komut
