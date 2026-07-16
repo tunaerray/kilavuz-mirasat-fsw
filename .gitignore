@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Runtime / simulation artifacts
+run_data/
+*.log
+_pdr_dump.txt
+_scratch/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# NOTE: Source documents (PDF/PPTX) are intentionally tracked/preserved and
+# are treated as READ-ONLY. Do not delete or overwrite them.

@@ -1,0 +1,4 @@
+# Aşama 1 geliştirme bağımlılıkları (çekirdek FSW yalnız stdlib kullanır)
+pytest>=7.0
+pytest-timeout>=2.1
+pyflakes>=3.0

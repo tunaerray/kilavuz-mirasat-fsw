@@ -1,0 +1,6 @@
+# Gerçek donanım (RPi 5) bağımlılıkları — Aşama 4/5'te etkinleşir.
+# Aşama 1'de KULLANILMAZ; çekirdek FSW bunlar olmadan simülasyonda çalışır.
+pyserial>=3.5        # LoRa E22 / u-blox M8N GPS (UART)
+pymavlink>=2.4       # FlightControllerLink (ASSUMPTION-001)
+smbus2>=0.4          # I2C sensörler (BME280, LPS22HB, PCA9685)
+# picamera2          # Pi Camera V2 (yalnız RPi OS)
