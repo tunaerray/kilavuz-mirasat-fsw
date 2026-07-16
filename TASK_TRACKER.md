@@ -43,6 +43,13 @@ yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
 - [ ] REQ-HW-001..005: Gerçek sensör/aktüatör sürücüleri; HIL/FLIGHT profilleri.
 - [ ] REQ-TEST-005: 10G şok, 150–200 Hz titreşim, düşme, ayrılma sistem testleri.
 
+## Aşama 5 kestirim ayar borçları (donanım/saha)
+- [ ] Titreşim altında near-ground touchdown tespiti: gürültülü dikey hız, anlık
+      `|hız| ≤ 1 m/s` koşulunu maskeleyebiliyor → LANDED geçişi gecikebilir.
+      Çözüm adayı: konum-alanı tamamlayıcı filtre veya süre-tutmalı (persistence)
+      iniş tespiti. Telemetri/güvenlik etkilenmiyor (APAM 10 sn-kuralı bağışık).
+      Gerçek donanımda iniş sonrası titreşim durduğundan etki daha da azdır.
+
 ## Netleştirilecek Açık Noktalar (CDR/hakem)
 - [ ] CONFLICT-001: İniş sonrası TLM süresi 10 sn mi 60 sn mi? (config varsayılan 10)
 - [ ] CONFLICT-003: Hata kodu 4 hane mi 5 hane mi? (config varsayılan 4)

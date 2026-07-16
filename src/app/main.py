@@ -87,7 +87,8 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
                   clock: Clock | None = None, profile_name: str = "nominal_descent",
                   event_sink=None, motor_fault_factor: float = 1.0,
                   commands: "list[tuple[float, str]] | None" = None,
-                  jam_window: "tuple[float, float] | None" = None) -> RunSummary:
+                  jam_window: "tuple[float, float] | None" = None,
+                  vibration: float = 0.0) -> RunSummary:
     """
     Sınırlı döngüyü kurar ve çalıştırır. `clock` verilmezse SimClock kullanılır
     (deterministik, gerçek zaman beklemesiz). `event_sink(str)` log satırlarını alır.
@@ -113,6 +114,9 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     imu = MockImu(clk, profile, mission_time)
     gps = MockGps(clk, profile, mission_time)
     batt = MockBattery(clk, profile, mission_time)
+    # FRR §4.2 titreşim testi analoğu: sensörlere titreşim gürültüsü uygula.
+    baro.vibration = vibration
+    imu.vibration = vibration
     link = MockTelemetryLink()
     actuators = ActuatorSuite()
 

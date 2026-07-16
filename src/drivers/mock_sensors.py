@@ -11,6 +11,7 @@ Nasıl Test    : tests/test_mock_sensors.py — mod değişimi, timeout, aykır�
 """
 from __future__ import annotations
 
+import math
 from enum import Enum
 
 from src.common.clock import Clock
@@ -22,6 +23,10 @@ from src.hal.interfaces import (
     GpsReading,
     ImuReading,
 )
+
+# FRR §4.2 titreşim testi analoğu: yüksek frekanslı (150–200 Hz) titreşim, döngü
+# örnekleme hızında aliaslanır; deterministik sinüs ile bounded gürültü modellenir.
+_VIBRATION_FREQ_HZ = 175.0
 
 
 class SensorMode(Enum):
@@ -39,9 +44,18 @@ class _Base:
         self._profile = profile
         self._mission_time = mission_time   # çağrılabilir: () -> float
         self.mode = SensorMode.NOMINAL
+        self.vibration = 0.0                 # titreşim şiddeti ölçeği (0 = yok)
 
     def _truth(self):
         return self._profile.sample(self._mission_time())
+
+    def _vib(self, amplitude: float, phase: float = 0.0) -> float:
+        """Deterministik titreşim gürültüsü (bounded, sıfır ortalamalı)."""
+        if self.vibration <= 0.0:
+            return 0.0
+        t = self._mission_time()
+        return (self.vibration * amplitude
+                * math.sin(2.0 * math.pi * _VIBRATION_FREQ_HZ * t + phase))
 
 
 class MockBarometer(_Base):
@@ -49,7 +63,8 @@ class MockBarometer(_Base):
         if self.mode is SensorMode.TIMEOUT:
             return Result.err(ErrorCode.TIMEOUT, "barometre yanıt vermedi")
         tr = self._truth()
-        pressure = tr.pressure_pa
+        # Titreşim → basınçta ±~60 Pa gürültü (~5 m irtifa dalgalanması).
+        pressure = tr.pressure_pa + self._vib(60.0)
         temp = tr.temperature_c
         if self.mode is SensorMode.OUTLIER:
             pressure = -1.0            # imkânsız basınç
@@ -63,7 +78,10 @@ class MockImu(_Base):
         if self.mode is SensorMode.TIMEOUT:
             return Result.err(ErrorCode.TIMEOUT, "IMU yanıt vermedi")
         tr = self._truth()
-        pitch, roll, yaw = tr.pitch_deg, tr.roll_deg, tr.yaw_deg
+        # Titreşim → açılarda ±~3° gürültü.
+        pitch = tr.pitch_deg + self._vib(3.0)
+        roll = tr.roll_deg + self._vib(3.0, phase=1.0)
+        yaw = tr.yaw_deg + self._vib(3.0, phase=2.0)
         if self.mode is SensorMode.OUTLIER:
             pitch = 9999.0             # imkânsız açı
         return Result.ok(ImuReading(

@@ -84,7 +84,9 @@ class StateEstimator:
             raw_vspeed = self._filt_vspeed if self._last_alt is not None else 0.0
         else:
             raw_vspeed = -(altitude - self._last_alt) / dt   # pozitif = iniş
-        # düşük-geçiren filtre
+        # düşük-geçiren filtre (titreşim gürültüsünü kısmen bastırır; güvenlik-kritik
+        # gürültü bağışıklığı APAM'ın 16 m/s × 10 sn KESİNTİSİZ + sayaç sıfırlama
+        # kuralıyla sağlanır — anlık sıçramalar kararı tetikleyemez).
         a = c.vspeed_filter_alpha
         self._filt_vspeed = a * self._filt_vspeed + (1.0 - a) * raw_vspeed
         if altitude_valid:
