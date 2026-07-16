@@ -54,11 +54,10 @@ yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
       `docs/FRR_TEST_PROCEDURES.md`).
 
 ## Aşama 5 kestirim ayar borçları (donanım/saha)
-- [ ] Titreşim altında near-ground touchdown tespiti: gürültülü dikey hız, anlık
-      `|hız| ≤ 1 m/s` koşulunu maskeleyebiliyor → LANDED geçişi gecikebilir.
-      Çözüm adayı: konum-alanı tamamlayıcı filtre veya süre-tutmalı (persistence)
-      iniş tespiti. Telemetri/güvenlik etkilenmiyor (APAM 10 sn-kuralı bağışık).
-      Gerçek donanımda iniş sonrası titreşim durduğundan etki daha da azdır.
+- [x] Titreşim altında near-ground touchdown tespiti ÇÖZÜLDÜ: süre-tutmalı çift-yollu
+      iniş tespiti (`_is_landed`) — kesin yol (≤2 m + düşük hız) VEYA gürültü-bandı
+      yol (kestirim ≤6 m, `landed_confirm_s` sürekli). Titreşimli koşu artık
+      RECOVERY'ye ulaşıyor (`test_vibration`).
 
 ## Netleştirilecek Açık Noktalar (CDR/hakem)
 - [ ] CONFLICT-001: İniş sonrası TLM süresi 10 sn mi 60 sn mi? (config varsayılan 10)
