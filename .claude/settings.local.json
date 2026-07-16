@@ -22,7 +22,9 @@
       "Bash(git commit -q -m 'feat\\(core\\): Result/ErrorCode, Clock abstraction, config system + tests *)",
       "Bash(python -m pytest tests/test_persistence.py)",
       "Bash(python -m pytest tests/test_error_code.py tests/test_telemetry_packet.py)",
-      "Bash(git commit -q -m 'feat\\(telemetry+persistence\\): 17-field packet, ARAS error code, restart-durable store *)"
+      "Bash(git commit -q -m 'feat\\(telemetry+persistence\\): 17-field packet, ARAS error code, restart-durable store *)",
+      "Bash(python -m pytest tests/test_mock_sensors.py tests/test_actuators.py)",
+      "Bash(git commit -q -m 'feat\\(hal+drivers\\): HAL interfaces, deterministic flight profile, mock sensors, safe actuators *)"
     ]
   }
 }
