@@ -62,12 +62,8 @@ def test_no_false_apam_under_vibration(tmp_path):
     s = build_and_run(cfg, max_cycles=4000, duration_s=180.0, clock=SimClock(),
                       vibration=1.0)
     assert not s.apam_triggered                 # gürültü APAM'ı tetiklemez (güvenlik)
-    # Görev iniş fazlarına normal ilerler (yanlış acil duruma düşmez).
-    # NOT: gürültülü hız near-ground touchdown tespitini geciktirebilir; bu bir
-    # kestirim ayar konusudur (TASK_TRACKER Aşama 5), telemetri/güvenliği etkilemez.
-    assert s.final_phase in (FlightPhase.ACTIVE_DESCENT, FlightPhase.HOVERING,
-                             FlightPhase.FINAL_APPROACH, FlightPhase.LANDED,
-                             FlightPhase.RECOVERY)
+    # Süre-tutmalı iniş tespiti sayesinde gürültü altında da görevi tamamlar.
+    assert s.final_phase in (FlightPhase.LANDED, FlightPhase.RECOVERY)
 
 
 def test_attitude_plausible_under_vibration():

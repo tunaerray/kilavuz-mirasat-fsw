@@ -76,8 +76,14 @@ class MissionConfig:
     final_approach_altitude_m: float = 50.0        # Gereksinim-14
     # CONFLICT-001: varsayılan 10 sn (Gereksinim-27); 60'a çekilebilir
     post_landing_telemetry_s: float = 10.0
-    landed_altitude_m: float = 2.0                 # ASSUMPTION-008
+    landed_altitude_m: float = 2.0                 # ASSUMPTION-008 (kesin/temiz yol)
     landed_speed_mps: float = 1.0
+    # Gürültülü hız/irtifa iniş anındaki kesin koşulları maskeleyebildiğinden, yer
+    # temasını süre-tutmalı da onayla: kestirilen irtifa gürültü bandı içinde
+    # (landed_confirm_altitude_m) `landed_confirm_s` boyunca kalırsa iniş kabul
+    # edilir. Band, tipik titreşim baro gürültüsünün (~±5 m) üzerindedir.
+    landed_confirm_altitude_m: float = 6.0
+    landed_confirm_s: float = 1.0
     release_altitude_m: float = 1600.0             # ~bırakma irtifası (sim)
 
 

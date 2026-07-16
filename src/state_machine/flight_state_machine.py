@@ -66,6 +66,7 @@ class FlightStateMachine:
         self._hover_entered = False
         self._hover_start_s: float | None = None   # BONUS-1 askı başlangıç zamanı
         self._hover_complete = False
+        self._ground_since_s: float | None = None   # yer teması onay zamanlayıcısı
         self._faulted_after_separation = False
 
     @property
@@ -165,6 +166,22 @@ class FlightStateMachine:
         self._phase = FlightPhase.FAULT
 
     def _is_landed(self, ctx: FlightContext) -> bool:
+        """
+        Yer teması tespiti. Temiz sinyalde hızlı yol (düşük hız → anında);
+        gürültülü hızda süre-tutmalı onay (irtifa `landed_confirm_s` boyunca yerde
+        kalırsa iniş kabul edilir). Böylece titreşim gürültüsü LANDED geçişini
+        engellemez.
+        """
         m = self._cfg
-        return (ctx.altitude_m <= m.landed_altitude_m
-                and abs(ctx.descent_speed_mps) <= m.landed_speed_mps)
+        low_speed = abs(ctx.descent_speed_mps) <= m.landed_speed_mps
+        # Hızlı/kesin yol: temiz sinyalde kesin yerde ve düşük hız → anında.
+        if ctx.altitude_m <= m.landed_altitude_m and low_speed:
+            self._ground_since_s = ctx.mission_time_s
+            return True
+        # Süre-tutmalı yol: kestirilen irtifa gürültü bandı içinde sürekli kalış.
+        if ctx.altitude_m <= m.landed_confirm_altitude_m:
+            if self._ground_since_s is None:
+                self._ground_since_s = ctx.mission_time_s
+            return (ctx.mission_time_s - self._ground_since_s) >= m.landed_confirm_s
+        self._ground_since_s = None
+        return False

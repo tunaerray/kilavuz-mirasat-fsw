@@ -107,6 +107,35 @@ def test_final_approach_and_land():
     assert sm.phase is FlightPhase.RECOVERY
 
 
+def test_landing_confirmed_by_time_under_noisy_speed():
+    """Gürültülü hızda bile irtifa yerde kalırsa süre dolunca LANDED (titreşim)."""
+    sm = _sm()
+    sm._phase = FlightPhase.FINAL_APPROACH
+    # yerde ama hız gürültülü (3 m/s > 1) → henüz LANDED değil
+    sm.update(_ctx(mission_time_s=170.0, altitude_m=1.0, separation_confirmed=True,
+                   descent_speed_mps=3.0))
+    assert sm.phase is FlightPhase.FINAL_APPROACH
+    # 1 sn boyunca yerde kaldı → süre-tutmalı onay
+    sm.update(_ctx(mission_time_s=171.1, altitude_m=1.0, separation_confirmed=True,
+                   descent_speed_mps=3.0))
+    assert sm.phase is FlightPhase.LANDED
+
+
+def test_ground_timer_resets_if_altitude_rises():
+    sm = _sm()
+    sm._phase = FlightPhase.FINAL_APPROACH
+    sm.update(_ctx(mission_time_s=170.0, altitude_m=1.0, separation_confirmed=True,
+                   descent_speed_mps=3.0))
+    # irtifa geri yükseldi (gürültü/sekme) → sayaç sıfırlanır
+    sm.update(_ctx(mission_time_s=170.5, altitude_m=8.0, separation_confirmed=True,
+                   descent_speed_mps=3.0))
+    assert sm.phase is FlightPhase.FINAL_APPROACH
+    # tekrar yerde ama süre yeniden başlar → hemen LANDED olmaz
+    sm.update(_ctx(mission_time_s=170.9, altitude_m=1.0, separation_confirmed=True,
+                   descent_speed_mps=3.0))
+    assert sm.phase is FlightPhase.FINAL_APPROACH
+
+
 def test_apam_forces_emergency_phase():
     sm = _sm()
     sm._phase = FlightPhase.ACTIVE_DESCENT
