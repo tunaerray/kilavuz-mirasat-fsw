@@ -103,6 +103,11 @@ class ControlConfig:
     # Son 50 m'de RPM artışı için hedef hızı düşürme çarpanı (Gereksinim-14)
     final_approach_speed_mps: float = 6.0
 
+    # SİGMA kol açma/kilitleme koreografisi (REQ-CTRL-003). Kollar ayrılma sonrası
+    # komutla açılır; mekanik hareket süresi ve kilit doğrulama zaman aşımı.
+    arm_deploy_duration_s: float = 1.5      # 90° açma + kilitleme mekanik süresi
+    arm_deploy_timeout_s: float = 3.0       # bu süre içinde kilitlenmezse FAULT
+
     # Alçalma PID kazançları (hız hatası → throttle). Pozitif hata (çok hızlı
     # iniyor) daha yüksek throttle ister → yukarı itiş artar.
     descent_kp: float = 0.05

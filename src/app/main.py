@@ -17,6 +17,7 @@ from dataclasses import dataclass
 
 from config.default import AppConfig, get_config
 from src.common.clock import Clock, FakeClock
+from src.control.arm_sequencer import ArmDeploySequencer
 from src.control.descent_controller import DescentController
 from src.control.estimator import StateEstimator
 from src.drivers.flight_profile import FlightProfile
@@ -168,6 +169,7 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     # Aşama 2: kontrol & navigasyon bileşenleri.
     estimator = StateEstimator(config.control, zero_alt_pressure or 101325.0)
     controller = DescentController(config.control, config.mission)
+    arm_sequencer = ArmDeploySequencer(config.control)
     motor_health = MotorHealthMonitor(config.control)
     # FC link, yönelimi kestiriciden okur (en güncel füzyon çıktısı).
     attitude_holder = {"att": (0.0, 0.0, 0.0)}
@@ -261,9 +263,14 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             log(f"SEPARATION: ~{altitude:.0f} m {kind} ayrılma komutu")
         if separation_confirmed and not arms_deployed and \
                 state.phase in (FlightPhase.SEPARATION, FlightPhase.ARM_DEPLOY):
-            actuators.arms.deploy_and_lock()
-            arms_deployed = True
-            log("ARM_DEPLOY: SİGMA kolları açıldı ve kilitlendi")
+            # SİGMA kol açma koreografisi: zamanlı aç/kilitle + geri bildirim.
+            arm_st = arm_sequencer.update(t, actuators.arms)
+            if arm_st.complete:
+                arms_deployed = True
+                log(f"ARM_DEPLOY: SİGMA kolları açıldı ve kilitlendi "
+                    f"({arm_st.elapsed_s:.1f} sn)")
+            elif arm_st.state.name == "FAULT":
+                log("ARM_DEPLOY: KOL KİLİTLENEMEDİ (timeout) — motorlar çalıştırılmıyor")
 
         # --- Sağlık ---
         loop_dur = max(0.0, clk.now_monotonic() - cycle_start)
