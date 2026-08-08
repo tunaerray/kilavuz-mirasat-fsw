@@ -103,6 +103,11 @@ class ControlConfig:
     # Son 50 m'de RPM artışı için hedef hızı düşürme çarpanı (Gereksinim-14)
     final_approach_speed_mps: float = 6.0
 
+    # Taşıyıcı→görev yükü ayrılma koreografisi. 2 zıt servo EŞZAMANLI açılır;
+    # ayrılma geri bildirimi (mikroswitch) doğrulanana kadar iniş fazına geçilmez.
+    separation_duration_s: float = 1.0      # iki servo hareket + ayrılma mekanik süresi
+    separation_timeout_s: float = 2.5       # bu süre içinde ayrılma doğrulanmazsa FAULT
+
     # SİGMA kol açma/kilitleme koreografisi (REQ-CTRL-003). Kollar ayrılma sonrası
     # komutla açılır; mekanik hareket süresi ve kilit doğrulama zaman aşımı.
     arm_deploy_duration_s: float = 1.5      # 90° açma + kilitleme mekanik süresi
@@ -129,6 +134,19 @@ class ControlConfig:
     motor_max_rpm: float = 26000.0          # ~1700KV * ~15.4 V (4S nominal)
     motor_rpm_tolerance: float = 0.35       # beklenen RPM'in %35 altı → tutarsız
     motor_fault_persist_s: float = 1.0      # tutarsızlık bu süre sürerse arıza
+
+
+@dataclass(frozen=True)
+class PixhawkConfig:
+    """
+    RPi 5 ↔ Pixhawk/ArduPilot MAVLink bağlantı ayarları (EKSİK-001 /
+    ASSUMPTION-001). SIMULATION_ONLY'de KULLANILMAZ; yalnız FLIGHT/HIL profilinde
+    ApamActuator gerçek MAV_CMD_DO_PARACHUTE komutu gönderirken okunur.
+    """
+
+    port: str = "/dev/ttyACM0"             # RPi↔Pixhawk USB/UART (varsayılan)
+    baud: int = 115200                     # ArduPilot USB-CDC nominal hızı
+    command_ack_timeout_s: float = 2.0     # COMMAND_ACK bekleme üst sınırı
 
 
 @dataclass(frozen=True)
@@ -166,6 +184,7 @@ class AppConfig:
     health: HealthConfig = field(default_factory=HealthConfig)
     mission: MissionConfig = field(default_factory=MissionConfig)
     control: ControlConfig = field(default_factory=ControlConfig)
+    pixhawk: PixhawkConfig = field(default_factory=PixhawkConfig)
     video: VideoConfig = field(default_factory=VideoConfig)
     paths: PathsConfig = field(default_factory=PathsConfig)
 

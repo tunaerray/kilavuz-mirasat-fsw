@@ -51,7 +51,7 @@ def test_suite_safe_state():
     assert s.motors.throttle == 0.0
     # Safe State APAM'ı YANLIŞLIKLA açık bırakmaz → CLOSED
     assert s.apam_servo.position is ServoPosition.CLOSED
-    assert s.separation_servo.position is ServoPosition.LOCKED
+    assert s.separation.locked is True         # her iki ayrılma servosu LOCKED
     assert s.arms.locked is True
 
 
@@ -60,3 +60,27 @@ def test_arm_mechanism_deploy_and_lock():
     assert s.arms.deployed is False and s.arms.locked is True
     s.arms.deploy_and_lock().unwrap()
     assert s.arms.deployed is True and s.arms.locked is True
+
+
+def test_separation_starts_locked_not_released():
+    s = ActuatorSuite()
+    assert s.separation.locked is True and s.separation.released is False
+    assert s.separation.left.position is ServoPosition.LOCKED
+    assert s.separation.right.position is ServoPosition.LOCKED
+
+
+def test_separation_release_opens_both_servos_and_feedback():
+    s = ActuatorSuite()
+    s.separation.release().unwrap()
+    assert s.separation.left.position is ServoPosition.OPEN
+    assert s.separation.right.position is ServoPosition.OPEN
+    assert s.separation.released is True        # ayrılma geri bildirimi doğrulandı
+    assert s.separation.locked is False
+
+
+def test_separation_safe_state_preserves_released():
+    """Ayrılma fiziksel/geri dönüşsüz: Safe State released bayrağını sıfırlamaz."""
+    s = ActuatorSuite()
+    s.separation.release().unwrap()
+    s.enter_safe_state().unwrap()
+    assert s.separation.released is True

@@ -1,8 +1,8 @@
 """
-Görevi        : Güvenli mock aktüatörler (4× motor grubu, ayrılma servosu, APAM
-                servosu, SİGMA kol mekanizması). SIMULATION_ONLY'de fiziksel PWM
-                üretmez; yalnız komutları loglar. Arm edilmeden hareket etmez ve
-                Safe State'e geçebilir.
+Görevi        : Güvenli mock aktüatörler (4× motor grubu, ayrılma mekanizması [2 zıt
+                servo + geri bildirim], APAM servosu, SİGMA kol mekanizması).
+                SIMULATION_ONLY'de fiziksel PWM üretmez; yalnız komutları loglar. Arm
+                edilmeden hareket etmez ve Safe State'e geçebilir.
 Neden Gerekli : ANA_PROMPT F.8 + safety — ilk aşamada gerçek motor/servo/APAM
                 çalıştıran kod ASLA aktif olmamalı. Safe State ve arm interlock
                 zorunlu.
@@ -89,6 +89,54 @@ class MockServo:
         return Result.ok(None)
 
 
+class MockSeparationMechanism:
+    """
+    Taşıyıcı→görev yükü ayrılma mekanizması: 2 ZIT YÖNLÜ servo + ayrılma geri
+    bildirimi (mikroswitch analoğu). Servolar başlangıçta LOCKED (güvenli); komutla
+    ikisi EŞZAMANLI OPEN'a alınır ve `released` geri bildirimi ile ayrılma doğrulanır.
+    Tek-adımlık "komut = onay" yerine geri bildirim, kolun kilit doğrulaması gibi
+    güvenlik açısından gereklidir (ayrılmadığı halde iniş fazına geçilmemeli).
+    """
+
+    def __init__(self) -> None:
+        # İki servo zıt yönlü → güvenli konumları ortak LOCKED, açık uçları sürücüde
+        # (gerçek donanımda) ters PWM'e eşlenir; burada mantıksal konum tutulur.
+        self.left = MockServo("separation_left", ServoPosition.LOCKED)
+        self.right = MockServo("separation_right", ServoPosition.LOCKED)
+        self._released = False
+        self.command_log: list[str] = []
+
+    @property
+    def released(self) -> bool:
+        """Ayrılma geri bildirimi (mikroswitch): fiziksel ayrılma doğrulandı mı."""
+        return self._released
+
+    @property
+    def locked(self) -> bool:
+        """Her iki servo da güvenli (LOCKED) konumda mı (preflight/Safe State)."""
+        return (self.left.position is ServoPosition.LOCKED
+                and self.right.position is ServoPosition.LOCKED)
+
+    def release(self) -> Result[None]:
+        """İki zıt servoyu EŞZAMANLI açar ve ayrılma geri bildirimini doğrular."""
+        self.left.move_to(ServoPosition.OPEN)
+        self.right.move_to(ServoPosition.OPEN)
+        self._released = True        # mikroswitch geri bildirimi (mock: komutla onaylanır)
+        self.command_log.append("RELEASE")
+        return Result.ok(None)
+
+    def to_safe(self) -> Result[None]:
+        """
+        Safe State: servolar güvenli (LOCKED) konuma. Ayrılma FİZİKSEL ve geri
+        dönüşsüz olduğundan `released` bayrağı DEĞİŞTİRİLMEZ (ayrılmışsa ayrılmış
+        kalır; kolun 'locked-in-place' semantiğiyle aynı).
+        """
+        self.left.to_safe()
+        self.right.to_safe()
+        self.command_log.append("SAFE(locked)")
+        return Result.ok(None)
+
+
 class MockArmMechanism:
     """
     SİGMA kol açma/kilitleme mekanizması. Başlangıçta gövde içinde KAPALI/kilitli;
@@ -151,7 +199,8 @@ class ActuatorSuite:
 
     def __init__(self) -> None:
         self.motors = MockMotorGroup()
-        self.separation_servo = MockServo("separation", ServoPosition.LOCKED)
+        # Ayrılma: 2 zıt yönlü servo + geri bildirim (tek servo yerine mekanizma).
+        self.separation = MockSeparationMechanism()
         self.apam_servo = MockServo("apam", ServoPosition.CLOSED)
         self.arms = MockArmMechanism()
         self.buzzer = MockBuzzer()
@@ -164,7 +213,7 @@ class ActuatorSuite:
         ikazı olduğundan Safe State'te DEĞİŞTİRİLMEZ (iniş sonrası çalmaya devam eder).
         """
         self.motors.kill()
-        self.separation_servo.to_safe()
+        self.separation.to_safe()
         self.apam_servo.to_safe()
         self.arms.to_safe()
         return Result.ok(None)

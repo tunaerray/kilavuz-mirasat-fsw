@@ -20,6 +20,8 @@ from src.common.clock import Clock, FakeClock
 from src.control.arm_sequencer import ArmDeploySequencer
 from src.control.descent_controller import DescentController
 from src.control.estimator import StateEstimator
+from src.control.separation_sequencer import SeparationSequencer
+from src.drivers.apam_actuator import ApamActuator
 from src.drivers.flight_profile import FlightProfile
 from src.drivers.mock_actuators import ActuatorSuite
 from src.drivers.mock_camera import MockCamera, MockWifiVideoLink
@@ -32,7 +34,6 @@ from src.drivers.mock_sensors import (
     MockTelemetryLink,
 )
 from src.drivers.sim_flight_controller import SimulatedFlightControllerLink
-from src.hal.interfaces import ServoPosition
 from src.mission.context import FlightContext
 from src.services.calibration import BaroCalibrator
 from src.services.camera_service import CameraService
@@ -139,6 +140,10 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     health = HealthMonitor(config.health)
     failsafe = FailsafeManager(config.apam)
     state = FlightStateMachine(config.mission)
+    # APAM aktüatörü: faz EMERGENCY_APAM'a geçişte Pixhawk'a DO_PARACHUTE gönderir.
+    # SIMULATION_ONLY'de yalnız log basar (config.is_simulation engeller). Gerçek
+    # MAVLink bağlantısının paylaşımı Aşama 5'e bırakıldı (connect_fn verilmez).
+    apam_actuator = ApamActuator(config, log=log)
 
     # Uçuşa hazırlık (preflight) go/no-go kontrolü — FRR (Şartname §4.2).
     preflight = PreflightCheck(config.health).run(
@@ -169,6 +174,7 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     # Aşama 2: kontrol & navigasyon bileşenleri.
     estimator = StateEstimator(config.control, zero_alt_pressure or 101325.0)
     controller = DescentController(config.control, config.mission)
+    separation_sequencer = SeparationSequencer(config.control)
     arm_sequencer = ArmDeploySequencer(config.control)
     motor_health = MotorHealthMonitor(config.control)
     # FC link, yönelimi kestiriciden okur (en güncel füzyon çıktısı).
@@ -197,7 +203,8 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         log(f"BOOT: kamera başlatılamadı: {cam_start.message}")
 
     # Döngü durumu
-    separation_confirmed = False
+    separation_started = False       # ayrılma dizisi başladı mı (latch: her çevrim güncelle)
+    separation_confirmed = False     # ayrılma GERİ BİLDİRİMLE doğrulandı mı
     arms_deployed = False
     motor_fault_prev = False
     last_link_ok_s = clk.now_monotonic()
@@ -256,11 +263,20 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
                           and state.phase in (FlightPhase.CARRIER_DESCENT,
                                               FlightPhase.SEPARATION))
         manual_sep = commander.manual_separation_requested and t > 0.0
-        if not separation_confirmed and (autonomous_sep or manual_sep):
-            actuators.separation_servo.move_to(ServoPosition.OPEN)
-            separation_confirmed = True
-            kind = "manuel" if (manual_sep and not autonomous_sep) else "otonom"
-            log(f"SEPARATION: ~{altitude:.0f} m {kind} ayrılma komutu")
+        # Ayrılma koreografisi: 2 zıt servoyu EŞZAMANLI aç, geri bildirimle doğrula.
+        # Dizi bir kez başlayınca (latch) her çevrim güncellenir; complete olana dek
+        # separation_confirmed=True YAPILMAZ (ayrılmadan kollar açılmaz).
+        if not separation_confirmed and (autonomous_sep or manual_sep or separation_started):
+            separation_started = True
+            sep_st = separation_sequencer.update(t, actuators.separation)
+            if sep_st.complete:
+                separation_confirmed = True
+                kind = "manuel" if (manual_sep and not autonomous_sep) else "otonom"
+                log(f"SEPARATION: ~{altitude:.0f} m {kind} ayrılma DOĞRULANDI "
+                    f"(2 servo eşzamanlı, geri bildirim, {sep_st.elapsed_s:.1f} sn)")
+            elif sep_st.state.name == "FAULT":
+                log("SEPARATION: AYRILMA DOĞRULANAMADI (timeout) — geri bildirim yok, "
+                    "kollar açılmıyor")
         if separation_confirmed and not arms_deployed and \
                 state.phase in (FlightPhase.SEPARATION, FlightPhase.ARM_DEPLOY):
             # SİGMA kol açma koreografisi: zamanlı aç/kilitle + geri bildirim.
@@ -310,6 +326,9 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             state.to_fault(ctx)
         else:
             state.update(ctx)
+
+        # Faz APAM'a YENİ geçtiyse (kenar) paraşüt açma komutunu bir kez tetikle.
+        apam_actuator.update(state.phase)
 
         # --- Kontrol & Navigasyon (Aşama 2): aktif iniş throttle üretimi ---
         cmd = controller.compute(state.phase, descent_speed, altitude, dt=period)

@@ -74,7 +74,7 @@ class PreflightCheck:
         safe = (actuators.motors.arm_state is ArmState.DISARMED
                 and actuators.motors.throttle == 0.0
                 and actuators.apam_servo.position is ServoPosition.CLOSED
-                and actuators.separation_servo.position is ServoPosition.LOCKED
+                and actuators.separation.locked          # her iki ayrılma servosu LOCKED
                 and actuators.arms.locked)
         items.append(CheckItem("Aktüatörler Safe State", safe,
                                "disarm/kilitli" if safe else "GÜVENSİZ konum"))

@@ -53,5 +53,5 @@ Sağlık bayrakları failsafe ve telemetri (dolaylı) tarafından tüketilir; AP
 kararını yalnız §2.1 koşulları verir.
 
 ## 4. Safe State Tanımı
-`SafeState`: motors=DISARMED(0), separation_servo=LOCKED, apam_servo=CLOSED,
+`SafeState`: motors=DISARMED(0), separation=LOCKED (2 zıt servo), apam_servo=CLOSED,
 arms=LOCKED. Sistem başlangıcı, FAULT, SAFE_MODE ve kapanışta uygulanır.
