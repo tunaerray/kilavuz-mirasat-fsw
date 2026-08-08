@@ -15,8 +15,18 @@ yasağı gereği, uygulanmayan işler burada gereksinim kimliğiyle listelenir.
 - [x] EKSİK-001 (sim): `SimulatedFlightControllerLink` (RPM modeli, arıza enjeksiyonu).
 - [x] APAM çoklu-sensör çelişki filtresi (GPS varsa yalanlamayı dikkate al, GPS
       yoksa tek sensöre düş) → `failsafe.py`.
-- [ ] EKSİK-001 (gerçek): `FlightControllerLink` gerçek MAVLink implementasyonu
-      donanım gerektirir → Aşama 5.
+- [~] EKSİK-001 (gerçek): Mini Pix MAVLink veri kaynağı UYGULANDI →
+      `src/drivers/mavlink_source.py` (`MavlinkSource` + `Mavlink{Barometer,Imu,Gps,
+      Battery,FlightControllerLink}`). Fabrika FLIGHT'ta bunları üretir
+      (`factory.create_sensors/create_flight_controller/create_mavlink_source`);
+      `main.py` tek bağı `pump()` eder ve ApamActuator ile paylaşır. Sahte
+      bağlantıyla test edildi (`tests/test_mavlink_source.py`). FİZİKSEL I/O ve
+      ArduPilot stream/battery/GPS ayarları saha doğrulaması gerektirir → Aşama 5.
+- [ ] REQ-SAFE-010 (donanım kısıtı): ESC'lerde telemetri YOK (sadece güç+motor+PWM)
+      → motor RPM geri bildirimi alınamıyor. `MavlinkFlightControllerLink.motor_rpm`
+      güvenli 0 döner ve RPM-tabanlı motor arıza tespiti FLIGHT'ta PASİF
+      (`main.py`: `motor_fault = mh.fault and config.is_simulation`). ESC telemetri
+      veya bidirectional DShot eklenirse yeniden etkinleşecek.
 
 ## Aşama 3 — Görev & Bonus ✅ (TAMAMLANDI)
 - [x] REQ-MISSION-006: Manuel ayrılma komutu → `command_service.py` + `main.py`.

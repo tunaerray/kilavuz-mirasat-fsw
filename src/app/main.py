@@ -22,18 +22,16 @@ from src.control.descent_controller import DescentController
 from src.control.estimator import StateEstimator
 from src.control.separation_sequencer import SeparationSequencer
 from src.drivers.apam_actuator import ApamActuator
+from src.drivers.factory import (
+    create_flight_controller,
+    create_mavlink_source,
+    create_sensors,
+    create_telemetry_link,
+)
 from src.drivers.flight_profile import FlightProfile
 from src.drivers.mock_actuators import ActuatorSuite
 from src.drivers.mock_camera import MockCamera, MockWifiVideoLink
-from src.drivers.mock_sensors import (
-    MockBarometer,
-    MockBattery,
-    MockGps,
-    MockImu,
-    MockIotLink,
-    MockTelemetryLink,
-)
-from src.drivers.sim_flight_controller import SimulatedFlightControllerLink
+from src.drivers.mock_sensors import MockIotLink, MockTelemetryLink
 from src.mission.context import FlightContext
 from src.services.calibration import BaroCalibrator
 from src.services.camera_service import CameraService
@@ -114,15 +112,29 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     def mission_time() -> float:
         return persistence.mission_time_s()
 
-    # Sürücüler (mock)
-    baro = MockBarometer(clk, profile, mission_time)
-    imu = MockImu(clk, profile, mission_time)
-    gps = MockGps(clk, profile, mission_time)
-    batt = MockBattery(clk, profile, mission_time)
-    # FRR §4.2 titreşim testi analoğu: sensörlere titreşim gürültüsü uygula.
-    baro.vibration = vibration
-    imu.vibration = vibration
-    link = MockTelemetryLink()
+    # Sürücüler: SIMULATION → mock; FLIGHT/HIL → Mini Pix MAVLink adaptörleri (tek
+    # paylaşımlı pymavlink bağı). Veri kaynağı ne olursa olsun üst katmanlar
+    # (estimator/telemetri/arayüz) DEĞİŞMEZ; yalnız sensör kaynağı değişir.
+    mav_source = create_mavlink_source(config, clk)   # SIMULATION'da None
+    if mav_source is not None:
+        opened = mav_source.open()
+        log("BOOT: MAVLink kaynağı (Mini Pix) "
+            + ("açıldı" if opened.is_ok else f"AÇILAMADI: {opened.message}"))
+    baro, imu, gps, batt = create_sensors(config, clk, profile, mission_time, mav_source)
+    # FRR §4.2 titreşim testi analoğu YALNIZ mock sensörlerde anlamlı (gerçek
+    # MAVLink adaptörlerinde .vibration yok).
+    if config.is_simulation:
+        baro.vibration = vibration
+        imu.vibration = vibration
+    # Telemetri linki: SIMULATION → mock tampon; FLIGHT/HIL → gerçek LoRa E22 (aç).
+    if config.is_simulation:
+        link = MockTelemetryLink()
+    else:
+        link = create_telemetry_link(config)
+        if hasattr(link, "open"):
+            link_open = link.open()
+            log("BOOT: LoRa telemetri linki "
+                + ("açıldı" if link_open.is_ok else f"AÇILAMADI: {link_open.message}"))
     actuators = ActuatorSuite()
 
     # GÜVENLİK: başlangıçta Safe State (motorlar disarm, servolar güvenli).
@@ -141,9 +153,12 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     failsafe = FailsafeManager(config.apam)
     state = FlightStateMachine(config.mission)
     # APAM aktüatörü: faz EMERGENCY_APAM'a geçişte Pixhawk'a DO_PARACHUTE gönderir.
-    # SIMULATION_ONLY'de yalnız log basar (config.is_simulation engeller). Gerçek
-    # MAVLink bağlantısının paylaşımı Aşama 5'e bırakıldı (connect_fn verilmez).
-    apam_actuator = ApamActuator(config, log=log)
+    # SIMULATION_ONLY'de yalnız log basar (config.is_simulation engeller). FLIGHT'ta
+    # MAVLink kaynağının AÇIK bağlantısı paylaşılır (tek seri port iki kez açılamaz).
+    apam_connect_fn = None
+    if mav_source is not None:
+        apam_connect_fn = lambda port, baud: mav_source.connection  # noqa: E731
+    apam_actuator = ApamActuator(config, log=log, connect_fn=apam_connect_fn)
 
     # Uçuşa hazırlık (preflight) go/no-go kontrolü — FRR (Şartname §4.2).
     preflight = PreflightCheck(config.health).run(
@@ -179,10 +194,11 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     motor_health = MotorHealthMonitor(config.control)
     # FC link, yönelimi kestiriciden okur (en güncel füzyon çıktısı).
     attitude_holder = {"att": (0.0, 0.0, 0.0)}
-    fc_link = SimulatedFlightControllerLink(
-        config.control, clk, attitude_fn=lambda: attitude_holder["att"])
-    if motor_fault_factor < 1.0:
-        fc_link.set_motor_fault(motor_fault_factor)   # test/senaryo enjeksiyonu
+    fc_link = create_flight_controller(
+        config, clk, source=mav_source,
+        attitude_fn=lambda: attitude_holder["att"])
+    if config.is_simulation and motor_fault_factor < 1.0:
+        fc_link.set_motor_fault(motor_fault_factor)   # test/senaryo enjeksiyonu (yalnız sim)
 
     # Aşama 3: görev & bonus servisleri.
     iot_link = MockIotLink()
@@ -239,6 +255,10 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             log(f"KOMUT '{cmd_str}': "
                 f"{res.unwrap().detail if res.is_ok else 'RED - ' + res.message}")
             cmd_idx += 1
+
+        # --- MAVLink akışını boşalt (Mini Pix → cache); SIMULATION'da no-op ---
+        if mav_source is not None:
+            mav_source.pump()
 
         # --- Sensörleri oku ---
         b = baro.read()
@@ -354,11 +374,15 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         fc_tlm = fc_link.read_telemetry()
         actual_rpm = min(fc_tlm.unwrap().motor_rpm) if fc_tlm.is_ok else 0.0
         mh = motor_health.update(applied_throttle, actual_rpm, dt=period)
-        if mh.fault and not motor_fault_prev:
+        # ESC telemetri (RPM geri bildirimi) donanımda YOK → RPM-tabanlı motor arıza
+        # tespiti FLIGHT'ta pasif (TASK_TRACKER: REQ-SAFE-010). SIMULATION'da tam
+        # etkin (sim FC gerçek RPM üretir). Aksi halde RPM=0, APAM'ı yanlış tetikler.
+        motor_fault = mh.fault and config.is_simulation
+        if motor_fault and not motor_fault_prev:
             log(f"MOTOR ARIZA: beklenen {mh.expected_rpm:.0f} RPM, "
                 f"gerçek {actual_rpm:.0f} RPM ({mh.mismatch_timer_s:.1f} sn tutarsız)")
-        motor_fault_prev = mh.fault
-        motor_fault_ever = motor_fault_ever or mh.fault
+        motor_fault_prev = motor_fault
+        motor_fault_ever = motor_fault_ever or motor_fault
 
         # --- Kurtarma (Aşama 3): buzzer + iniş sonrası telemetri penceresi ---
         rec = recovery.update(state.phase, t, actuators.buzzer)
@@ -419,9 +443,11 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         if isinstance(clk, FakeClock):
             clk.advance(period)     # sim: gerçek zaman beklemeden ilerle
 
-    # KAPANIŞ: Safe State (güvenlik) + kamera durdur.
+    # KAPANIŞ: Safe State (güvenlik) + kamera durdur + MAVLink bağını kapat.
     actuators.enter_safe_state()
     camera.stop()
+    if mav_source is not None:
+        mav_source.close()
     log(f"SHUTDOWN: {cycle} çevrim, {packets} paket; Safe State'e alındı "
         f"(Z.I.R.H tampon: {zirh.buffered_total}, iletildi: {zirh.sent_total}, "
         f"kalan: {zirh.backlog}; video kare: {camera.frames_recorded})")
