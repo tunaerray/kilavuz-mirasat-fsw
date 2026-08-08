@@ -16,11 +16,27 @@ import importlib.util
 
 from config.default import AppConfig, RunProfile
 from src.common.result import ErrorCode, Result
-from src.drivers.mock_sensors import MockTelemetryLink
+from src.drivers.mavlink_source import (
+    MavlinkBarometer,
+    MavlinkBattery,
+    MavlinkFlightControllerLink,
+    MavlinkGps,
+    MavlinkImu,
+    MavlinkSource,
+)
+from src.drivers.mock_sensors import (
+    MockBarometer,
+    MockBattery,
+    MockGps,
+    MockImu,
+    MockTelemetryLink,
+)
 from src.drivers.real_lora import RealLoraE22Link
+from src.drivers.sim_flight_controller import SimulatedFlightControllerLink
 
 # FLIGHT/HIL için gerekli donanım kütüphaneleri (varlık kontrolü; import etmez).
-_HARDWARE_MODULES = ("serial",)   # pyserial (LoRa/GPS UART). smbus2/pymavlink Aşama 5.
+# pyserial: LoRa/GPS UART; pymavlink: Mini Pix MAVLink kaynağı (mavlink_source).
+_HARDWARE_MODULES = ("serial", "pymavlink")
 
 
 def hardware_libs_available() -> bool:
@@ -52,3 +68,43 @@ def create_telemetry_link(config: AppConfig, port: str = "/dev/ttyAMA0"):
     if config.profile is RunProfile.SIMULATION_ONLY:
         return MockTelemetryLink()
     return RealLoraE22Link(port, config.telemetry)
+
+
+def create_mavlink_source(config: AppConfig, clock, connect_fn=None):
+    """
+    Mini Pix MAVLink veri kaynağı döndürür. SIMULATION_ONLY'de None (mock sensörler
+    kullanılır); FLIGHT/HIL'de MavlinkSource (henüz açık değil; open() çağrılır).
+    Tek kaynak hem sensör adaptörlerini besler hem de bağlantıyı ApamActuator ile
+    paylaşır (tek seri port iki kez açılamaz).
+    """
+    if config.profile is RunProfile.SIMULATION_ONLY:
+        return None
+    return MavlinkSource(config.pixhawk, clock, connect_fn=connect_fn)
+
+
+def create_sensors(config: AppConfig, clock, profile, mission_time, source=None):
+    """
+    (baro, imu, gps, batt) dörtlüsü döndürür. SIMULATION_ONLY → mock sürücüler;
+    FLIGHT/HIL → Mini Pix MAVLink adaptörleri (tek `source`'tan okur).
+    """
+    if config.profile is RunProfile.SIMULATION_ONLY:
+        return (MockBarometer(clock, profile, mission_time),
+                MockImu(clock, profile, mission_time),
+                MockGps(clock, profile, mission_time),
+                MockBattery(clock, profile, mission_time))
+    if source is None:
+        raise ValueError("FLIGHT/HIL profili MAVLink kaynağı gerektirir (source=None)")
+    return (MavlinkBarometer(source), MavlinkImu(source),
+            MavlinkGps(source), MavlinkBattery(source))
+
+
+def create_flight_controller(config: AppConfig, clock, source=None, attitude_fn=None):
+    """
+    Uçuş kontrol kartı bağı döndürür. SIMULATION_ONLY → SimulatedFlightControllerLink
+    (attitude_fn kestiriciden okur); FLIGHT/HIL → MavlinkFlightControllerLink (Mini Pix).
+    """
+    if config.profile is RunProfile.SIMULATION_ONLY:
+        return SimulatedFlightControllerLink(config.control, clock, attitude_fn=attitude_fn)
+    if source is None:
+        raise ValueError("FLIGHT/HIL profili MAVLink kaynağı gerektirir (source=None)")
+    return MavlinkFlightControllerLink(source, clock)
