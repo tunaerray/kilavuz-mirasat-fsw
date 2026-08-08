@@ -180,18 +180,22 @@ def main(argv: list[str] | None = None) -> int:
               "Laptopta mantığı denemek için --dry-run kullan.", file=sys.stderr)
         return 1
 
-    try:
-        # GÜVENLİK: her koşuda önce güvenli konum.
-        all_locked(pca)
-        time.sleep(SETTLE_S)
+    # Elle konumlama modunda (--channel) servo, ölçüm için konumda BIRAKILIR;
+    # güvenli-sıfırlama (all_locked) UYGULANMAZ, yoksa servo hemen geri çekilir.
+    manual = args.channel is not None
 
-        if args.channel is not None:
+    try:
+        if manual:
             if args.us is None:
                 print("HATA: --channel ile --us de vermelisin.", file=sys.stderr)
                 return 2
             pca.set_us(args.channel, args.us)
-            print(f"CH{args.channel} ← {args.us:.0f} µs uygulandı.")
+            print(f"CH{args.channel} <- {args.us:.0f} us uygulandi ve KONUMDA BIRAKILDI.")
             return 0
+
+        # GÜVENLİK: dizi/lock modlarında önce güvenli konum.
+        all_locked(pca)
+        time.sleep(SETTLE_S)
 
         if args.lock:
             print("Tüm servolar GÜVENLİ (LOCKED) konumda.")
@@ -213,8 +217,10 @@ def main(argv: list[str] | None = None) -> int:
         p.print_help()
         return 0
     finally:
-        # Çıkışta güvenli konuma dön (mekaniği kur, yükü tut).
-        all_locked(pca)
+        # Çıkışta güvenli konuma dön (mekaniği kur, yükü tut). Elle konumlama
+        # modunda İSTİSNA: servo ölçüm için konumda kalmalı, sıfırlanmaz.
+        if not manual:
+            all_locked(pca)
         pca.close()
 
 
