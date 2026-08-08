@@ -42,16 +42,12 @@ from src.hal.interfaces import (
     ImuReading,
 )
 
-# MAVLink sabitleri (pymavlink olmadan da test/istek için gömülü; değerler MAVLink
-# standardıdır ve donanımdan bağımsızdır — apam_actuator.py ile aynı yaklaşım).
-MAV_CMD_SET_MESSAGE_INTERVAL = 511
-_MSG_IDS = {
-    "SYS_STATUS": 1,
-    "GPS_RAW_INT": 24,
-    "SCALED_IMU": 26,
-    "SCALED_PRESSURE": 29,
-    "ATTITUDE": 30,
-}
+# MAV_DATA_STREAM grup kimlikleri (MAVLink standardı; pymavlink olmadan gömülü —
+# apam_actuator.py ile aynı yaklaşım). ArduPilot bu gruplarla akış açar.
+MAV_DATA_STREAM_RAW_SENSORS = 1       # RAW_IMU, SCALED_PRESSURE
+MAV_DATA_STREAM_EXTENDED_STATUS = 2   # SYS_STATUS, GPS_RAW_INT
+MAV_DATA_STREAM_POSITION = 6          # GLOBAL_POSITION_INT
+MAV_DATA_STREAM_EXTRA1 = 10           # ATTITUDE
 _G = 9.80665  # standart yerçekimi (mG → m/s² dönüşümü)
 
 # Bağlantı üreticisi: (port, baud) → mavlink bağlantı nesnesi. Test bunu enjekte
@@ -85,7 +81,12 @@ class MavlinkSource:
 
     # ------------------------------------------------------------- yaşam döngüsü
     def open(self) -> Result[None]:
-        """Bağlantıyı açar ve mesaj akışını talep eder. pymavlink/port yoksa açık hata."""
+        """
+        Bağlanır, HEARTBEAT bekler (target_system öğrenir) ve akışları talep eder.
+        ArduPilot çoğu mesajı biri istemeden yollamaz; ayrıca istek doğru
+        target_system'e gitmeli — bu yüzden akış isteği ÖNCE heartbeat beklenerek
+        gönderilir. pymavlink/port yoksa veya heartbeat gelmezse açık hata döner.
+        """
         try:
             self._conn = self._connect_fn(self._cfg.port, self._cfg.baud)
         except ImportError:
@@ -94,34 +95,43 @@ class MavlinkSource:
         except Exception as exc:  # pragma: no cover - donanıma özgü G/Ç hataları
             self._error = f"MAVLink bağlantısı açılamadı ({self._cfg.port}): {exc}"
             return Result.err(ErrorCode.IO_ERROR, self._error)
+        try:
+            hb = self._conn.wait_heartbeat(timeout=self._cfg.heartbeat_timeout_s)
+        except Exception as exc:  # pragma: no cover - donanıma özgü G/Ç hataları
+            self._error = f"heartbeat beklenirken hata: {exc}"
+            return Result.err(ErrorCode.IO_ERROR, self._error)
+        if hb is None:
+            self._error = ("MAVLink heartbeat alınamadı "
+                           f"({self._cfg.heartbeat_timeout_s:.0f} sn) — FC yanıt vermiyor")
+            return Result.err(ErrorCode.TIMEOUT, self._error)
         self._request_streams()
         return Result.ok(None)
 
     def _request_streams(self) -> None:
         """
-        İstenen mesajları SET_MESSAGE_INTERVAL ile talep eder. BEST-EFFORT: istek
-        başarısız olsa da ArduPilot SR* parametreleriyle akış gelebilir; bu yüzden
-        tek tek istek hatası open()'ı bozmaz (akış yokluğu adaptörlerde UNAVAILABLE
-        olarak zaten görünür — sessiz taze veri üretilmez).
+        Gerekli MAVLink akış gruplarını REQUEST_DATA_STREAM ile talep eder (ArduPilot'ta
+        en güvenilir yöntem; heartbeat SONRASI doğru target_system'e gönderilir).
+        BEST-EFFORT: tek tek istek hatası open()'ı bozmaz (akış yokluğu adaptörlerde
+        UNAVAILABLE olarak görünür — sessiz taze veri üretilmez).
         """
         if self._conn is None:
             return
-        rates = {
-            "ATTITUDE": self._cfg.attitude_hz,
-            "SCALED_IMU": self._cfg.imu_hz,
-            "SCALED_PRESSURE": self._cfg.pressure_hz,
-            "GPS_RAW_INT": self._cfg.gps_hz,
-            "SYS_STATUS": self._cfg.sys_status_hz,
-        }
-        for name, hz in rates.items():
+        # (grup, hz) — bir grup birden çok mesaj taşır (yorumlar hangi mesajlar).
+        streams = [
+            (MAV_DATA_STREAM_EXTRA1, self._cfg.attitude_hz),                        # ATTITUDE
+            (MAV_DATA_STREAM_RAW_SENSORS,
+             max(self._cfg.imu_hz, self._cfg.pressure_hz)),                         # RAW_IMU, SCALED_PRESSURE
+            (MAV_DATA_STREAM_EXTENDED_STATUS,
+             max(self._cfg.gps_hz, self._cfg.sys_status_hz)),                       # SYS_STATUS, GPS_RAW_INT
+            (MAV_DATA_STREAM_POSITION, self._cfg.gps_hz),                           # GLOBAL_POSITION_INT
+        ]
+        for stream_id, hz in streams:
             if hz <= 0:
                 continue
-            interval_us = int(1_000_000 / hz)
             try:
-                self._conn.mav.command_long_send(
+                self._conn.mav.request_data_stream_send(
                     self._conn.target_system, self._conn.target_component,
-                    MAV_CMD_SET_MESSAGE_INTERVAL, 0,
-                    _MSG_IDS[name], interval_us, 0, 0, 0, 0, 0)
+                    stream_id, int(hz), 1)   # start_stop=1 → akışı başlat
             except Exception:  # pragma: no cover - donanıma özgü G/Ç hataları
                 continue
 
@@ -182,7 +192,7 @@ class MavlinkBarometer:
 
 
 class MavlinkImu:
-    """ATTITUDE (rad→derece) + SCALED_IMU (mG→m/s²) → ImuReading."""
+    """ATTITUDE (rad→derece) + SCALED_IMU/RAW_IMU (mG→m/s²) → ImuReading."""
 
     def __init__(self, source: MavlinkSource) -> None:
         self._s = source
@@ -192,10 +202,14 @@ class MavlinkImu:
         if item is None:
             return Result.err(ErrorCode.UNAVAILABLE, "ATTITUDE mesajı henüz yok")
         msg, ts = item
-        accel_z = _G  # SCALED_IMU yoksa nominal 1g kabul
-        imu_item = self._s.latest("SCALED_IMU")
-        if imu_item is not None:
-            accel_z = float(imu_item[0].zacc) / 1000.0 * _G   # mG → m/s²
+        accel_z = _G  # ivme mesajı yoksa nominal 1g kabul
+        # İvme: SCALED_IMU tercih; yoksa RAW_IMU (ikisi de mG). ArduPilot varsayılan
+        # akışında genelde RAW_IMU gelir.
+        for imu_type in ("SCALED_IMU", "RAW_IMU"):
+            imu_item = self._s.latest(imu_type)
+            if imu_item is not None:
+                accel_z = float(imu_item[0].zacc) / 1000.0 * _G   # mG → m/s²
+                break
         return Result.ok(ImuReading(
             pitch_deg=math.degrees(float(msg.pitch)),
             roll_deg=math.degrees(float(msg.roll)),

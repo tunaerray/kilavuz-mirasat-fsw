@@ -11,7 +11,6 @@ from config.default import PixhawkConfig
 from src.common.clock import FakeClock
 from src.common.result import ErrorCode
 from src.drivers.mavlink_source import (
-    MAV_CMD_SET_MESSAGE_INTERVAL,
     MavlinkBarometer,
     MavlinkBattery,
     MavlinkFlightControllerLink,
@@ -33,21 +32,29 @@ class _FakeMsg:
 
 class _FakeMav:
     def __init__(self) -> None:
-        self.sent: list[tuple] = []
+        self.streams: list[tuple] = []
 
-    def command_long_send(self, *args) -> None:
-        self.sent.append(args)
+    def request_data_stream_send(self, *args) -> None:
+        self.streams.append(args)
 
 
 class _FakeConn:
     """recv_match ile kuyruktaki mesajları sırayla döndüren sahte bağlantı."""
 
-    def __init__(self, messages=None) -> None:
+    def __init__(self, messages=None, heartbeat=True) -> None:
         self._queue = list(messages or [])
         self.mav = _FakeMav()
-        self.target_system = 1
-        self.target_component = 1
+        self.target_system = 0
+        self.target_component = 0
+        self._heartbeat = heartbeat
         self.closed = False
+
+    def wait_heartbeat(self, timeout=None):
+        if not self._heartbeat:
+            return None                    # zaman aşımı simülasyonu
+        self.target_system = 1             # heartbeat sonrası öğrenilir
+        self.target_component = 1
+        return _FakeMsg("HEARTBEAT")
 
     def queue(self, *messages) -> None:
         self._queue.extend(messages)
@@ -61,21 +68,32 @@ class _FakeConn:
         self.closed = True
 
 
-def _source(messages=None, clock=None):
-    conn = _FakeConn(messages)
+def _source(messages=None, clock=None, heartbeat=True):
+    conn = _FakeConn(messages, heartbeat=heartbeat)
     clk = clock or FakeClock()
     src = MavlinkSource(PixhawkConfig(), clk, connect_fn=lambda p, b: conn)
     return src, conn, clk
 
 
 # ------------------------------------------------------------------------- testler
-def test_open_requests_message_streams():
+def test_open_requests_data_streams_after_heartbeat():
     src, conn, _ = _source()
     assert src.open().is_ok
     assert src.is_connected()
-    # 5 mesaj tipi için SET_MESSAGE_INTERVAL istendi.
-    assert len(conn.mav.sent) == 5
-    assert all(args[2] == MAV_CMD_SET_MESSAGE_INTERVAL for args in conn.mav.sent)
+    # Heartbeat sonrası target_system öğrenildi (istekler 0'a değil 1'e gitmeli).
+    assert conn.target_system == 1
+    # 4 akış grubu REQUEST_DATA_STREAM ile istendi, doğru target_system'e.
+    assert len(conn.mav.streams) == 4
+    assert all(args[0] == 1 for args in conn.mav.streams)     # target_system=1
+    assert all(args[4] == 1 for args in conn.mav.streams)     # start_stop=1 (başlat)
+
+
+def test_open_fails_on_heartbeat_timeout():
+    src, conn, _ = _source(heartbeat=False)
+    r = src.open()
+    assert r.is_err and r.code is ErrorCode.TIMEOUT
+    # Heartbeat gelmediği için akış İSTENMEZ (target_system bilinmiyor).
+    assert conn.mav.streams == []
 
 
 def test_barometer_mapping_and_receive_timestamp():
@@ -110,6 +128,20 @@ def test_imu_mapping_degrees_and_accel():
     assert abs(reading.pitch_deg + 5.0) < 1e-6
     assert abs(reading.yaw_deg - 90.0) < 1e-6
     assert abs(reading.accel_z_mps2 - 9.80665) < 1e-6
+
+
+def test_imu_accel_falls_back_to_raw_imu():
+    import math
+    src, conn, _ = _source()
+    src.open()
+    # SCALED_IMU yok; ArduPilot varsayılan akışındaki RAW_IMU kullanılmalı.
+    conn.queue(
+        _FakeMsg("ATTITUDE", roll=0.0, pitch=0.0, yaw=0.0),
+        _FakeMsg("RAW_IMU", zacc=2000),   # 2000 mG = 2 g
+    )
+    src.pump()
+    reading = MavlinkImu(src).read().unwrap()
+    assert abs(reading.accel_z_mps2 - 2 * 9.80665) < 1e-6
 
 
 def test_gps_mapping_and_fix():

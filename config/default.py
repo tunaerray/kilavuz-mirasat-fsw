@@ -147,7 +147,8 @@ class PixhawkConfig:
     port: str = "/dev/ttyACM0"             # RPi↔Pixhawk USB/UART (varsayılan)
     baud: int = 115200                     # ArduPilot USB-CDC nominal hızı
     command_ack_timeout_s: float = 2.0     # COMMAND_ACK bekleme üst sınırı
-    # MAVLink telemetri akış hızları (SET_MESSAGE_INTERVAL ile talep edilir).
+    heartbeat_timeout_s: float = 10.0      # ilk heartbeat bekleme üst sınırı (bağlantı)
+    # MAVLink telemetri akış hızları (REQUEST_DATA_STREAM ile talep edilir).
     # 0 = talep etme (ArduPilot SR* parametrelerinin varsayılan akışına düş).
     attitude_hz: float = 20.0              # ATTITUDE (pitch/roll/yaw)
     imu_hz: float = 20.0                   # SCALED_IMU (ivme)
