@@ -13,16 +13,18 @@ Nasıl Test    : tests/test_app_integration.py — sınırlı koşu, paket üret
 from __future__ import annotations
 
 import argparse
+import time
 from dataclasses import dataclass
 
 from config.default import AppConfig, get_config
-from src.common.clock import Clock, FakeClock
+from src.common.clock import Clock, FakeClock, RealClock
 from src.control.arm_sequencer import ArmDeploySequencer
 from src.control.descent_controller import DescentController
 from src.control.estimator import StateEstimator
 from src.control.separation_sequencer import SeparationSequencer
 from src.drivers.apam_actuator import ApamActuator
 from src.drivers.factory import (
+    check_profile_runnable,
     create_flight_controller,
     create_mavlink_source,
     create_sensors,
@@ -442,6 +444,11 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         cycle += 1
         if isinstance(clk, FakeClock):
             clk.advance(period)     # sim: gerçek zaman beklemeden ilerle
+        else:
+            # FLIGHT/HIL: gerçek saat — döngüyü sabit periyoda oturt (busy-spin yok).
+            elapsed = clk.now_monotonic() - cycle_start
+            if elapsed < period:
+                time.sleep(period - elapsed)
 
     # KAPANIŞ: Safe State (güvenlik) + kamera durdur + MAVLink bağını kapat.
     actuators.enter_safe_state()
@@ -521,19 +528,26 @@ def main(argv: list[str] | None = None) -> int:
             raise SystemExit(f"Geçersiz --command biçimi: {spec!r} (T:CMD bekleniyor)")
 
     config = get_config(args.config)
-    # Güvenlik teyidi: yalnız SIMULATION_ONLY desteklenir.
+    # FLIGHT/HIL: donanım kütüphaneleri (pyserial/pymavlink) yoksa açık hata ver
+    # (sessiz mock'a düşme). SIMULATION her zaman çalışır. Gerçek profilde gerçek
+    # saat kullanılır; sim'de deterministik SimClock (build_and_run varsayılanı).
+    clock = None
     if not config.is_simulation:
-        raise SystemExit("Yalnızca SIMULATION_ONLY profili desteklenir (Aşama 2).")
+        runnable = check_profile_runnable(config)
+        if runnable.is_err:
+            raise SystemExit(
+                f"{config.profile.value} profili çalıştırılamıyor: {runnable.message}")
+        clock = RealClock()
 
     # --preflight: yalnız çok kısa bir koşuyla preflight sonucunu al ve çık.
     if args.preflight:
-        summary = build_and_run(config, max_cycles=1, duration_s=None,
+        summary = build_and_run(config, max_cycles=1, duration_s=None, clock=clock,
                                 profile_name=args.profile, event_sink=print)
         print(f"--- PREFLIGHT: {'GO' if summary.preflight_go else 'NO-GO'} ---")
         return 0 if summary.preflight_go else 1
 
     summary = build_and_run(
-        config, max_cycles=args.max_cycles, duration_s=args.duration,
+        config, max_cycles=args.max_cycles, duration_s=args.duration, clock=clock,
         profile_name=args.profile, event_sink=print,
         motor_fault_factor=args.motor_fault, commands=injected, jam_window=jam,
         vibration=args.vibration)

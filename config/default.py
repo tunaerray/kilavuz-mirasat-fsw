@@ -210,25 +210,34 @@ class AppConfig:
 
 # Varsayılan profil: her zaman SIMULATION_ONLY (güvenlik).
 SIMULATION = AppConfig()
+# Aşama 5 donanım profilleri. Seçilebilir; ancak çalıştırma anında
+# factory.check_profile_runnable donanım kütüphanelerini (pyserial/pymavlink)
+# denetler ve yoksa açık hata verir (sessiz mock'a düşmez).
+HARDWARE_IN_THE_LOOP = AppConfig(profile=RunProfile.HARDWARE_IN_THE_LOOP)
+FLIGHT = AppConfig(profile=RunProfile.FLIGHT)
 
 _PROFILES = {
     "simulation": SIMULATION,
     "sim": SIMULATION,
     "SIMULATION_ONLY": SIMULATION,
+    "hil": HARDWARE_IN_THE_LOOP,
+    "HARDWARE_IN_THE_LOOP": HARDWARE_IN_THE_LOOP,
+    "flight": FLIGHT,
+    "FLIGHT": FLIGHT,
 }
 
 
 def get_config(name: str = "simulation") -> AppConfig:
     """
     Profil adına göre AppConfig döner. Bilinmeyen profil sessizce varsayılana
-    DÜŞMEZ; açık hata verir (yanlış profil = güvenlik riski).
-    HIL/FLIGHT profilleri Aşama 5'e kadar bilinçli olarak devre dışıdır.
+    DÜŞMEZ; açık hata verir (yanlış profil = güvenlik riski). HIL/FLIGHT profilleri
+    seçilebilir; çalıştırma anında donanım kütüphaneleri yoksa açık hata verir
+    (bkz. factory.check_profile_runnable).
     """
     key = name.strip()
     if key not in _PROFILES:
         raise ValueError(
-            f"Bilinmeyen profil: {name!r}. Geçerli: {sorted(_PROFILES)}. "
-            "HARDWARE/FLIGHT profilleri Aşama 5'te etkinleşecektir."
+            f"Bilinmeyen profil: {name!r}. Geçerli: {sorted(_PROFILES)}."
         )
     return _PROFILES[key]
 
