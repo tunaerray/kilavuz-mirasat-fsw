@@ -122,6 +122,21 @@ class Pca9685:
         self._bus.write_byte_data(PCA9685_ADDR, base + 2, counts & 0xFF)
         self._bus.write_byte_data(PCA9685_ADDR, base + 3, counts >> 8)
 
+    def off(self, channel: int) -> None:
+        """
+        Kanala PWM sinyalini tamamen keser (LEDn_OFF 'full-off' biti). Sinyal
+        gidince servo komut almaz → sürekli dönen servo DURUR, normal servo gevşer.
+        Kart komutu 'hatırladığından', durdurmanın tek temiz yolu sinyali kesmektir.
+        """
+        if self._dry or self._bus is None:
+            self._log(f"[{'DRY' if self._dry else '??'}] CH{channel} sinyal KESILDI (off)")
+            return
+        base = _LED0_ON_L + 4 * channel
+        self._bus.write_byte_data(PCA9685_ADDR, base + 0, 0)      # ON_L
+        self._bus.write_byte_data(PCA9685_ADDR, base + 1, 0)      # ON_H
+        self._bus.write_byte_data(PCA9685_ADDR, base + 2, 0)      # OFF_L
+        self._bus.write_byte_data(PCA9685_ADDR, base + 3, 0x10)   # OFF_H: full-off biti
+
     def close(self) -> None:
         if self._bus is not None:
             try:
@@ -134,6 +149,12 @@ def all_locked(pca: Pca9685) -> None:
     """Tüm servoları GÜVENLİ (LOCKED) konuma alır — başlangıç ve çıkış için."""
     for ch, ends in SERVO_US.items():
         pca.set_us(ch, ends["locked"])
+
+
+def all_off(pca: Pca9685) -> None:
+    """Tüm kanallarda PWM sinyalini keser (tüm servoları durdurur)."""
+    for ch in SERVO_US:
+        pca.off(ch)
 
 
 def separate_sequence(pca: Pca9685, log=print) -> None:
@@ -169,6 +190,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--repeat", type=int, default=1, help="Diziyi N kez tekrarla (güvenilirlik)")
     p.add_argument("--channel", type=int, help="Tek kanala elle PWM (--us ile)")
     p.add_argument("--us", type=float, help="Elle darbe genişliği (mikrosaniye)")
+    p.add_argument("--off", action="store_true",
+                   help="PWM sinyalini kes (servo durur). --channel ile tek kanal, yoksa tümü")
     p.add_argument("--dry-run", action="store_true", help="Donanımsız: yalnız komut planını yaz")
     args = p.parse_args(argv)
 
@@ -180,11 +203,22 @@ def main(argv: list[str] | None = None) -> int:
               "Laptopta mantığı denemek için --dry-run kullan.", file=sys.stderr)
         return 1
 
-    # Elle konumlama modunda (--channel) servo, ölçüm için konumda BIRAKILIR;
-    # güvenli-sıfırlama (all_locked) UYGULANMAZ, yoksa servo hemen geri çekilir.
+    # Elle konumlama (--channel) ve sinyal-kesme (--off) modlarında servo, olduğu
+    # gibi BIRAKILIR; güvenli-sıfırlama (all_locked) UYGULANMAZ, yoksa servo hemen
+    # geri çekilir / sinyal tekrar verilir.
     manual = args.channel is not None
+    hold = manual or args.off
 
     try:
+        if args.off:
+            if args.channel is not None:
+                pca.off(args.channel)
+                print(f"CH{args.channel} sinyal KESILDI — servo durur.")
+            else:
+                all_off(pca)
+                print("TUM kanallarda sinyal kesildi — servolar durur.")
+            return 0
+
         if manual:
             if args.us is None:
                 print("HATA: --channel ile --us de vermelisin.", file=sys.stderr)
@@ -219,7 +253,7 @@ def main(argv: list[str] | None = None) -> int:
     finally:
         # Çıkışta güvenli konuma dön (mekaniği kur, yükü tut). Elle konumlama
         # modunda İSTİSNA: servo ölçüm için konumda kalmalı, sıfırlanmaz.
-        if not manual:
+        if not hold:
             all_locked(pca)
         pca.close()
 
