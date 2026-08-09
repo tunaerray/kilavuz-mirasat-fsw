@@ -46,6 +46,7 @@ from src.services.preflight import PreflightCheck
 from src.services.recovery import RecoveryManager
 from src.services.s2d_iot import S2dIotService
 from src.services.store_forward import StoreForwardBuffer
+from src.services.uplink import UplinkService
 from src.state_machine.flight_state_machine import FlightPhase, FlightStateMachine
 from src.telemetry.packet import (
     ArasInputs,
@@ -123,6 +124,19 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         log("BOOT: MAVLink kaynağı (Mini Pix) "
             + ("açıldı" if opened.is_ok else f"AÇILAMADI: {opened.message}"))
     baro, imu, gps, batt = create_sensors(config, clk, profile, mission_time, mav_source)
+
+    # Ortam sicakligi (Gereksinim-15). Ucus kartinin SCALED_PRESSURE.temperature
+    # alani barometre CIPININ isisini verir, ortamin degil (sahada 53.7 vs 27.3 C).
+    dht = None
+    if not config.is_simulation:
+        from src.drivers.dht22 import AmbientTemperatureBarometer, Dht22Temperature
+        dht = Dht22Temperature()
+        if dht.is_available:
+            dht.start()
+            baro = AmbientTemperatureBarometer(baro, dht)
+            log("BOOT: ortam sicakligi sensoru hazir")
+        else:
+            log("BOOT: DHT22 bulunamadi — sicaklik cip isisi olarak raporlanacak")
     # FRR §4.2 titreşim testi analoğu YALNIZ mock sensörlerde anlamlı (gerçek
     # MAVLink adaptörlerinde .vibration yok).
     if config.is_simulation:
@@ -212,9 +226,17 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         fc_link.set_motor_fault(motor_fault_factor)   # test/senaryo enjeksiyonu (yalnız sim)
 
     # Aşama 3: görev & bonus servisleri.
-    iot_link = MockIotLink()
+    if config.is_simulation:
+        iot_link = MockIotLink()
+    else:
+        # IoT bagi telemetriyle AYNI LoRa linkini paylasir; ayrim '@' onekiyle.
+        from src.drivers.real_iot import LoraIotLink
+        iot_link = LoraIotLink(link)
     s2d = S2dIotService(iot_link, config.paths.s2d_csv)
     commander = CommandService(s2d)
+    # Gercek RF uplink: yer istasyonundan gelen komutlar + ACK.
+    # Link receive() desteklemiyorsa (simulasyon) kendiliginden devre disi.
+    uplink = UplinkService(link, commander, log=log)
     recovery = RecoveryManager(config.mission)
     pending_cmds = sorted(commands or [], key=lambda c: c[0])
     cmd_idx = 0
@@ -250,11 +272,24 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     motors_ever_armed = False
     telemetry_terminated = False
 
+        # --duration BU KOSUNUN suresidir, gorev zamani DEGIL.
+    #
+    # Gorev zamani (mission_time) kalici depodan devam eder — Gereksinim-17
+    # yeniden baslatmada zaman verisinin korunmasini istiyor ve telemetriye
+    # bu deger giriyor. Ama programin NE KADAR CALISACAGI buna baglanirsa
+    # her yeniden baslatma calisma omrunu kisaltir: birikmis gorev zamani
+    # esigi asinca dongu ilk iterasyonda kirilir ve program 0 cevrimle
+    # cikar (sahada uc kez yasandi, sessizce ve hata vermeden).
+    #
+    # Ucusta bu felaket olurdu: watchdog yeniden baslatir, program acilir,
+    # gorev zamani dolu oldugu icin hemen kapanir ve telemetri tamamen durur.
+    kosu_baslangici = clk.now_monotonic()
+
     cycle = 0
     while cycle < max_cycles:
         cycle_start = clk.now_monotonic()
         t = mission_time()
-        if duration_s is not None and t >= duration_s:
+        if duration_s is not None and (cycle_start - kosu_baslangici) >= duration_s:
             break
 
         # --- Karıştırma/kesinti bölgesi (Z.I.R.H senaryosu) ---
@@ -266,6 +301,8 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             else:
                 wifi.set_connected(True)
 
+        # --- Gercek RF uplink (yer istasyonundan) ---
+        uplink.tick()
         # --- Uplink komutları (zamanı gelmiş olanları işle) ---
         while cmd_idx < len(pending_cmds) and pending_cmds[cmd_idx][0] <= t:
             _, cmd_str = pending_cmds[cmd_idx]

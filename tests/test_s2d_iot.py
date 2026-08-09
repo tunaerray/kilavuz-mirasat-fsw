@@ -29,10 +29,25 @@ def test_parse_wrong_length():
 
 
 def test_parse_wrong_letters():
-    # harfler R,G,B sabit olmalı
-    assert parse_password("2G0R1B").code is ErrorCode.INVALID_DATA
-    assert parse_password("2R0G1X").code is ErrorCode.INVALID_DATA
+    # Gecersiz harf reddedilir
+    assert parse_password("2X0R1B").code is ErrorCode.INVALID_DATA
+    # Ayni harf iki kez reddedilir
+    assert parse_password("2R0R1B").code is ErrorCode.INVALID_DATA
 
+
+def test_parse_letter_order_is_free():
+    """
+    Sartname §2.3 harf sirasini SABITLEMEZ; sadece Rakam-Harf ikilisinin uc kez
+    tekrarlandigini soyler. Hakemler ucus aninda takima ozgu sifre verir ve
+    '2G0R1B' gibi bir sirayla gelebilir. Reddedilirse BONUS-2 puani kaybedilir.
+    LED eslemesi konuma degil HARFE gore yapilmalidir.
+    """
+    r = parse_password("2G0R1B")
+    assert r.is_ok
+    cmd = r.unwrap()
+    assert cmd.green is LedState.FLASHING   # 2G
+    assert cmd.red is LedState.OPEN         # 0R
+    assert cmd.blue is LedState.CLOSE       # 1B
 
 def test_parse_bad_digit():
     assert parse_password("3R0G1B").code is ErrorCode.INVALID_DATA
