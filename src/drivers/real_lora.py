@@ -250,15 +250,22 @@ class RealLoraE22Link:
 
     def _rssi_ayikla(self) -> None:
         """
-        Tamponun başındaki RSSI baytlarını ayırır.
+        Tamponun basindaki GECERSIZ baytlari ayirir.
 
-        Gerçek RSSI baytı her zaman 0x80 üstündedir (RSSI negatiftir), bu yüzden
-        ASCII metinle karışmaz. 0x00 ve 0xFF ölçek raylarıdır — alıcı doyuma
-        girdiğinde çıkarlar, gerçek ölçüm değildirler.
+        Gecerli bir satir ASLA yazdirilamayan bir baytla baslamaz: komut '#',
+        ACK '$', IoT '@', telemetri rakamla baslar. Modul bu araliga RSSI
+        (0x80-0xFF) ve dolgu (0x00) baytlari koyuyor.
+
+        Sahada gozlendi: '\\x00#2,TEST2,0000' seklinde gelen komutlar
+        UplinkService'in startswith('#') kontrolunden gecemiyor ve SESSIZCE
+        dusuyordu. Yalnizca 0x80 ustunu ayiklamak yetmiyor.
+
+        0x82-0xFA araligindakiler RSSI olarak kaydedilir; 0x00/0x80/0x81/0xFF
+        olcek raylari ve dolgu baytlaridir, gercek olcum degildir.
         """
-        if not RSSI_BAYTI_AKTIF:
-            return
-        while self._rx_tampon and self._rx_tampon[0] >= 0x80:
+        while (self._rx_tampon
+               and self._rx_tampon[0] != 0x0A
+               and not (0x20 <= self._rx_tampon[0] <= 0x7E)):
             b = self._rx_tampon[0]
             del self._rx_tampon[0]
             if 0x82 <= b <= 0xFA:
