@@ -48,24 +48,42 @@ _VALID_DIGITS = {"0", "1", "2"}
 def parse_password(password: str) -> Result[S2dCommand]:
     """
     6 haneli RHRHRH şifresini doğrular ve ayrıştırır.
-    Konum 0/2/4: rakam {0,1,2}; konum 1/3/5: sabit harf R/G/B.
+    Konum 0/2/4: rakam {0,1,2}; konum 1/3/5: harf R/G/B.
+
+    HARF SIRASI SABİT DEĞİLDİR. Şartname §2.3 yalnız "Rakam-Harf" ikilisinin
+    üç kez tekrarlandığını söyler; harflerin R-G-B sırasında geleceğine dair
+    bir kısıt YOKTUR. Şifreler uçuş anında hakemler tarafından ve takıma özgü
+    verilir; '1B2R0G' gibi bir şifre geldiğinde reddedilirse BONUS-2 puanı
+    kaybedilir. Bu yüzden her harf yalnız BİR KEZ geçmek koşuluyla herhangi
+    bir sırada kabul edilir ve LED eşlemesi konuma değil HARFE göre yapılır.
     """
     if not isinstance(password, str) or len(password) != 6:
         return Result.err(ErrorCode.INVALID_DATA,
                           f"RHRHRH 6 karakter olmalı: {password!r}")
-    for pos, letter in _LETTERS.items():
-        if password[pos].upper() != letter:
-            return Result.err(ErrorCode.INVALID_DATA,
-                              f"Konum {pos} '{letter}' olmalı: {password!r}")
+
+    p = password.upper()
+
     for pos in (0, 2, 4):
-        if password[pos] not in _VALID_DIGITS:
+        if p[pos] not in _VALID_DIGITS:
             return Result.err(ErrorCode.INVALID_DATA,
                               f"Konum {pos} rakam {{0,1,2}} olmalı: {password!r}")
+
+    durumlar = {}
+    for pos in (1, 3, 5):
+        harf = p[pos]
+        if harf not in ("R", "G", "B"):
+            return Result.err(ErrorCode.INVALID_DATA,
+                              f"Konum {pos} harf R/G/B olmalı: {password!r}")
+        if harf in durumlar:
+            return Result.err(ErrorCode.INVALID_DATA,
+                              f"'{harf}' harfi birden fazla kez: {password!r}")
+        durumlar[harf] = LedState.from_digit(p[pos - 1])
+
     return Result.ok(S2dCommand(
-        password=password.upper(),
-        red=LedState.from_digit(password[0]),
-        green=LedState.from_digit(password[2]),
-        blue=LedState.from_digit(password[4]),
+        password=p,
+        red=durumlar["R"],
+        green=durumlar["G"],
+        blue=durumlar["B"],
     ))
 
 

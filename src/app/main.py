@@ -46,6 +46,7 @@ from src.services.preflight import PreflightCheck
 from src.services.recovery import RecoveryManager
 from src.services.s2d_iot import S2dIotService
 from src.services.store_forward import StoreForwardBuffer
+from src.services.uplink import UplinkService
 from src.state_machine.flight_state_machine import FlightPhase, FlightStateMachine
 from src.telemetry.packet import (
     ArasInputs,
@@ -212,9 +213,17 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         fc_link.set_motor_fault(motor_fault_factor)   # test/senaryo enjeksiyonu (yalnız sim)
 
     # Aşama 3: görev & bonus servisleri.
-    iot_link = MockIotLink()
+    if config.is_simulation:
+        iot_link = MockIotLink()
+    else:
+        # IoT bagi telemetriyle AYNI LoRa linkini paylasir; ayrim '@' onekiyle.
+        from src.drivers.real_iot import LoraIotLink
+        iot_link = LoraIotLink(link)
     s2d = S2dIotService(iot_link, config.paths.s2d_csv)
     commander = CommandService(s2d)
+    # Gercek RF uplink: yer istasyonundan gelen komutlar + ACK.
+    # Link receive() desteklemiyorsa (simulasyon) kendiliginden devre disi.
+    uplink = UplinkService(link, commander, log=log)
     recovery = RecoveryManager(config.mission)
     pending_cmds = sorted(commands or [], key=lambda c: c[0])
     cmd_idx = 0
@@ -266,6 +275,8 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             else:
                 wifi.set_connected(True)
 
+        # --- Gercek RF uplink (yer istasyonundan) ---
+        uplink.tick()
         # --- Uplink komutları (zamanı gelmiş olanları işle) ---
         while cmd_idx < len(pending_cmds) and pending_cmds[cmd_idx][0] <= t:
             _, cmd_str = pending_cmds[cmd_idx]

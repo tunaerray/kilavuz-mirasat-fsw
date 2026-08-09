@@ -126,7 +126,7 @@ class TelemetryPacketBuilder:
 
     def build(self, f: TelemetryFields) -> str:
         """Şartname §2.4 sırasıyla tek bir telemetri satırı (CSV) üretir."""
-        # GPS lat/lon daha yüksek çözünürlük ister (derece); 4 ondalık kullanılır.
+        # GPS lat/lon 6 ondalık (~11 cm). 4 ondalık ~11 m olur ve kurtarma icin yetersiz.
         fields = [
             str(f.packet_number),
             str(int(f.status)),
@@ -137,13 +137,13 @@ class TelemetryPacketBuilder:
             self._f(f.descent_speed_mps),
             self._f(f.temperature_c),
             self._f(f.battery_v),
-            f"{f.gps_lat:.4f}",
-            f"{f.gps_lon:.4f}",
+            f"{f.gps_lat:.6f}",
+            f"{f.gps_lon:.6f}",
             self._f(f.gps_alt_m),
             self._f(f.pitch_deg),
             self._f(f.roll_deg),
             self._f(f.yaw_deg),
-            f.rhrhrh,
+            f.rhrhrh if f.rhrhrh else "------",
             str(f.team_number),
         ]
         if len(fields) != 17:

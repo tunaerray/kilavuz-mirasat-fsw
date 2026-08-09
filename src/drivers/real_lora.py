@@ -87,7 +87,7 @@ OKU_KOMUTU  = 0xC1
 
 AUX_ZAMAN_ASIMI_S     = 1.0   # gönderim öncesi hazır olma
 AUX_TX_ZAMAN_ASIMI_S  = 2.0   # RF aktarımının bitmesi
-MOD_GECIS_S           = 0.05
+MOD_GECIS_S           = 0.20   # E22 mod gecisi icin AUX yeterli sinyal vermiyor, sabit bekleme sart
 RX_TAMPON_SINIRI      = 4096  # bozuk akışta sınırsız büyümeyi engeller
 
 
