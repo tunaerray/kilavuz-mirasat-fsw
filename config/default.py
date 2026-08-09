@@ -44,9 +44,9 @@ class TelemetryConfig:
     field_separator: str = ","
     decimal_places: int = 1                # örnek pakete uygun ondalık
     # LoRa E22 (EKSİK-002 / ASSUMPTION-002):
-    lora_port: str = "/dev/serial0"        # RPi GPIO UART (ttyAMA0/ttyS0 için güvenli symlink)
+    lora_port: str = "/dev/ttyAMA0"        # RPi GPIO UART (ttyAMA0/ttyS0 için güvenli symlink)
     lora_baud: int = 9600
-    lora_air_rate: str = "2.4k"
+    lora_air_rate: str = "4.8k"
 
 
 @dataclass(frozen=True)
