@@ -131,7 +131,6 @@ def test_imu_mapping_degrees_and_accel():
 
 
 def test_imu_accel_falls_back_to_raw_imu():
-    import math
     src, conn, _ = _source()
     src.open()
     # SCALED_IMU yok; ArduPilot varsayılan akışındaki RAW_IMU kullanılmalı.

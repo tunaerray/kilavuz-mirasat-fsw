@@ -35,16 +35,16 @@ import time
 
 # ─────────────────────────── AYARLANACAK SABİTLER ───────────────────────────
 # PCA9685 kanal numaraları (0..15). Servolarını hangi çıkışa taktıysan.
-CH_SEP_LEFT = 0        # sol ayrılma servosu
-CH_SEP_RIGHT = 1       # sağ ayrılma servosu (zıt yön)
-CH_WINGS = 2           # 3. servo — kanat açma (kod: SİGMA kol mekanizması)
+CH_SEP_LEFT = 14       # ayrılma servosu (1000 kilitli → 1650 açık)
+CH_SEP_RIGHT = 13      # ayrılma servosu, zıt yön (1650 kilitli → 1000 açık)
+CH_WINGS = 15          # 3. servo — kanat açma (kod: SİGMA kol mekanizması)
 
 # Her servo için LOCKED (kilitli/güvenli) ve OPEN (açık) darbe genişliği [mikrosaniye].
 # Tipik servo: 1000–2000 µs. ZIT servolar için OPEN yönleri ters olabilir — ölçerek gir.
 SERVO_US = {
-    CH_SEP_LEFT:  {"locked": 1000, "open": 2000},
-    CH_SEP_RIGHT: {"locked": 2000, "open": 1000},   # zıt yön → ters uçlar
-    CH_WINGS:     {"locked": 1000, "open": 2000},
+    CH_SEP_LEFT:  {"locked": 1000, "open": 1650},
+    CH_SEP_RIGHT: {"locked": 1650, "open": 1000},   # zıt yön → ters uçlar
+    CH_WINGS:     {"locked": 1000, "open": 1500},   # kanat: 1000 kapalı → 1500 açık
 }
 
 SEP_TO_WINGS_DELAY_S = 1.5     # ayrılma → kanat açma gecikmesi (kod: arm_deploy_duration_s)
