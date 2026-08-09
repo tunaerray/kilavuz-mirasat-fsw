@@ -43,7 +43,8 @@ class TelemetryConfig:
     error_code_digits: int = 4             # CONFLICT-003: varsayılan 4, 5'e açık
     field_separator: str = ","
     decimal_places: int = 1                # örnek pakete uygun ondalık
-    # LoRa E22 (EKSİK-002 / ASSUMPTION-002) — mock'ta kullanılır:
+    # LoRa E22 (EKSİK-002 / ASSUMPTION-002):
+    lora_port: str = "/dev/serial0"        # RPi GPIO UART (ttyAMA0/ttyS0 için güvenli symlink)
     lora_baud: int = 9600
     lora_air_rate: str = "2.4k"
 

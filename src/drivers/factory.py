@@ -60,14 +60,15 @@ def check_profile_runnable(config: AppConfig) -> Result[None]:
     return Result.ok(None)
 
 
-def create_telemetry_link(config: AppConfig, port: str = "/dev/ttyAMA0"):
+def create_telemetry_link(config: AppConfig, port: str | None = None):
     """
     Profile göre telemetri linki döndürür. SIMULATION → MockTelemetryLink;
     FLIGHT/HIL → RealLoraE22Link (henüz açık değil; open() donanımda çağrılır).
+    Port verilmezse config.telemetry.lora_port kullanılır.
     """
     if config.profile is RunProfile.SIMULATION_ONLY:
         return MockTelemetryLink()
-    return RealLoraE22Link(port, config.telemetry)
+    return RealLoraE22Link(port or config.telemetry.lora_port, config.telemetry)
 
 
 def create_mavlink_source(config: AppConfig, clock, connect_fn=None):
