@@ -177,10 +177,19 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     zero_alt_pressure = persistence.altitude_zero_ref()
     if zero_alt_pressure is None:
         calibrator = BaroCalibrator(sample_count=10, min_samples=3)
-        for _ in range(10):
+        # FLIGHT profilinde barometre MAVLink onbelleginden okur; onbellegi
+        # dolduran sey pump()'tir. ArduPilot akislari REQUEST_DATA_STREAM'den
+        # sonra baslar, ilk mesajlar birkac yuz ms sonra gelir. pump() ve kisa
+        # bekleme olmadan on okumanin hepsi bos doner ve kalibrasyon yapilamaz.
+        for _ in range(30):
+            if mav_source is not None:
+                mav_source.pump()
             br = baro.read()
             if br.is_ok:
                 calibrator.add_sample(br.unwrap().pressure_pa)
+                if calibrator.sample_count >= 10:
+                    break
+            time.sleep(0.05)
         cal = calibrator.calibrate()
         if cal.is_ok:
             zero_alt_pressure = cal.unwrap()
@@ -211,8 +220,15 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     cmd_idx = 0
 
     # Aşama 4: kamera (boot'tan itibaren SD kayıt + canlı akış).
-    wifi = MockWifiVideoLink()
-    camera = CameraService(MockCamera(), wifi, config.video)
+    if config.is_simulation:
+        cam_drv = MockCamera()
+        wifi = MockWifiVideoLink()
+    else:
+        # FLIGHT/HIL: rpicam-vid alt sureci, SD kayit + TCP yayin tek boru hatti
+        from src.drivers.real_camera import RpicamVidCamera, RpicamVidStreamLink
+        cam_drv = RpicamVidCamera(config.video, config.paths)
+        wifi = RpicamVidStreamLink(cam_drv)
+    camera = CameraService(cam_drv, wifi, config.video)
     cam_start = camera.start()
     if cam_start.is_ok:
         log(f"BOOT: kamera başlatıldı ({config.video.width}x{config.video.height} "
