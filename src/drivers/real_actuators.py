@@ -132,9 +132,9 @@ class RealSeparationMechanism(MockSeparationMechanism):
     def __init__(self, pca: Pca9685) -> None:
         super().__init__()
         self._pca = pca
-        # Başlangıçta güvenli (LOCKED) darbeleri fiziksel olarak uygula.
-        self._pca.set_us(CH_SEP_LEFT, _SEP_LEFT_US["locked"])
-        self._pca.set_us(CH_SEP_RIGHT, _SEP_RIGHT_US["locked"])
+        # Güvenli (LOCKED) darbeler open()->to_safe() içinde yazılır (bus açıldıktan
+        # SONRA). Constructor'da yazmak, bus henüz yokken kafa karıştırıcı no-op
+        # ('[PCA9685 yok]') logları üretir; gereksiz.
 
     def release(self) -> Result[None]:
         # Önce fiziksel PWM: iki servoyu art arda (minimum skew) OPEN'a al.
@@ -159,8 +159,7 @@ class RealArmMechanism(MockArmMechanism):
     def __init__(self, pca: Pca9685) -> None:
         super().__init__()
         self._pca = pca
-        # Başlangıçta kapalı (LOCKED) darbe.
-        self._pca.set_us(CH_WINGS, _WINGS_US["locked"])
+        # Kapalı (LOCKED) darbe open()->to_safe() içinde yazılır (bus açıldıktan sonra).
 
     def deploy_and_lock(self) -> Result[None]:
         self._pca.set_us(CH_WINGS, _WINGS_US["open"])

@@ -298,7 +298,9 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     kosu_baslangici = clk.now_monotonic()
 
     cycle = 0
-    while cycle < max_cycles:
+    # max_cycles <= 0 → sınırsız koşu (uçuş/tezgah: FSW sürekli çalışmalı, telemetri
+    # akmalı, operatör komutu bekleyebilmeli). Pozitif değer sim/testte üst sınırdır.
+    while max_cycles <= 0 or cycle < max_cycles:
         cycle_start = clk.now_monotonic()
         t = mission_time()
         if duration_s is not None and (cycle_start - kosu_baslangici) >= duration_s:
@@ -573,7 +575,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--config", default="simulation",
                         help="Çalışma profili (varsayılan: simulation)")
     parser.add_argument("--max-cycles", type=int, default=100,
-                        help="Maksimum döngü sayısı (sonsuz döngü önlemi)")
+                        help="Maksimum döngü sayısı (sonsuz döngü önlemi). "
+                             "0 veya negatif = SINIRSIZ (uçuş/tezgah için, Ctrl+C ile durdur)")
     parser.add_argument("--duration", type=float, default=None,
                         help="Simüle görev süresi (saniye) üst sınırı")
     parser.add_argument("--profile", default="nominal_descent",
