@@ -1,0 +1,81 @@
+"""
+Gerçek PCA9685 aktüatör suite'i testleri (Gereksinim-7 — Manuel Ayrılma gerçek servo).
+Donanımsız (bus=None) çalışır: set_us no-op'tur, yalnız MANTIK doğrulanır. Fiziksel
+PWM doğrulaması RPi'de tools/separation_bench_test.py --separate ile yapılır.
+"""
+from config.default import AppConfig, RunProfile, get_config
+from src.drivers.factory import create_actuators
+from src.drivers.mock_actuators import ActuatorSuite
+from src.drivers.real_actuators import RealActuatorSuite
+from src.hal.interfaces import ServoPosition
+
+_NOLOG = lambda _s: None   # noqa: E731  test çıktısını sessizleştir
+
+
+# ------------------------------------------------------- fabrika profil dallanması
+def test_simulation_actuators_are_mock():
+    suite = create_actuators(get_config(), _NOLOG)      # SIMULATION_ONLY
+    assert isinstance(suite, ActuatorSuite)
+    assert not isinstance(suite, RealActuatorSuite)
+
+
+def test_flight_actuators_are_real():
+    cfg = AppConfig(profile=RunProfile.FLIGHT)
+    suite = create_actuators(cfg, _NOLOG)
+    assert isinstance(suite, RealActuatorSuite)
+
+
+# --------------------------------------------------------- ayrılma mekanizması mantığı
+def test_real_separation_starts_locked():
+    suite = RealActuatorSuite(log=_NOLOG)
+    assert suite.separation.locked                      # iki servo da LOCKED
+    assert not suite.separation.released
+
+
+def test_real_separation_release_opens_both():
+    suite = RealActuatorSuite(log=_NOLOG)
+    r = suite.separation.release()
+    assert r.is_ok
+    assert suite.separation.released                    # komut-tabanlı geri bildirim
+    assert suite.separation.left.position is ServoPosition.OPEN
+    assert suite.separation.right.position is ServoPosition.OPEN
+    assert not suite.separation.locked
+
+
+def test_real_separation_to_safe_relocks():
+    suite = RealActuatorSuite(log=_NOLOG)
+    suite.separation.release()
+    suite.separation.to_safe()
+    assert suite.separation.locked
+    # Ayrılma FİZİKSEL/geri dönüşsüz → released bayrağı korunur (kol semantiği).
+    assert suite.separation.released
+
+
+# ------------------------------------------------------------- kanat mekanizması mantığı
+def test_real_arms_deploy_and_lock():
+    suite = RealActuatorSuite(log=_NOLOG)
+    assert suite.arms.locked and not suite.arms.deployed
+    r = suite.arms.deploy_and_lock()
+    assert r.is_ok
+    assert suite.arms.deployed and suite.arms.locked
+
+
+def test_real_arms_to_safe_after_deploy_keeps_deployed():
+    suite = RealActuatorSuite(log=_NOLOG)
+    suite.arms.deploy_and_lock()
+    suite.arms.to_safe()
+    assert suite.arms.deployed                          # geri katlamaz (güvenlik)
+    assert suite.arms.locked
+
+
+# ------------------------------------------------------------- donanımsız güvenli degrade
+def test_real_suite_no_hardware_does_not_raise():
+    suite = RealActuatorSuite(log=_NOLOG)                # bus yok → set_us no-op
+    # Tüm hareket komutları donanımsız da exception atmamalı.
+    suite.enter_safe_state()
+    suite.separation.release()
+    suite.arms.deploy_and_lock()
+    suite.enter_safe_state()
+    open_result = suite.open()                          # smbus2/çip yok → açık hata
+    assert open_result.is_err                           # çökme yok, Result.err
+    suite.close()

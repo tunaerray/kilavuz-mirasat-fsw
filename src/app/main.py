@@ -25,13 +25,13 @@ from src.control.separation_sequencer import SeparationSequencer
 from src.drivers.apam_actuator import ApamActuator
 from src.drivers.factory import (
     check_profile_runnable,
+    create_actuators,
     create_flight_controller,
     create_mavlink_source,
     create_sensors,
     create_telemetry_link,
 )
 from src.drivers.flight_profile import FlightProfile
-from src.drivers.mock_actuators import ActuatorSuite
 from src.drivers.sigma_actuator import SigmaMotorActuator
 from src.drivers.mock_camera import MockCamera, MockWifiVideoLink
 from src.drivers.mock_sensors import MockIotLink, MockTelemetryLink
@@ -152,11 +152,18 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             link_open = link.open()
             log("BOOT: LoRa telemetri linki "
                 + ("açıldı" if link_open.is_ok else f"AÇILAMADI: {link_open.message}"))
-    actuators = ActuatorSuite()
+    # SIMULATION → mock ActuatorSuite; FLIGHT/HIL → RealActuatorSuite (ayrılma
+    # CH14/CH13 ve kanat CH15 GERÇEK PCA9685'ten sürülür). Böylece 'AYIR' komutu
+    # ve otonom ayrılma gerçek servoları döndürür.
+    actuators = create_actuators(config, log)
+    if hasattr(actuators, "open"):                 # yalnız RealActuatorSuite (FLIGHT/HIL)
+        op = actuators.open()
+        log("BOOT: PCA9685 servo sürücüsü "
+            + ("açıldı" if op.is_ok else f"AÇILAMADI: {op.message} (mock-degrade)"))
 
-    # GÜVENLİK: başlangıçta Safe State (motorlar disarm, servolar güvenli).
+    # GÜVENLİK: başlangıçta Safe State (motorlar disarm, servolar güvenli konumda).
     actuators.enter_safe_state()
-    log("BOOT: aktüatörler Safe State'e alındı (SIMULATION_ONLY)")
+    log("BOOT: aktüatörler Safe State'e alındı")
 
     # Servisler
     builder = TelemetryPacketBuilder(
@@ -366,8 +373,14 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             elif sep_st.state.name == "FAULT":
                 log("SEPARATION: AYRILMA DOĞRULANAMADI (timeout) — geri bildirim yok, "
                     "kollar açılmıyor")
-        if separation_confirmed and not arms_deployed and \
-                state.phase in (FlightPhase.SEPARATION, FlightPhase.ARM_DEPLOY):
+        # Manuel ayrılmada faz kapısını baypas et: operatör butona bastıysa
+        # (yerde/tezgah demosu dahil) ayrılma onaylanınca kanat da açılmalı. Otonom
+        # ayrılmada kapı KORUNUR (uçuş güvenliği). Kanat yine separation_confirmed
+        # sonrası açılır → bench dizisiyle aynı sıra (önce ayrılma, sonra kanat).
+        allow_arm_deploy = (commander.manual_separation_requested
+                            or state.phase in (FlightPhase.SEPARATION,
+                                               FlightPhase.ARM_DEPLOY))
+        if separation_confirmed and not arms_deployed and allow_arm_deploy:
             # SİGMA kol açma koreografisi: zamanlı aç/kilitle + geri bildirim.
             arm_st = arm_sequencer.update(t, actuators.arms)
             if arm_st.complete:
@@ -519,6 +532,8 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
 
     # KAPANIŞ: Safe State (güvenlik) + kamera durdur + MAVLink bağını kapat.
     actuators.enter_safe_state()
+    if hasattr(actuators, "close"):                 # RealActuatorSuite: I²C'yi kapat
+        actuators.close()
     camera.stop()
     if mav_source is not None:
         mav_source.close()
