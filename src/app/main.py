@@ -32,6 +32,7 @@ from src.drivers.factory import (
 )
 from src.drivers.flight_profile import FlightProfile
 from src.drivers.mock_actuators import ActuatorSuite
+from src.drivers.sigma_actuator import SigmaMotorActuator
 from src.drivers.mock_camera import MockCamera, MockWifiVideoLink
 from src.drivers.mock_sensors import MockIotLink, MockTelemetryLink
 from src.mission.context import FlightContext
@@ -175,6 +176,9 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     if mav_source is not None:
         apam_connect_fn = lambda port, baud: mav_source.connection  # noqa: E731
     apam_actuator = ApamActuator(config, log=log, connect_fn=apam_connect_fn)
+    # SİGMA motor yer-testi (QR): 'SIGMA' komutuyla motorları PERVANESİZ düşük gazda
+    # döndürür. Paylaşılan MAVLink bağını kullanır (apam ile aynı); sim'de yalnız log.
+    sigma_actuator = SigmaMotorActuator(config, log=log, connect_fn=apam_connect_fn)
 
     # Uçuşa hazırlık (preflight) go/no-go kontrolü — FRR (Şartname §4.2).
     preflight = PreflightCheck(config.health).run(
@@ -261,6 +265,7 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     # Döngü durumu
     separation_started = False       # ayrılma dizisi başladı mı (latch: her çevrim güncelle)
     separation_confirmed = False     # ayrılma GERİ BİLDİRİMLE doğrulandı mı
+    sigma_seen = commander.sigma_request_count   # 'SIGMA' komut kenarı tespiti için
     arms_deployed = False
     motor_fault_prev = False
     last_link_ok_s = clk.now_monotonic()
@@ -310,6 +315,15 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             log(f"KOMUT '{cmd_str}': "
                 f"{res.unwrap().detail if res.is_ok else 'RED - ' + res.message}")
             cmd_idx += 1
+
+        # --- SİGMA motor yer-testi (QR): 'SIGMA' komutu sayacı arttıysa tetikle ---
+        # Uplink veya --command üzerinden gelen her yeni 'SIGMA' komutunda bir kez
+        # motor testi gönderilir (latch değil; tekrar tetiklenebilir). PERVANESİZ.
+        if commander.sigma_request_count > sigma_seen:
+            sigma_seen = commander.sigma_request_count
+            sr = sigma_actuator.trigger()
+            log(f"SİGMA: motor yer-testi tetiklendi "
+                f"({'ok' if sr.is_ok else 'RED - ' + sr.message})")
 
         # --- MAVLink akışını boşalt (Mini Pix → cache); SIMULATION'da no-op ---
         if mav_source is not None:
