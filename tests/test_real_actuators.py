@@ -68,6 +68,36 @@ def test_real_arms_to_safe_after_deploy_keeps_deployed():
     assert suite.arms.locked
 
 
+# --------------------------------------------------------------- APAM paraşüt servosu
+def test_real_apam_servo_starts_closed():
+    from src.drivers.real_actuators import RealApamServo
+    suite = RealActuatorSuite(log=_NOLOG)
+    assert isinstance(suite.apam_servo, RealApamServo)   # mock değil, gerçek
+    assert suite.apam_servo.position is ServoPosition.CLOSED
+
+
+def test_real_apam_deploy_opens_and_execute_apam_wires_through():
+    from src.services.failsafe import FailsafeManager
+    from config.default import ApamConfig
+    suite = RealActuatorSuite(log=_NOLOG)
+    # Doğrudan servo: OPEN → paraşüt bırak.
+    assert suite.apam_servo.move_to(ServoPosition.OPEN).is_ok
+    assert suite.apam_servo.position is ServoPosition.OPEN
+    # failsafe.execute_apam gerçek servoyu sürer (motor kill → paraşüt OPEN).
+    suite.apam_servo.to_safe()                           # CLOSED'a geri al
+    r = FailsafeManager(ApamConfig()).execute_apam(suite)
+    assert r.is_ok
+    assert suite.apam_servo.position is ServoPosition.OPEN
+    assert suite.motors.throttle == 0.0                  # önce motor kill (G-10)
+
+
+def test_real_apam_safe_state_closes_parachute():
+    suite = RealActuatorSuite(log=_NOLOG)
+    suite.apam_servo.move_to(ServoPosition.OPEN)
+    suite.enter_safe_state()                             # APAM YANLIŞLIKLA açık kalmaz
+    assert suite.apam_servo.position is ServoPosition.CLOSED
+
+
 # ------------------------------------------------------------- donanımsız güvenli degrade
 def test_real_suite_no_hardware_does_not_raise():
     suite = RealActuatorSuite(log=_NOLOG)                # bus yok → set_us no-op

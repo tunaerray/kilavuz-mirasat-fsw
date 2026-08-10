@@ -29,6 +29,7 @@ from src.drivers.mock_actuators import (
     ActuatorSuite,
     MockArmMechanism,
     MockSeparationMechanism,
+    MockServo,
 )
 from src.hal.interfaces import ServoPosition
 
@@ -37,10 +38,15 @@ from src.hal.interfaces import ServoPosition
 CH_SEP_LEFT = 14       # ayrılma servosu:        LOCKED 1000 → OPEN 1650
 CH_SEP_RIGHT = 13      # ayrılma servosu (zıt):  LOCKED 1650 → OPEN 1000
 CH_WINGS = 15          # kanat açma servosu:     LOCKED 1000 → OPEN 1500
+# APAM paraşüt servosu (SG90) da AYNI PCA9685'te ayrı bir kanalda. Kanal ve µs
+# değerleri tools/apam_bench_test.py ile FİZİKSEL KALİBRE EDİLECEK (ayrılma gibi).
+# NOT: CH12 varsayılan (13/14/15 dolu); pin-çekme yönüne göre closed/open ölç.
+CH_APAM = 12           # paraşüt servosu:        CLOSED 1000 → OPEN 2000 (KALİBRE ET)
 
 _SEP_LEFT_US = {"locked": 1000, "open": 1650}
 _SEP_RIGHT_US = {"locked": 1650, "open": 1000}
 _WINGS_US = {"locked": 1000, "open": 1500}
+_APAM_US = {"closed": 1000, "open": 2000}   # KALİBRE ET (apam_bench_test ile aynı)
 
 # PCA9685 I²C
 _I2C_BUS = 1
@@ -172,29 +178,55 @@ class RealArmMechanism(MockArmMechanism):
         return super().to_safe()
 
 
+class RealApamServo(MockServo):
+    """
+    Gerçek APAM paraşüt servosu: CH_APAM'ı PCA9685'ten sürer. Mantıksal pozisyonu
+    (CLOSED/OPEN) mock'tan miras alır; yalnız hareket komutlarında fiziksel PWM
+    yazar. Güvenli konum CLOSED (paraşüt kapalı) — yanlışlıkla açılmaz. Paraşüt
+    açma Şartname G-10: failsafe.execute_apam() motorları kill EDİP sonra move_to(OPEN)
+    çağırır; burada OPEN → pimi çeken µs uygulanır.
+    """
+
+    def __init__(self, pca: Pca9685) -> None:
+        super().__init__("apam", ServoPosition.CLOSED)
+        self._pca = pca
+        # Güvenli (CLOSED) darbe open()->to_safe() içinde yazılır (bus açıldıktan sonra).
+
+    def move_to(self, position: ServoPosition) -> Result[None]:
+        us = _APAM_US["open"] if position is ServoPosition.OPEN else _APAM_US["closed"]
+        self._pca.set_us(CH_APAM, us)
+        return super().move_to(position)
+
+    def to_safe(self) -> Result[None]:
+        self._pca.set_us(CH_APAM, _APAM_US["closed"])
+        return super().to_safe()
+
+
 class RealActuatorSuite(ActuatorSuite):
     """
-    FLIGHT/HIL aktüatör suite'i: ayrılma + kanat GERÇEK PCA9685'ten sürülür; motor,
-    APAM servosu ve buzzer mock kalır (MAVLink/ApamActuator üzerinden ayrı sürülür).
-    Tek PCA9685 bus'ı iki mekanizma paylaşır. `open()` donanımı açar (main.py loglar).
+    FLIGHT/HIL aktüatör suite'i: ayrılma + kanat + APAM paraşüt servosu GERÇEK
+    PCA9685'ten sürülür; motor ve buzzer mock kalır (motor Pixhawk/DO_MOTOR_TEST
+    üzerinden ayrı). Tek PCA9685 bus'ı tüm servoları paylaşır. `open()` donanımı açar.
     """
 
     def __init__(self, log=print) -> None:
-        super().__init__()                       # mock motors/apam_servo/buzzer
+        super().__init__()                       # mock motors/buzzer
         self._pca = Pca9685(log=log)
         self.separation = RealSeparationMechanism(self._pca)
         self.arms = RealArmMechanism(self._pca)
+        self.apam_servo = RealApamServo(self._pca)   # paraşüt servosu (mock yerine gerçek)
 
     def open(self) -> Result[None]:
         """
-        PCA9685'i açar ve servoları güvenli (LOCKED) konuma alır. Donanım yoksa
-        SESSİZCE geçmez: açık hata döndürür (ana döngü loglar), ama suite yaşamaya
-        devam eder (set_us no-op). Açılıştan hemen sonra enter_safe_state çağrılır.
+        PCA9685'i açar ve servoları güvenli konuma alır (ayrılma/kanat LOCKED,
+        paraşüt CLOSED). Donanım yoksa SESSİZCE geçmez: açık hata döndürür (ana
+        döngü loglar), ama suite yaşamaya devam eder (set_us no-op).
         """
         if self._pca.open():
             # Bus açıldıktan sonra güvenli darbeleri gerçekten yaz (kurulumda no-op'tular).
             self.separation.to_safe()
             self.arms.to_safe()
+            self.apam_servo.to_safe()
             return Result.ok(None)
         from src.common.result import ErrorCode
         return Result.err(ErrorCode.UNAVAILABLE,
