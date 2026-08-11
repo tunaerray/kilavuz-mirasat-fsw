@@ -51,6 +51,39 @@ def test_real_separation_to_safe_relocks():
     assert suite.separation.released
 
 
+class _RecPca:
+    """set_us çağrılarını kaydeden sahte PCA9685 (fiziksel PWM yazımını gözler)."""
+
+    def __init__(self) -> None:
+        self.writes: list[tuple] = []
+
+    def set_us(self, channel: int, pulse_us: float) -> None:
+        self.writes.append((channel, pulse_us))
+
+
+def test_separation_to_safe_after_release_does_not_drive_servos_back():
+    """BUG düzeltmesi: ayrıldıktan sonra to_safe() servoları LOCKED'a GERİ SÜRMEZ
+    (yoksa kapanışta servolar kendi kendine kilitli konuma döner)."""
+    from src.drivers.real_actuators import RealSeparationMechanism
+    pca = _RecPca()
+    sep = RealSeparationMechanism(pca)
+    sep.release()
+    pca.writes.clear()
+    sep.to_safe()
+    assert pca.writes == []               # released sonrası HİÇ PWM yazılmaz
+    assert sep.released
+
+
+def test_separation_to_safe_before_release_locks_servos():
+    """Henüz ayrılmadıysa to_safe() güvenli-kilit PWM'i yazar (kurulum/güvenlik)."""
+    from src.drivers.real_actuators import CH_SEP_LEFT, CH_SEP_RIGHT, RealSeparationMechanism
+    pca = _RecPca()
+    sep = RealSeparationMechanism(pca)
+    sep.to_safe()
+    channels = {w[0] for w in pca.writes}
+    assert channels == {CH_SEP_LEFT, CH_SEP_RIGHT}   # iki servo da LOCKED'a
+
+
 # ------------------------------------------------------------- kanat mekanizması mantığı
 def test_real_arms_deploy_and_lock():
     suite = RealActuatorSuite(log=_NOLOG)

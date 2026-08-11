@@ -149,8 +149,13 @@ class RealSeparationMechanism(MockSeparationMechanism):
         return super().release()
 
     def to_safe(self) -> Result[None]:
-        self._pca.set_us(CH_SEP_LEFT, _SEP_LEFT_US["locked"])
-        self._pca.set_us(CH_SEP_RIGHT, _SEP_RIGHT_US["locked"])
+        # Ayrılma FİZİKSEL ve geri dönüşsüz: bir kez released olduysa servoları
+        # LOCKED'a GERİ SÜRME. Aksi halde (örn. kapanışta enter_safe_state) ayrılmış
+        # mekanizmayı kapatmaya çalışır ve servolar KENDİ KENDİNE kilitli konuma döner.
+        # Yalnız henüz ayrılmadıysa güvenli-kilit yaz (kol mekanizmasıyla aynı semantik).
+        if not self.released:
+            self._pca.set_us(CH_SEP_LEFT, _SEP_LEFT_US["locked"])
+            self._pca.set_us(CH_SEP_RIGHT, _SEP_RIGHT_US["locked"])
         return super().to_safe()
 
 
