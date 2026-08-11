@@ -220,17 +220,19 @@ class RealActuatorSuite(ActuatorSuite):
         self.arms = RealArmMechanism(self._pca)
         self.apam_servo = RealApamServo(self._pca)   # paraşüt servosu (mock yerine gerçek)
 
-    def open(self) -> Result[None]:
+    def open(self, safe: bool = True) -> Result[None]:
         """
-        PCA9685'i açar ve servoları güvenli konuma alır (ayrılma/kanat LOCKED,
-        paraşüt CLOSED). Donanım yoksa SESSİZCE geçmez: açık hata döndürür (ana
-        döngü loglar), ama suite yaşamaya devam eder (set_us no-op).
+        PCA9685'i açar. `safe=True` ise servoları güvenli konuma alır (ayrılma/kanat
+        LOCKED, paraşüt CLOSED). `safe=False` (--keep-servos) ise servolara DOKUNMAZ
+        → tezgahta bench tool ile önceden açılmış servolar boot'ta kilitlenmez.
+        Donanım yoksa SESSİZCE geçmez: açık hata döndürür ama suite yaşamaya devam eder.
         """
         if self._pca.open():
-            # Bus açıldıktan sonra güvenli darbeleri gerçekten yaz (kurulumda no-op'tular).
-            self.separation.to_safe()
-            self.arms.to_safe()
-            self.apam_servo.to_safe()
+            if safe:
+                # Bus açıldıktan sonra güvenli darbeleri yaz (kurulumda no-op'tular).
+                self.separation.to_safe()
+                self.arms.to_safe()
+                self.apam_servo.to_safe()
             return Result.ok(None)
         from src.common.result import ErrorCode
         return Result.err(ErrorCode.UNAVAILABLE,

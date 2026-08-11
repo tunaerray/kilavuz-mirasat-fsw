@@ -95,7 +95,8 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
                   event_sink=None, motor_fault_factor: float = 1.0,
                   commands: "list[tuple[float, str]] | None" = None,
                   jam_window: "tuple[float, float] | None" = None,
-                  vibration: float = 0.0) -> RunSummary:
+                  vibration: float = 0.0,
+                  keep_servos: bool = False) -> RunSummary:
     """
     Sınırlı döngüyü kurar ve çalıştırır. `clock` verilmezse SimClock kullanılır
     (deterministik, gerçek zaman beklemesiz). `event_sink(str)` log satırlarını alır.
@@ -157,13 +158,17 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     # ve otonom ayrılma gerçek servoları döndürür.
     actuators = create_actuators(config, log)
     if hasattr(actuators, "open"):                 # yalnız RealActuatorSuite (FLIGHT/HIL)
-        op = actuators.open()
+        op = actuators.open(safe=not keep_servos)
         log("BOOT: PCA9685 servo sürücüsü "
             + ("açıldı" if op.is_ok else f"AÇILAMADI: {op.message} (mock-degrade)"))
 
     # GÜVENLİK: başlangıçta Safe State (motorlar disarm, servolar güvenli konumda).
-    actuators.enter_safe_state()
-    log("BOOT: aktüatörler Safe State'e alındı")
+    # --keep-servos: servolara DOKUNMA (tezgahta bench ile açılmış konumları korunur).
+    if keep_servos:
+        log("BOOT: --keep-servos → servolar olduğu konumda bırakıldı (boot kilidi yok)")
+    else:
+        actuators.enter_safe_state()
+        log("BOOT: aktüatörler Safe State'e alındı")
 
     # Servisler
     builder = TelemetryPacketBuilder(
@@ -538,7 +543,9 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
                 time.sleep(period - elapsed)
 
     # KAPANIŞ: Safe State (güvenlik) + kamera durdur + MAVLink bağını kapat.
-    actuators.enter_safe_state()
+    # --keep-servos: kapanışta da servolara dokunma (açık kalsınlar).
+    if not keep_servos:
+        actuators.enter_safe_state()
     if hasattr(actuators, "close"):                 # RealActuatorSuite: I²C'yi kapat
         actuators.close()
     camera.stop()
@@ -599,6 +606,9 @@ def main(argv: list[str] | None = None) -> int:
                         help="Titreşim gürültü şiddeti (FRR §4.2 analoğu, ör. 1.0)")
     parser.add_argument("--preflight", action="store_true",
                         help="Yalnız uçuşa hazırlık (preflight) kontrolünü çalıştır ve çık")
+    parser.add_argument("--keep-servos", action="store_true",
+                        help="Boot/kapanışta servolara DOKUNMA (tezgahta bench ile "
+                             "açılmış ayrılma/kanat/paraşüt servoları kilitlenmesin)")
     args = parser.parse_args(argv)
 
     jam = None
@@ -640,7 +650,7 @@ def main(argv: list[str] | None = None) -> int:
         config, max_cycles=args.max_cycles, duration_s=args.duration, clock=clock,
         profile_name=args.profile, event_sink=print,
         motor_fault_factor=args.motor_fault, commands=injected, jam_window=jam,
-        vibration=args.vibration)
+        vibration=args.vibration, keep_servos=args.keep_servos)
 
     print("--- KOŞU ÖZETİ ---")
     print(f"Preflight: {'GO' if summary.preflight_go else 'NO-GO'}")
