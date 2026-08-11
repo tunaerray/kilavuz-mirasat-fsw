@@ -35,7 +35,7 @@ import time
 
 # ─────────────────────────── AYARLANACAK SABİTLER ───────────────────────────
 CH_APAM = 12                 # paraşüt servosu PCA9685 kanalı (13/14/15 ayrılma/kanat)
-APAM_US = {"closed": 1000, "open": 2000}   # KALİBRE ET: pin-çekme yönüne göre ölç
+APAM_US = {"closed": 2100, "open": 1000}   # kalibre (2026-08-11): kapalı YÜKSEK, açık DÜŞÜK
 SETTLE_S = 0.6               # hareketin oturması için bekleme
 
 # PCA9685 I²C

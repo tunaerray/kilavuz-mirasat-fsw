@@ -38,15 +38,14 @@ from src.hal.interfaces import ServoPosition
 CH_SEP_LEFT = 14       # ayrılma servosu:        LOCKED 1000 → OPEN 1650
 CH_SEP_RIGHT = 13      # ayrılma servosu (zıt):  LOCKED 1650 → OPEN 1000
 CH_WINGS = 15          # kanat açma servosu:     LOCKED 1000 → OPEN 1500
-# APAM paraşüt servosu (SG90) da AYNI PCA9685'te ayrı bir kanalda. Kanal ve µs
-# değerleri tools/apam_bench_test.py ile FİZİKSEL KALİBRE EDİLECEK (ayrılma gibi).
-# NOT: CH12 varsayılan (13/14/15 dolu); pin-çekme yönüne göre closed/open ölç.
-CH_APAM = 12           # paraşüt servosu:        CLOSED 1000 → OPEN 2000 (KALİBRE ET)
+# APAM paraşüt servosu (SG90) da AYNI PCA9685'te CH12'de. µs değerleri tezgahta
+# fiziksel KALİBRE EDİLDİ (2026-08-11): kapalı/başlangıç YÜKSEK, açık/bırak DÜŞÜK.
+CH_APAM = 12           # paraşüt servosu:        CLOSED 2100 → OPEN 1000 (kalibre)
 
 _SEP_LEFT_US = {"locked": 1000, "open": 1650}
 _SEP_RIGHT_US = {"locked": 1650, "open": 1000}
 _WINGS_US = {"locked": 1000, "open": 1500}
-_APAM_US = {"closed": 1000, "open": 2000}   # KALİBRE ET (apam_bench_test ile aynı)
+_APAM_US = {"closed": 2100, "open": 1000}   # kalibre (apam_bench_test ile aynı)
 
 # PCA9685 I²C
 _I2C_BUS = 1
