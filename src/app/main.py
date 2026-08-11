@@ -417,8 +417,13 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             health=hflags)
         decision = failsafe.update(ctx)
         if decision.apam_should_deploy:
+            # Şartname G-10: paraşütten HEMEN ÖNCE gerçek motorları durdur. Motorlar
+            # Mini Pix'te (execute_apam yalnız mock motoru keser) → Pixhawk'a gerçek
+            # motor STOP gönder, SONRA paraşüt servosunu (PCA9685) aç.
+            mstop = sigma_actuator.stop()
             res = failsafe.execute_apam(actuators)
-            log(f"APAM: {decision.reason} | sıra motor-kill→paraşüt "
+            log(f"APAM: {decision.reason} | motor STOP "
+                f"({'ok' if mstop.is_ok else mstop.message}) → paraşüt "
                 f"({'ok' if res.is_ok else res.message})")
         ctx.apam_active = decision.apam_active
         apam_ever = apam_ever or decision.apam_active

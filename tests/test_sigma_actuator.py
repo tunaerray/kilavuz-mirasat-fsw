@@ -8,6 +8,7 @@ from dataclasses import replace
 from config.default import AppConfig, RunProfile, with_overrides
 from src.common.result import ErrorCode
 from src.drivers.sigma_actuator import (
+    MAV_CMD_COMPONENT_ARM_DISARM,
     MAV_CMD_DO_MOTOR_TEST,
     MOTOR_COUNT,
     MOTOR_TEST_ORDER_SEQUENCE,
@@ -107,6 +108,25 @@ def test_ack_not_yet_still_ok():
     res = act.trigger()
     assert res.is_ok                                  # komut gitti; ACK best-effort
     assert len(conn.mav.sent) == 1
+
+
+# ------------------------------------------------------------- motor STOP (APAM/G-10)
+def test_stop_zeroes_all_motors_and_disarms():
+    conn = FakeConn()
+    act = SigmaMotorActuator(_flight_config(), connect_fn=lambda p, b: conn)
+    assert act.stop().is_ok
+    motor_tests = [s for s in conn.mav.sent if s[0] == MAV_CMD_DO_MOTOR_TEST]
+    disarms = [s for s in conn.mav.sent if s[0] == MAV_CMD_COMPONENT_ARM_DISARM]
+    assert len(motor_tests) == MOTOR_COUNT
+    assert all(s[3] == 0.0 for s in motor_tests)      # gaz %0
+    assert len(disarms) == 1 and disarms[0][1] == 0.0  # DISARM (param1=0)
+
+
+def test_stop_in_simulation_sends_nothing():
+    conn = FakeConn()
+    act = SigmaMotorActuator(_sim_config(), connect_fn=lambda p, b: conn)
+    assert act.stop().is_ok
+    assert conn.mav.sent == []
 
 
 # ---------------------------------------------------------------------- sim yolu

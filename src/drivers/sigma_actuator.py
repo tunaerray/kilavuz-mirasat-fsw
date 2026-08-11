@@ -33,6 +33,7 @@ from src.common.result import ErrorCode, Result
 
 # MAVLink sabitleri (pymavlink olmadan da test/log için gömülü — apam_actuator deseni).
 MAV_CMD_DO_MOTOR_TEST = 209          # ArduPilot: motorları belirli gazda test et
+MAV_CMD_COMPONENT_ARM_DISARM = 400   # param1=0 → DISARM (motorları kes)
 MOTOR_TEST_THROTTLE_PERCENT = 0      # param2: gaz tipi = yüzde (0..100)
 MOTOR_TEST_ORDER_SEQUENCE = 1        # param6: motorları sıra numarasına göre test et
 MOTOR_COUNT = 4                      # SİGMA 4× fırçasız motor (PDR: EMAX ECO II 2207)
@@ -94,6 +95,36 @@ class SigmaMotorActuator:
             self._log(f"SIGMA ACTUATOR: bağlantı yok — komut gönderilemedi ({conn.message})")
             return conn
         return self._send(conn.unwrap(), pct, secs)
+
+    def stop(self) -> Result[None]:
+        """
+        Gerçek motorları DURDUR (Şartname G-10: APAM/paraşütten hemen önce).
+        Her motora DO_MOTOR_TEST %0 gönderir (aktif motor-testini keser) ve DISARM
+        eder. Sim ise yalnız log. ACK best-effort (ana döngüyü bloklamaz).
+        """
+        if self._simulate:
+            self._log("SIGMA ACTUATOR [SIM]: motor STOP (DO_MOTOR_TEST %0 + DISARM) "
+                      "— simülasyon, gerçek komut gönderilmedi")
+            return Result.ok(None)
+
+        conn = self._ensure_connection()
+        if conn.is_err:
+            self._log(f"SIGMA ACTUATOR: motor STOP — bağlantı yok ({conn.message})")
+            return conn
+        c = conn.unwrap()
+        try:
+            for m in range(1, MOTOR_COUNT + 1):
+                c.mav.command_long_send(
+                    c.target_system, c.target_component, MAV_CMD_DO_MOTOR_TEST, 0,
+                    float(m), float(MOTOR_TEST_THROTTLE_PERCENT), 0.0, 0.0, 1.0, 0.0, 0.0)
+            c.mav.command_long_send(
+                c.target_system, c.target_component, MAV_CMD_COMPONENT_ARM_DISARM, 0,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        except Exception as exc:  # pragma: no cover - donanıma özgü G/Ç hataları
+            self._log(f"SIGMA ACTUATOR: motor STOP gönderilemedi: {exc}")
+            return Result.err(ErrorCode.IO_ERROR, f"motor STOP gönderilemedi: {exc}")
+        self._log("SIGMA ACTUATOR: motor STOP gönderildi (%0 x4 + DISARM)")
+        return Result.ok(None)
 
     def _ensure_connection(self) -> Result[object]:
         if self._conn is not None:
