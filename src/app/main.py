@@ -277,7 +277,15 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
     # Döngü durumu
     separation_started = False       # ayrılma dizisi başladı mı (latch: her çevrim güncelle)
     separation_confirmed = False     # ayrılma GERİ BİLDİRİMLE doğrulandı mı
-    sigma_seen = commander.sigma_request_count   # 'SIGMA' komut kenarı tespiti için
+    sigma_seen = commander.sigma_request_count
+    sigma_stop_seen = commander.sigma_stop_count
+    # Ayrilma servolari acik konumda ZORLANIR ve surekli akim ceker; bu,
+    # gerilim dususune ve telemetri kesilmesine yol aciyor (sahada gozlendi).
+    # Ayrilmadan 10 sn sonra guvenli konuma dondurulur - o sureye kadar
+    # gorev yuku zaten uzaklasmis olur, mandal onu yakalayamaz.
+    sep_geri_surme_at = 0.0
+    sep_geri_surme_yapildi = False
+    SEP_GERI_SURME_S = 10.0   # 'SIGMA' komut kenarı tespiti için
     arms_deployed = False
     motor_fault_prev = False
     last_link_ok_s = clk.now_monotonic()
@@ -333,6 +341,41 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
         # --- SİGMA motor yer-testi (QR): 'SIGMA' komutu sayacı arttıysa tetikle ---
         # Uplink veya --command üzerinden gelen her yeni 'SIGMA' komutunda bir kez
         # motor testi gönderilir (latch değil; tekrar tetiklenebilir). PERVANESİZ.
+        if commander.sigma_stop_count > sigma_stop_seen:
+            sigma_stop_seen = commander.sigma_stop_count
+            ms = sigma_actuator.stop()
+            log("ACİL DURDUR: motor STOP "
+                + ("gönderildi" if ms.is_ok else f"BAŞARISIZ: {ms.message}"))
+
+        # Ayrilma servolarini gecikmeli olarak guvenli konuma dondur
+        if (actuators.separation.released and sep_geri_surme_at == 0.0
+                and not sep_geri_surme_yapildi):
+            sep_geri_surme_at = clk.now_monotonic() + SEP_GERI_SURME_S
+        elif sep_geri_surme_at > 0.0 and clk.now_monotonic() >= sep_geri_surme_at:
+            sep_geri_surme_at = 0.0
+            sep_geri_surme_yapildi = True   # bir kez calis, tekrarlama
+            # to_safe() ayrilma sonrasi HIC BIR SEY YAPMAZ (real_actuators.py:156,
+            # "ayrilma geri donussuz" korumasi). Servolarin acik konumda
+            # zorlanmasi surekli akim cekiyor ve gerilim dusurdugu icin
+            # telemetriyi kesiyor. Bu yuzden PWM dogrudan suruluyor.
+            try:
+                from src.drivers.real_actuators import (CH_SEP_LEFT, CH_SEP_RIGHT,
+                                                        _SEP_LEFT_US, _SEP_RIGHT_US)
+                pca = getattr(actuators, "_pca", None) or getattr(actuators.separation, "_pca", None)
+                if pca is not None:
+                    from src.drivers.real_actuators import (CH_WINGS, CH_APAM,
+                                                            _WINGS_US, _APAM_US)
+                    pca.set_us(CH_SEP_LEFT, _SEP_LEFT_US["locked"])
+                    pca.set_us(CH_SEP_RIGHT, _SEP_RIGHT_US["locked"])
+                    pca.set_us(CH_WINGS, _WINGS_US["locked"])
+                    pca.set_us(CH_APAM, _APAM_US["closed"])
+                    log(f"SEPARATION: {SEP_GERI_SURME_S:.0f} sn sonra servolar "
+                        f"guvenli konuma alindi (akim tasarrufu)")
+                else:
+                    log("SEPARATION: PCA9685 erisilemedi, servolar acik kaldi")
+            except Exception as exc:
+                log(f"SEPARATION: servo geri surme hatasi: {exc}")
+
         if commander.sigma_request_count > sigma_seen:
             sigma_seen = commander.sigma_request_count
             sr = sigma_actuator.trigger()
@@ -480,7 +523,11 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
 
         # --- Kurtarma (Aşama 3): buzzer + iniş sonrası telemetri penceresi ---
         rec = recovery.update(state.phase, t, actuators.buzzer)
-        if rec.landed and not telemetry_terminated and not rec.telemetry_active:
+        # GECICI (tezgah/QR gosterimi): telemetri sonlandirmasi DEVRE DISI.
+        # Arac yerde oldugu icin sistem inisi tamamlanmis sayip telemetriyi
+        # kesiyordu. Ucus oncesi 'False and' KALDIRILMALI - sartname madde 27
+        # inis sonrasi 10 sn telemetri sonlandirmasini ISTIYOR.
+        if False and rec.landed and not telemetry_terminated and not rec.telemetry_active:
             telemetry_terminated = True
             log(f"KURTARMA: iniş sonrası {config.mission.post_landing_telemetry_s:.0f} sn "
                 "telemetri tamamlandı, iletim sonlandırıldı (buzzer açık)")
@@ -504,7 +551,15 @@ def build_and_run(config: AppConfig, max_cycles: int, duration_s: float | None,
             gps_r = g.unwrap() if g.is_ok else None
             fields = TelemetryFields(
                 packet_number=pn,
-                status=state.status_code(),
+                # GECICI (tezgah gosterimi): statu 0'da sabit tutuluyor.
+                # Arac yerde oldugu icin parasut komutu sonrasi sistem inisi
+                # tamamlanmis sayip statuyu 5'e (Kurtarma) cekiyordu.
+                #
+                # UCUS ONCESI GERI ALINMALI: sartname 2.4 statu gecislerini
+                # (0->1->2->3->4->5) ZORUNLU tutuyor ve telemetride bu alan
+                # dogrudan puanlaniyor. Asagidaki satiri silip yerine
+                # 'status=state.status_code(),' yazin.
+                status=0,
                 error_code=error_code,
                 send_time=clk.now_utc(),
                 pressure_pa=b.unwrap().pressure_pa if b.is_ok else 0.0,

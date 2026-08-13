@@ -26,6 +26,8 @@ GÜVENLİK      : PERVANESİZ çalıştır; motor kollarını sabitle; gaz düş
 """
 from __future__ import annotations
 
+import time
+
 from typing import Callable, Optional
 
 from config.default import AppConfig
@@ -149,11 +151,21 @@ class SigmaMotorActuator:
             # command_long_send(target_system, target_component, command, confirmation,
             #   p1=başlangıç motoru, p2=gaz tipi(%), p3=gaz, p4=süre/motor,
             #   p5=motor sayısı, p6=test sırası, p7=0)
-            conn.mav.command_long_send(
-                conn.target_system, conn.target_component,
-                MAV_CMD_DO_MOTOR_TEST, 0,
-                1.0, float(MOTOR_TEST_THROTTLE_PERCENT), float(pct), float(secs),
-                float(MOTOR_COUNT), float(MOTOR_TEST_ORDER_SEQUENCE), 0.0)
+            # ArduCopter 3.5.8 TOPLU motor testini DESTEKLEMEZ: param5 (motor
+            # sayisi) ve param6 (sira bayragi) YOK SAYILIR, yalnizca param1'deki
+            # motor doner. Sahada dogrulandi. Her motora AYRI komut gonderilir.
+            # ArduPilot ayni anda TEK motor testi calistirir; komutlar arka
+            # arkaya gonderilirse sonuncusu oncekini IPTAL EDER (sahada
+            # gozlendi: 1,4,3 gibi karisik ve eksik donus). Her motor arasinda
+            # test suresi kadar beklenir - motorlar SIRAYLA doner.
+            for _motor in range(1, MOTOR_COUNT + 1):
+                conn.mav.command_long_send(
+                    conn.target_system, conn.target_component,
+                    MAV_CMD_DO_MOTOR_TEST, 0,
+                    float(_motor), float(MOTOR_TEST_THROTTLE_PERCENT),
+                    float(pct), float(secs), 0.0, 0.0, 0.0)
+                if _motor < MOTOR_COUNT:
+                    time.sleep(secs + 0.3)
         except Exception as exc:  # pragma: no cover - donanıma özgü G/Ç hataları
             self._log(f"SIGMA ACTUATOR: komut gönderilemedi: {exc}")
             return Result.err(ErrorCode.IO_ERROR, f"DO_MOTOR_TEST gönderilemedi: {exc}")

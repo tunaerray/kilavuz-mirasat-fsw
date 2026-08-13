@@ -87,7 +87,7 @@ OKU_KOMUTU  = 0xC1
 
 AUX_ZAMAN_ASIMI_S     = 1.0   # gönderim öncesi hazır olma
 AUX_TX_ZAMAN_ASIMI_S  = 2.0   # RF aktarımının bitmesi
-MOD_GECIS_S           = 0.20   # E22 mod gecisi icin AUX yeterli sinyal vermiyor, sabit bekleme sart
+MOD_GECIS_S           = 0.35   # E22 mod gecisinde AUX sinyal vermiyor; 0.20 sahada yetmedi
 RX_TAMPON_SINIRI      = 4096  # bozuk akışta sınırsız büyümeyi engeller
 
 
@@ -303,6 +303,16 @@ class RealLoraE22Link:
         self._gpio_var = False
 
     def _aux_bekle(self, zaman_asimi: float) -> bool:
+        # GECICI: AUX kablosu temassiz (ardisik okumalarda LOW/HIGH degisiyor).
+        # AUX beklemesi yerine sabit gecikme kullaniliyor.
+        #
+        # BEDELI: paket cakisma korumasi YOK. Modul mesgulken uzerine yazilabilir
+        # ve paket kaybolabilir. Kablo lehimlendikten sonra bu iki satir
+        # KALDIRILMALI.
+        time.sleep(0.05)
+        return True
+
+    def _aux_bekle_gercek(self, zaman_asimi: float) -> bool:
         """AUX HIGH olana kadar bekler. GPIO yoksa her zaman True döner."""
         if not self._gpio_var or self._aux is None:
             return True
